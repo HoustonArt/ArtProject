@@ -12,7 +12,7 @@ import {ArtistService} from './artists.service'
       <li *ngFor="#artist of artists"
         [class.selected]= "artist === selectedArtist"
         (click)="onSelect(artist)">
-        <span class="badge">{{artist.id}}</span> {{artist.name}}
+        <span class="badge">{{artist.id}}</span> {{artist.lastName}}
       </li>
     </ul>
     <artist-detail [artist] = "selectedArtist" ></artist-detail>

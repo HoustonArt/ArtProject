@@ -38,7 +38,7 @@ System.register(['angular2/core', './artist-detail.component', './artists.servic
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n    <h1>{{title}}</h1>\n    <h2>Meet the Artists</h2>\n    <ul class=\"artists\">\n      <li *ngFor=\"#artist of artists\"\n        [class.selected]= \"artist === selectedArtist\"\n        (click)=\"onSelect(artist)\">\n        <span class=\"badge\">{{artist.id}}</span> {{artist.name}}\n      </li>\n    </ul>\n    <artist-detail [artist] = \"selectedArtist\" ></artist-detail>\n  ",
+                        template: "\n    <h1>{{title}}</h1>\n    <h2>Meet the Artists</h2>\n    <ul class=\"artists\">\n      <li *ngFor=\"#artist of artists\"\n        [class.selected]= \"artist === selectedArtist\"\n        (click)=\"onSelect(artist)\">\n        <span class=\"badge\">{{artist.id}}</span> {{artist.lastName}}\n      </li>\n    </ul>\n    <artist-detail [artist] = \"selectedArtist\" ></artist-detail>\n  ",
                         styleUrls: ['./app/main.css'],
                         directives: [artist_detail_component_1.ArtistDetailComponent],
                         providers: [artists_service_1.ArtistService]

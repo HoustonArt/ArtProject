@@ -6,6 +6,14 @@ h1 {
   background-color: #CFD8DC !important;
   color: white;
 }
+.works {
+  list-style-type: none;
+}
+.works li {
+  left:0;
+  display: inline;
+  vertical-align: bottom;
+}
 .artists {
   margin: 0 0 2em 0;
   list-style-type: none;

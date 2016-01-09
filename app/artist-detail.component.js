@@ -22,7 +22,8 @@ System.register(['angular2/core'], function(exports_1) {
                 ArtistDetailComponent = __decorate([
                     core_1.Component({
                         selector: 'artist-detail',
-                        template: "\n  <div *ngIf = \"artist\">\n    <h2> {{artist.name}}</h2>\n    <div><label> id:</label> {{artist.id}}</div>\n    <div><ul>\n      <li *ngFor=\"#work of artist.works\">\n        {{work.name}}\n      </li>\n    </ul></div>\n  </div>",
+                        template: "\n  <div *ngIf = \"artist\">\n    <h2> {{artist.firstName}} {{artist.lastName}}</h2>\n    <ul class = \"works\">\n      <li *ngFor=\"#work of artist.works\">\n        <img src= {{work.mainFile}} alt= {{work.description}}  width = \"200\">\n        {{work.name}}\n      </li>\n    </ul>\n  </div>",
+                        styleUrls: ['./app/main.css'],
                         inputs: ['artist']
                     }), 
                     __metadata('design:paramtypes', [])
