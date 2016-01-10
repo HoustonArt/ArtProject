@@ -50,6 +50,78 @@ System.register([], function(exports_1) {
                             "name": "Black Salt Fire"
                         },
                         {
+                            "description": "black clay",
+                            "media": "Sculpture",
+                            "keywords": [
+                                "clay",
+                                "man"
+                            ],
+                            "mainFile": "../Artists/Artist_1/Work_1/asdkfie.jpg",
+                            "files": [],
+                            "price": "400",
+                            "name": "Black Salt Fire"
+                        },
+                        {
+                            "description": "black clay",
+                            "media": "Sculpture",
+                            "keywords": [
+                                "clay",
+                                "man"
+                            ],
+                            "mainFile": "../Artists/Artist_1/Work_1/asdkfie.jpg",
+                            "files": [],
+                            "price": "400",
+                            "name": "Black Salt Fire"
+                        },
+                        {
+                            "description": "black clay",
+                            "media": "Sculpture",
+                            "keywords": [
+                                "clay",
+                                "man"
+                            ],
+                            "mainFile": "../Artists/Artist_1/Work_1/asdkfie.jpg",
+                            "files": [],
+                            "price": "400",
+                            "name": "Black Salt Fire"
+                        },
+                        {
+                            "description": "black clay",
+                            "media": "Sculpture",
+                            "keywords": [
+                                "clay",
+                                "man"
+                            ],
+                            "mainFile": "../Artists/Artist_1/Work_1/asdkfie.jpg",
+                            "files": [],
+                            "price": "400",
+                            "name": "Black Salt Fire"
+                        },
+                        {
+                            "description": "black clay",
+                            "media": "Sculpture",
+                            "keywords": [
+                                "clay",
+                                "man"
+                            ],
+                            "mainFile": "../Artists/Artist_1/Work_1/asdkfie.jpg",
+                            "files": [],
+                            "price": "400",
+                            "name": "Black Salt Fire"
+                        },
+                        {
+                            "description": "black clay",
+                            "media": "Sculpture",
+                            "keywords": [
+                                "clay",
+                                "man"
+                            ],
+                            "mainFile": "../Artists/Artist_1/Work_1/asdkfie.jpg",
+                            "files": [],
+                            "price": "400",
+                            "name": "Black Salt Fire"
+                        },
+                        {
                             "description": "man sitting",
                             "media": "Sculpture",
                             "keywords": [
