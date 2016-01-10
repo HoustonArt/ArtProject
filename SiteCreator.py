@@ -1,4 +1,4 @@
-"""Class to parse and site information from File Structure given as
+"""Program to parse and site information from File Structure given as
 Artists
     info.json (have artists and ids)
     Artist(name)...
@@ -7,10 +7,13 @@ Artists
             Work(name)...
                 info.json
                 pictures(name)
+
+also generates new artists and new works and such
 """
 import json
 import os
 import pprint
+import argparse
 
 def load_json(filename):
     with open(filename) as data_file:
@@ -51,7 +54,8 @@ TEXT = """import {Artist} from './artist';
 import {ArtPiece} from './art-piece';
 export var ARTISTS: Artist[] =
 """
-if __name__ == '__main__':
+
+def generate_site():
     root = os.getcwd()
     artists_path = os.path.join(root, 'Artists')
     os.chdir(artists_path)
@@ -70,3 +74,6 @@ if __name__ == '__main__':
         print('Not successful')
         with open(new_file,'w') as fp:
             fp.write(old_data)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    generate_site()
