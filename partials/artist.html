@@ -1,37 +1,37 @@
 <div *ngIf = "artist">
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">H5</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a [routerLink]="['/Home']">Artists</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/Artist', {id: artist.id}]">{{artist.firstName}} {{artist.lastName}}</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/About']">About</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <br>
+    <!-- Page Content -->
     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"></a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a [routerLink]="['/Home']">Artists</a>
-                </li>
-                <li>
-                    <a [routerLink]="['/Artist', {id: artist.id}]">{{artist.firstName}} {{artist.lastName}}</a>
-                </li>
-                <li>
-                    <a [routerLink]="['/About']">About</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
-<br>
-<!-- Page Content -->
-<div class="container">
 
 <!-- Page Heading -->
   <div class="row">
@@ -42,23 +42,18 @@
       </div>
   </div>
   <!-- /.row -->
-
-  <!-- Project One -->
-  <div  *ngFor ="#work of artist.works">
-    <div class="row">
-        <div class="col-md-7">
-            <a href="#">
+ <div class="container">
+  <div class="col-lg-4 col-sm-6" *ngFor="#work of artist.works">
+      <div class="preview">
+          <div class="image">
+              <a href="#">
                 <img class="img-responsive" src={{work.mainFile}} alt={{work.name}}>
             </a>
-        </div>
-        <div class="col-md-5">
-            <h3>{{work.name}}</h3>
-            <h4>{{work.media}}</h4>
-            <p>{{work.description}}</p>
-            <a class="btn btn-primary" href="#">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
-        </div>
-    </div>
-    <hr>
+          </div>
+          <div class="options">
+              <h3>{{work.name}}</h3>
+              <p>{{work.media}}</p>
+          </div>
+      </div>
   </div>
-  <!-- /.row -->
 </div>

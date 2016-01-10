@@ -43,10 +43,9 @@ System.register(['angular2/core', 'angular2/router', './artists.service'], funct
                         providers: [artists_service_1.ArtistService],
                         directives: [router_1.RouterLink]
                     }), 
-                    __metadata('design:paramtypes', [(typeof (_a = typeof router_1.RouteParams !== 'undefined' && router_1.RouteParams) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Location !== 'undefined' && router_1.Location) === 'function' && _b) || Object, artists_service_1.ArtistService])
+                    __metadata('design:paramtypes', [router_1.RouteParams, router_1.Location, artists_service_1.ArtistService])
                 ], ArtistDetailComponent);
                 return ArtistDetailComponent;
-                var _a, _b;
             })();
             exports_1("ArtistDetailComponent", ArtistDetailComponent);
         }
