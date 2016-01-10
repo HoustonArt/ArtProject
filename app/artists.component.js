@@ -45,9 +45,10 @@ System.register(['angular2/core', './artists.service', 'angular2/router'], funct
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink],
                         providers: [artists_service_1.ArtistService],
                     }), 
-                    __metadata('design:paramtypes', [artists_service_1.ArtistService, router_1.Router])
+                    __metadata('design:paramtypes', [artists_service_1.ArtistService, (typeof (_a = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _a) || Object])
                 ], ArtistsComponent);
                 return ArtistsComponent;
+                var _a;
             })();
             exports_1("ArtistsComponent", ArtistsComponent);
         }
