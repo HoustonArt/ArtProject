@@ -1,4 +1,4 @@
-System.register(['angular2/core', './artist-detail.component', './artists.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './artist-detail.component', './artists.component', './about.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,42 +8,41 @@ System.register(['angular2/core', './artist-detail.component', './artists.servic
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, artist_detail_component_1, artists_service_1;
+    var core_1, router_1, artist_detail_component_1, artists_component_1, about_component_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
             function (artist_detail_component_1_1) {
                 artist_detail_component_1 = artist_detail_component_1_1;
             },
-            function (artists_service_1_1) {
-                artists_service_1 = artists_service_1_1;
+            function (artists_component_1_1) {
+                artists_component_1 = artists_component_1_1;
+            },
+            function (about_component_1_1) {
+                about_component_1 = about_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent(_artistService) {
-                    this._artistService = _artistService;
-                    this.title = 'Houston Artists';
+                function AppComponent() {
                 }
-                AppComponent.prototype.getArtists = function () {
-                    var _this = this;
-                    this._artistService.getArtists().then(function (artists) { return _this.artists = artists; });
-                };
-                AppComponent.prototype.ngOnInit = function () {
-                    this.getArtists();
-                };
-                AppComponent.prototype.onSelect = function (artist) { this.selectedArtist = artist; };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n    <h1>{{title}}</h1>\n    <h2>Meet the Artists</h2>\n    <ul class=\"artists\">\n      <li *ngFor=\"#artist of artists\"\n        [class.selected]= \"artist === selectedArtist\"\n        (click)=\"onSelect(artist)\">\n        <span class=\"badge\">{{artist.id}}</span> {{artist.lastName}}\n      </li>\n    </ul>\n    <artist-detail [artist] = \"selectedArtist\" ></artist-detail>\n  ",
-                        styleUrls: ['./app/main.css'],
-                        directives: [artist_detail_component_1.ArtistDetailComponent],
-                        providers: [artists_service_1.ArtistService]
-                    }), 
-                    __metadata('design:paramtypes', [artists_service_1.ArtistService])
+                        templateUrl: './partials/mainpage.html',
+                        directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink]
+                    }),
+                    router_1.RouteConfig([
+                        { path: '/', component: artists_component_1.ArtistsComponent, as: 'Home' },
+                        { path: '/artist/:id', component: artist_detail_component_1.ArtistDetailComponent, as: 'Artist' },
+                        { path: '/about', component: about_component_1.AboutComponent, as: 'About' }
+                    ]), 
+                    __metadata('design:paramtypes', [])
                 ], AppComponent);
                 return AppComponent;
             })();

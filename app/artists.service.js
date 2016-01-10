@@ -25,6 +25,15 @@ System.register(['./artist-information', 'angular2/core'], function(exports_1) {
                 ArtistService.prototype.getArtists = function () {
                     return Promise.resolve(artist_information_1.ARTISTS);
                 };
+                ArtistService.prototype.getArtist = function (id) {
+                    for (var i = 0; i < artist_information_1.ARTISTS.length; i++) {
+                        if (artist_information_1.ARTISTS[i]['id'] == id) {
+                            this.artist = artist_information_1.ARTISTS[i];
+                            break;
+                        }
+                    }
+                    return Promise.resolve(this.artist);
+                };
                 ArtistService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])

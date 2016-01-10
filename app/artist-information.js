@@ -5,66 +5,66 @@ System.register([], function(exports_1) {
         execute: function() {
             exports_1("ARTISTS", ARTISTS = [
                 {
-                    "lastName": "Wisener",
-                    "id": "1",
                     "locationState": "Texas",
                     "locationCity": "Houston",
-                    "firstName": "Cynthia",
-                    "works": [
-                        {
-                            "price": "400",
-                            "keywords": [
-                                "clay",
-                                "man"
-                            ],
-                            "files": [],
-                            "mainFile": "../Artists/Artist_1/Work_1/asdkfie.jpg",
-                            "name": "Black Salt Fire",
-                            "description": "black clay",
-                            "media": "Sculpture"
-                        },
-                        {
-                            "price": "400",
-                            "keywords": [
-                                "clay",
-                                "man",
-                                "sitting"
-                            ],
-                            "files": [],
-                            "mainFile": "../Artists/Artist_1/Work_2/asdf.jpg",
-                            "name": "Should I Get A Tattoo",
-                            "description": "man sitting",
-                            "media": "Sculpture"
-                        }
-                    ],
-                    "profilePic": "profile_1.jpg",
-                    "media": "Sculpture",
-                    "numWorks": "2"
-                },
-                {
-                    "lastName": "Peter",
+                    "media": "Beer",
+                    "profilePic": "../Artists/Artist_2/figure_1.png",
                     "id": "2",
-                    "locationState": "Texas",
-                    "locationCity": "Houston",
-                    "firstName": "Dude",
+                    "lastName": "Peter",
                     "works": [
                         {
-                            "price": "127.29",
+                            "description": "mathematical function",
+                            "media": "Math",
                             "keywords": [
                                 "numbers",
                                 "math",
                                 "sin"
                             ],
-                            "files": [],
                             "mainFile": "../Artists/Artist_2/Work_1/figure_1-1.png",
-                            "name": "Sin Wave",
-                            "description": "mathematical function",
-                            "media": "Math"
+                            "files": [],
+                            "price": "127.29",
+                            "name": "Sin Wave"
                         }
                     ],
-                    "profilePic": "figure_1.png",
-                    "media": "Beer",
-                    "numWorks": "1"
+                    "numWorks": "1",
+                    "firstName": "Dude"
+                },
+                {
+                    "locationState": "Texas",
+                    "locationCity": "Houston",
+                    "media": "Sculpture",
+                    "profilePic": "../Artists/Artist_1/profile_1.jpg",
+                    "id": "1",
+                    "lastName": "Wisener",
+                    "works": [
+                        {
+                            "description": "black clay",
+                            "media": "Sculpture",
+                            "keywords": [
+                                "clay",
+                                "man"
+                            ],
+                            "mainFile": "../Artists/Artist_1/Work_1/asdkfie.jpg",
+                            "files": [],
+                            "price": "400",
+                            "name": "Black Salt Fire"
+                        },
+                        {
+                            "description": "man sitting",
+                            "media": "Sculpture",
+                            "keywords": [
+                                "clay",
+                                "man",
+                                "sitting"
+                            ],
+                            "mainFile": "../Artists/Artist_1/Work_2/asdf.jpg",
+                            "files": [],
+                            "price": "400",
+                            "name": "Should I Get A Tattoo"
+                        }
+                    ],
+                    "numWorks": "2",
+                    "firstName": "Cynthia"
                 }
             ]);
         }

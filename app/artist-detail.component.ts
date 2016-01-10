@@ -1,22 +1,32 @@
 import {Component} from 'angular2/core';
 import {Artist} from './artist';
+import {RouteParams,Location,RouterLink} from 'angular2/router';
+import {ArtistService} from './artists.service';
 
 @Component({
   selector: 'artist-detail',
-  template: `
-  <div *ngIf = "artist">
-    <h2> {{artist.firstName}} {{artist.lastName}}</h2>
-    <ul class = "works">
-      <li *ngFor="#work of artist.works">
-        <img src= {{work.mainFile}} alt= {{work.description}}  width = "200">
-        {{work.name}}
-      </li>
-    </ul>
-  </div>`,
-    styleUrls:['./app/main.css'],
-    inputs: ['artist']
-  })
+  templateUrl : './partials/artist.html',
+  inputs: ['artist'],
+  providers: [ArtistService],
+  directives: [RouterLink]
+})
 
 export class ArtistDetailComponent {
   public artist: Artist;
+  id: string;
+  path:string;
+  public location: Location;
+
+  constructor(params:RouteParams,location:Location, public _artistService: ArtistService){
+    this.location = location;
+  }
+
+  getArtist() {
+    this._artistService.getArtist(this.path).then(artist => this.artist = artist);
+  }
+
+  ngOnInit() {
+    this.path = this.location.path().split('/').slice(-1).pop();
+    this.getArtist();
+  }
 }

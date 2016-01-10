@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './artists.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,25 +8,42 @@ System.register(['angular2/core'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, router_1, artists_service_1;
     var ArtistDetailComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (artists_service_1_1) {
+                artists_service_1 = artists_service_1_1;
             }],
         execute: function() {
             ArtistDetailComponent = (function () {
-                function ArtistDetailComponent() {
+                function ArtistDetailComponent(params, location, _artistService) {
+                    this._artistService = _artistService;
+                    this.location = location;
                 }
+                ArtistDetailComponent.prototype.getArtist = function () {
+                    var _this = this;
+                    this._artistService.getArtist(this.path).then(function (artist) { return _this.artist = artist; });
+                };
+                ArtistDetailComponent.prototype.ngOnInit = function () {
+                    this.path = this.location.path().split('/').slice(-1).pop();
+                    this.getArtist();
+                };
                 ArtistDetailComponent = __decorate([
                     core_1.Component({
                         selector: 'artist-detail',
-                        template: "\n  <div *ngIf = \"artist\">\n    <h2> {{artist.firstName}} {{artist.lastName}}</h2>\n    <ul class = \"works\">\n      <li *ngFor=\"#work of artist.works\">\n        <img src= {{work.mainFile}} alt= {{work.description}}  width = \"200\">\n        {{work.name}}\n      </li>\n    </ul>\n  </div>",
-                        styleUrls: ['./app/main.css'],
-                        inputs: ['artist']
+                        templateUrl: './partials/artist.html',
+                        inputs: ['artist'],
+                        providers: [artists_service_1.ArtistService],
+                        directives: [router_1.RouterLink]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.RouteParams, router_1.Location, artists_service_1.ArtistService])
                 ], ArtistDetailComponent);
                 return ArtistDetailComponent;
             })();

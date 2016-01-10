@@ -30,6 +30,10 @@ def get_artist_dicts(list_of_keys):
         os.chdir(new_path)
         temp_result = {}
         temp_result.update(load_json('info.json'))
+        temp_result['profilePic'] = '../Artists/{0}/{1}'.format(
+            'Artist_' + key,
+            temp_result['profilePic']
+        )
         temp_result['works'] = []
         for i in range(int(temp_result['numWorks'])):
             work_path = os.path.join(new_path, 'Work_' + str(i+1))
