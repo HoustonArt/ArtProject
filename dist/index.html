@@ -1,0 +1,35 @@
+<html>
+
+  <head>
+    <title>Houston Art</title>
+    <link rel="stylesheet" href="./assets/css/bootstrappaper.min.css">
+
+<script src="assets/angular2-polyfills.min.js"></script>
+<script src="assets/system.src.js"></script>
+<script src="assets/Rx.min.js"></script>
+<script src="assets/router.min.js"></script>
+<script src="assets/angular2.min.js"></script>
+<script src="assets/jquery.min.js"></script>
+<script src="assets/bootstrap.min.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script>
+      System.config({
+        packages: {
+          app: {
+            format: 'register',
+            defaultExtension: 'js'
+          }
+        }
+      });
+      System.import('app/boot')
+            .then(null, console.error.bind(console));
+    </script>
+
+  </head>
+  <base href="/">
+  <!-- 3. Display the application -->
+  <body>
+    <my-app>Loading...</my-app>
+  </body>
+
+</html>
