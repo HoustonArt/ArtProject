@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
-import {Artist} from './artist';
-import {ArtistService} from './artists.service';
+import {Artist} from '../../app/artist';
+import {ArtistService} from '../../app/artists.service';
 import {ROUTER_DIRECTIVES, RouterLink,Router} from 'angular2/router';
 
 @Component({

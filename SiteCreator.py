@@ -44,8 +44,8 @@ def get_artist_dicts(list_of_keys):
             temp_dict = load_json('info.json')
             #now fix up Works
             temp_dict["mainFile"] = fix_name(key,str(i+1),temp_dict['mainFile'])
-            for i in range(len(temp_dict['files'])):
-                temp_dict['files'][i] = fix_name(key,str(i+1),temp_dict['files'][i])
+            for j in range(len(temp_dict['files'])):
+                temp_dict['files'][j] = fix_name(key,str(i+1),temp_dict['files'][j])
             temp_result['works'].append(temp_dict)
         result.append(temp_result)
     return result

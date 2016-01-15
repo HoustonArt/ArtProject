@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
-import {Artist} from './artist';
+import {Artist} from '../../app/artist';
 import {RouteParams,Location,RouterLink} from 'angular2/router';
-import {ArtistService} from './artists.service';
+import {ArtistService} from '../../app/artists.service';
 
 @Component({
   selector: 'artist-detail',

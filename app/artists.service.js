@@ -34,6 +34,22 @@ System.register(['./artist-information', 'angular2/core'], function(exports_1) {
                     }
                     return Promise.resolve(this.artist);
                 };
+                ArtistService.prototype.getWork = function (aid, wid) {
+                    for (var i = 0; i < artist_information_1.ARTISTS.length; i++) {
+                        if (artist_information_1.ARTISTS[i]['id'] == aid) {
+                            this.artist = artist_information_1.ARTISTS[i];
+                            break;
+                        }
+                    }
+                    var numWorks = parseInt(this.artist.numWorks);
+                    for (var j = 0; j < numWorks; j++) {
+                        if (this.artist.works[j]['name'] == wid) {
+                            this.work = this.artist.works[j];
+                            break;
+                        }
+                    }
+                    return Promise.resolve(this.work);
+                };
                 ArtistService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])
