@@ -6,6 +6,7 @@ import {WorkDetailComponent} from './work-detail.component'
 import {ArtistService} from '../../app/artists.service';
 import {ArtistsComponent} from './artists.component';
 import {AboutComponent} from './about.component';
+import {HomeComponent} from './home.component';
 
 @Component({
   selector: 'my-app',
@@ -14,7 +15,8 @@ import {AboutComponent} from './about.component';
 })
 
 @RouteConfig([
-    {path: '/', component:ArtistsComponent, as:'Home'},
+    {path: '/', component:HomeComponent, as:'Home'},
+    {path: '/artists/', component: ArtistsComponent, as:'Artists'},
     {path: '/artist/:id',component: ArtistDetailComponent,as: 'Artist'},
     {path: '/about', component:AboutComponent, as: 'About'},
     {path: '/work/:id', component: WorkDetailComponent, as: 'Work'}

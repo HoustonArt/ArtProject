@@ -12,4 +12,5 @@ export interface Artist{
    numWorks:string;
    works: ArtPieceArray;
    profilePic: string;
+   description: string;
 }
