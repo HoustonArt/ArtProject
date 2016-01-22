@@ -1,79 +1,46 @@
-"""Program to parse and site information from File Structure given as
-Artists
-    info.json (have artists and ids)
-    Artist(name)...
-        info.json
-        Works
-            Work(name)...
-                info.json
-                pictures(name)
-
-also generates new artists and new works and such
+"""Program to read out database into site file.
 """
 import json
-import os
+from pymongo import MongoClient
+from bson.objectid import ObjectId
 import pprint
-import argparse
+import os
 
-def load_json(filename):
-    with open(filename) as data_file:
-        data = json.load(data_file)
-    return data
-
-def fix_name(key, work,x):
-    return '../Artists/{0}/{1}/{2}'.format(
-        'Artist_' + key,
-        'Work_' + work,
-        x)
-def get_artist_dicts(list_of_keys):
-    path = os.getcwd()
-    result = []
-    for key in list_of_keys:
-        new_path = os.path.join(path,'Artist_' + key)
-        os.chdir(new_path)
-        temp_result = {}
-        temp_result.update(load_json('info.json'))
-        temp_result['profilePic'] = '../Artists/{0}/{1}'.format(
-            'Artist_' + key,
-            temp_result['profilePic']
-        )
-        temp_result['works'] = []
-        for i in range(int(temp_result['numWorks'])):
-            work_path = os.path.join(new_path, 'Work_' + str(i+1))
-            os.chdir(work_path)
-            temp_dict = load_json('info.json')
-            #now fix up Works
-            temp_dict["mainFile"] = fix_name(key,str(i+1),temp_dict['mainFile'])
-            for j in range(len(temp_dict['files'])):
-                temp_dict['files'][j] = fix_name(key,str(i+1),temp_dict['files'][j])
-            temp_result['works'].append(temp_dict)
-        result.append(temp_result)
-    return result
 
 TEXT = """import {Artist} from './artist';
 import {ArtPiece} from './art-piece';
 export var ARTISTS: Artist[] =
 """
 
-def generate_site():
-    root = os.getcwd()
-    artists_path = os.path.join(root, 'Artists')
-    os.chdir(artists_path)
-    index_dict = load_json('info.json')
-    sub_dicts = get_artist_dicts(list(index_dict.keys()))
-    new_file = os.path.join(os.path.join(root,'app'),'artist-information.ts')
+def generate_new_info():
+    client = MongoClient()
+    artists = client.artDb.artists
+    works = client.artDb.works
     pp = pprint.PrettyPrinter(indent = 4)
-    pp.pprint(sub_dicts)
+    ans = []
+    for artist in artists.find():
+        artist_id = str(artist['_id'])
+        out_dict = {i:artist[i] for i in artist if i!='_id'}
+        out_dict['id'] = artist_id
+        artist_works = [work for work in works.find({'artist':artist_id})]
+        out_dict['numWorks'] = str(len(artist_works))
+        out_dict['works'] = [{i:work[i] for i in work if i!='_id' and i!='artist'} for work in works.find({'artist':artist_id})]
+        ans.append(out_dict)
+    pp.pprint(ans)
+    return ans
+
+def write_out(output):
+    root = os.getcwd()
+    new_file = os.path.join(os.path.join(root,'app'),'artist-information.ts')
     with open(new_file,'r') as fp:
         old_data = fp.readlines()
     try:
         with open(new_file,'w') as fp:
-            fp.write(TEXT + json.dumps(sub_dicts, indent=4)+';')
+            fp.write(TEXT + json.dumps(output, indent=4)+';')
         print('SUCCESS')
     except:
         print('Not successful')
         with open(new_file,'w') as fp:
             fp.write(old_data)
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    generate_site()
+    write_out(generate_new_info())
