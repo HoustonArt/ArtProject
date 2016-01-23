@@ -13,4 +13,5 @@ export interface ArtPiece{
   artist_fname: string;
   artist_lname:string;
   arist_id:string;
+  numFiles:number;
 }

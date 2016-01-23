@@ -29,6 +29,7 @@ def generate_new_info():
             dic['artist_fname'] = artist['firstName']
             dic['artist_lname'] = artist['lastName']
             dic['artist_id'] = artist_id
+            dic['numFiles'] = str(len(dic['files']))
         ans.append(out_dict)
     pp.pprint(ans)
     return ans

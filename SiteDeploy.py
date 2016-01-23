@@ -8,7 +8,7 @@ TEXT = """
 <html>
 
   <head>
-    <title>Houston Art</title>
+    <title>ArtLike</title>
         <link rel="stylesheet" href="./assets/css/bootstraplumen.min.css">
         <script src="./assets/angular2-polyfills.min.js"></script>
         <script src="./assets/system.src.js"></script>
