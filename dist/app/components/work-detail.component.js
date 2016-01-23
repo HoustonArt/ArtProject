@@ -38,6 +38,28 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
                     var _this = this;
                     this._artistService.getArtist(this.path1).then(function (artist) { return _this.artist = artist; });
                 };
+                WorkDetailComponent.prototype.initGal = function () {
+                    this.selectedIndex = 0;
+                    this.selectedFile = this.work.files[0];
+                };
+                WorkDetailComponent.prototype.previous = function () {
+                    if (this.selectedIndex > 0) {
+                        this.selectedIndex = this.selectedIndex - 1;
+                    }
+                    else {
+                        this.selectedIndex = this.work.numFiles - 1;
+                    }
+                    this.selectedFile = this.work.files[this.selectedIndex];
+                };
+                WorkDetailComponent.prototype.next = function () {
+                    if (this.selectedIndex < this.work.numFiles - 1) {
+                        this.selectedIndex = this.selectedIndex + 1;
+                    }
+                    else {
+                        this.selectedIndex = 0;
+                    }
+                    this.selectedFile = this.work.files[this.selectedIndex];
+                };
                 WorkDetailComponent.prototype.ngOnInit = function () {
                     var path = this.location.path().split('/').slice(-1).pop();
                     this.path1 = path.split('-')[0];
