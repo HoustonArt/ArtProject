@@ -8,6 +8,7 @@ import {ArtistsComponent} from './artists.component';
 import {AboutComponent} from './about.component';
 import {HomeComponent} from './home.component';
 import {AllWorksComponent} from './works.component';
+import {ArtSearchComponent} from './art-search.component';
 
 @Component({
   selector: 'my-app',
@@ -21,7 +22,8 @@ import {AllWorksComponent} from './works.component';
     {path: '/artist/:id',component: ArtistDetailComponent,as: 'Artist'},
     {path: '/about', component:AboutComponent, as: 'About'},
     {path: '/work/:id', component: WorkDetailComponent, as: 'Work'},
-    {path: '/works/',component: AllWorksComponent, as: 'Works'}
+    {path: '/works/',component: AllWorksComponent, as: 'Works'},
+    {path:'/artsearch/',component: ArtSearchComponent, as: 'ArtSearch'}
 ])
 
 export class AppComponent {

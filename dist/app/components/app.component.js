@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './artist-detail.component', './work-detail.component', './artists.component', './about.component', './home.component', './works.component'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './artist-detail.component', './work-detail.component', './artists.component', './about.component', './home.component', './works.component', './art-search.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, artist_detail_component_1, work_detail_component_1, artists_component_1, about_component_1, home_component_1, works_component_1;
+    var core_1, router_1, artist_detail_component_1, work_detail_component_1, artists_component_1, about_component_1, home_component_1, works_component_1, art_search_component_1;
     var AppComponent;
     return {
         setters:[
@@ -35,6 +35,9 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
             },
             function (works_component_1_1) {
                 works_component_1 = works_component_1_1;
+            },
+            function (art_search_component_1_1) {
+                art_search_component_1 = art_search_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -52,7 +55,8 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                         { path: '/artist/:id', component: artist_detail_component_1.ArtistDetailComponent, as: 'Artist' },
                         { path: '/about', component: about_component_1.AboutComponent, as: 'About' },
                         { path: '/work/:id', component: work_detail_component_1.WorkDetailComponent, as: 'Work' },
-                        { path: '/works/', component: works_component_1.AllWorksComponent, as: 'Works' }
+                        { path: '/works/', component: works_component_1.AllWorksComponent, as: 'Works' },
+                        { path: '/artsearch/', component: art_search_component_1.ArtSearchComponent, as: 'ArtSearch' }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
