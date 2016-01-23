@@ -25,6 +25,10 @@ def generate_new_info():
         artist_works = [work for work in works.find({'artist':artist_id})]
         out_dict['numWorks'] = str(len(artist_works))
         out_dict['works'] = [{i:work[i] for i in work if i!='_id' and i!='artist'} for work in works.find({'artist':artist_id})]
+        for dic in out_dict['works']:
+            dic['artist_fname'] = artist['firstName']
+            dic['artist_lname'] = artist['lastName']
+            dic['artist_id'] = artist_id
         ans.append(out_dict)
     pp.pprint(ans)
     return ans

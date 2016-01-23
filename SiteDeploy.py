@@ -9,7 +9,7 @@ TEXT = """
 
   <head>
     <title>Houston Art</title>
-        <link rel="stylesheet" href="./assets/css/bootstrappaper.min.css">
+        <link rel="stylesheet" href="./assets/css/bootstraplumen.min.css">
         <script src="./assets/angular2-polyfills.min.js"></script>
         <script src="./assets/system.src.js"></script>
         <script src="./assets/Rx.min.js"></script>
@@ -94,5 +94,5 @@ if __name__ == "__main__":
     get_index()
     copy_folder('partials')
     copy_folder('assets')
-    copy_folder('Artists')
+    copy_folder('images')
     copy_js_folder('app')

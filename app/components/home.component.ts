@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {Artist} from '../../app/artist';
+import {ArtPiece} from '../../app/art-piece';
 import {ArtistService} from '../../app/artists.service';
 import {ROUTER_DIRECTIVES, RouterLink,Router} from 'angular2/router';
 
@@ -15,6 +16,7 @@ export class HomeComponent {
   public title = 'Houston Artists';
   public artists: Artist[];
   public router: Router;
+  public works: ArtPiece[];
 
   constructor(private _artistService: ArtistService, router: Router){
     this.router = router;

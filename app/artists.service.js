@@ -10,6 +10,20 @@ System.register(['./artist-information', 'angular2/core'], function(exports_1) {
     };
     var artist_information_1, core_1;
     var ArtistService;
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
     return {
         setters:[
             function (artist_information_1_1) {
@@ -49,6 +63,16 @@ System.register(['./artist-information', 'angular2/core'], function(exports_1) {
                         }
                     }
                     return Promise.resolve(this.work);
+                };
+                ArtistService.prototype.getAllWorks = function () {
+                    var WORKS = [];
+                    for (var i = 0; i < artist_information_1.ARTISTS.length; i++) {
+                        for (var j = 0; j < parseInt(artist_information_1.ARTISTS[i]['numWorks']); j++) {
+                            WORKS.push(artist_information_1.ARTISTS[i]['works'][j]);
+                        }
+                    }
+                    //
+                    return Promise.resolve(shuffle(WORKS));
                 };
                 ArtistService = __decorate([
                     core_1.Injectable(), 

@@ -10,4 +10,7 @@ export interface ArtPiece{
   keywords: stringArray;
   mainFile: string;
   files : stringArray;
+  artist_fname: string;
+  artist_lname:string;
+  arist_id:string;
 }

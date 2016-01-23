@@ -4,20 +4,17 @@
   <!-- Introduction Row -->
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">Houston Artists
+      <h1 class="page-header">ArtLike
         <small>Meet the Artists</small>
       </h1>
-      <p>Here are the artists whose work is featured. Feel free to click on any name to see a portfolio!</p>
     </div>
   </div>
 
   <!-- Team Members Row -->
   <div class="row">
-    <div class="col-lg-12">
-      <h2 class="page-header">Artists</h2>
-    </div>
+
     <!--<a [routerLink]="['/Artist', {id: selectedArtist}]">link</a>-->
-    <div class="col-lg-4 col-sm-6 text-center" *ngFor="#artist of artists" (click)="onSelect(artist)">
+    <div class="col-sm-4" *ngFor="#artist of artists" (click)="onSelect(artist)">
       <img class="img-circle img-responsive img-center" src="{{artist.profilePic}}" alt="{{artist.lastName}}">
       <h3>{{artist.firstName}} {{artist.lastName}}
         <small>{{artist.locationCity}}</small>
