@@ -11,12 +11,12 @@
       </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
-            <p>{{artist.description}}</p>
-        </div>
-        <div class= "col-lg-6">
-            <img class = "img-thumbnail" src = "{{artist.profilePic}}">
-        </div>
+      <div class="col-lg-6">
+        <p>{{artist.description}}</p>
+      </div>
+      <div class="col-lg-6">
+        <img class="img-thumbnail" src="{{artist.profilePic}}">
+      </div>
     </div>
     <!-- /.row -->
     <h2>Gallery</h2>
@@ -24,7 +24,7 @@
       <div class="preview">
         <div class="image">
           <a [routerLink]="['/Work', {id: artist.id + '-'+ work.name}]">
-            <img class="img-thumbnail" src={{work.mainFile}} alt={{work.name}}>
+            <img style="max-width:200px" class="img-thumbnail" src={{work.mainFile}} alt={{work.name}}>
           </a>
         </div>
         <div class="options">
