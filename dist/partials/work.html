@@ -46,13 +46,15 @@
                   <h4 class="modal-title" id="myModalLabel">Gallery</h4>
                 </div>
                 <div class="modal-body">
-                  <img class="img-responsive portfolio-item" src={{selectedFile}} alt="">
+                  <img style="max-height:400px" class="img-responsive center-block" src={{selectedFile}} alt="">
                 </div>
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" (click)="previous()">Previous</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-default" (click)="next()">Next</button>
+                  <div class = "row text-center">
+                  <button type="button" class="btn btn-lg btn-info" (click)="previous()"><span class="glyphicon glyphicon-arrow-left"></span> Previous</button>
+                  <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-lg btn-info" (click)="next()">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
+                </div>
                 </div>
               </div>
             </div>
