@@ -6,20 +6,15 @@
     <div class="col-lg-12">
       <h1 class="page-header">Works
       </h1>
-      <p>The works</p>
-    </div>
+        </div>
   </div>
 
-  <!-- Team Members Row -->
   <div class="row">
-    <!--<a [routerLink]="['/Artist', {id: selectedArtist}]">link</a>-->
-    <div class="col-lg-4 col-sm-6 text-center" *ngFor="#work of works">
+    <div style="height:300px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of works">
       <a [routerLink]="['/Work', {id: work.artist_id + '-'+ work.name}]">
-      <img style="max-width:200px" class="img-responsive img-center" src="{{work.mainFile}}" alt="{{work.name}}">
+      <img style="max-height:250px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
     </a>
-      <h3>{{work.artist_fname}} {{work.artist_lname}}
-        <small>{{work.media}}</small>
-      </h3>
+      <h4>{{work.name}}<small> {{work.artist_fname}} {{work.artist_lname}}</small></h4>
     </div>
   </div>
 </div>

@@ -20,18 +20,11 @@
     </div>
     <!-- /.row -->
     <h2>Gallery</h2>
-    <div class="col-lg-4 col-sm-6" *ngFor="#work of artist.works">
-      <div class="preview">
-        <div class="image">
+    <div style="height:300px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of artist.works">
           <a [routerLink]="['/Work', {id: artist.id + '-'+ work.name}]">
-            <img style="max-width:200px" class="img-thumbnail" src={{work.mainFile}} alt={{work.name}}>
+            <img style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
           </a>
-        </div>
-        <div class="options">
-          <h3>{{work.name}}</h3>
-          <p>{{work.media}}</p>
-        </div>
-      </div>
+          <h3>{{work.name}} <small>{{work.media}}</small></h3>
     </div>
   </div>
 </div>

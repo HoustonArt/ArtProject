@@ -3,8 +3,17 @@ import {ArtPiece} from './art-piece';
 export var ARTISTS: Artist[] =
 [
     {
+        "description": "Houston artist",
+        "numWorks": "5",
+        "media": "Sculpture",
+        "firstName": "Cynthia",
         "works": [
             {
+                "artist_id": "56a1b1352310406ca0736f8a",
+                "artist_lname": "Wisener",
+                "description": "black clay",
+                "numFiles": "6",
+                "media": "Sculpture",
                 "keywords": [
                     "clay",
                     "man"
@@ -18,16 +27,16 @@ export var ARTISTS: Artist[] =
                     "../images/Blue_Head_(6).JPG"
                 ],
                 "name": "Blue Head",
-                "mainFile": "../images/Blue_Head_(1).JPG",
-                "numFiles": "6",
-                "artist_lname": "Wisener",
-                "description": "black clay",
                 "artist_fname": "Cynthia",
-                "artist_id": "56a1b1352310406ca0736f8a",
-                "media": "Sculpture",
-                "price": "400"
+                "price": "400",
+                "mainFile": "../images/Blue_Head_(1).JPG"
             },
             {
+                "artist_id": "56a1b1352310406ca0736f8a",
+                "artist_lname": "Wisener",
+                "description": "woman sitting",
+                "numFiles": "10",
+                "media": "Sculpture",
                 "keywords": [
                     "clay",
                     "woman",
@@ -46,16 +55,16 @@ export var ARTISTS: Artist[] =
                     "../images/Crossed_Legged_Woman_(10).JPG"
                 ],
                 "name": "Crossed Legged Woman",
-                "mainFile": "../images/Crossed_Legged_Woman_(1).JPG",
-                "numFiles": "10",
-                "artist_lname": "Wisener",
-                "description": "woman sitting",
                 "artist_fname": "Cynthia",
-                "artist_id": "56a1b1352310406ca0736f8a",
-                "media": "Sculpture",
-                "price": "400"
+                "price": "400",
+                "mainFile": "../images/Crossed_Legged_Woman_(1).JPG"
             },
             {
+                "artist_id": "56a1b1352310406ca0736f8a",
+                "artist_lname": "Wisener",
+                "description": "Man",
+                "numFiles": "4",
+                "media": "Sculpture",
                 "keywords": [
                     "clay",
                     "man",
@@ -68,16 +77,16 @@ export var ARTISTS: Artist[] =
                     "../images/David_(4).JPG"
                 ],
                 "name": "David",
-                "mainFile": "../images/David_(1).JPG",
-                "numFiles": "4",
-                "artist_lname": "Wisener",
-                "description": "Man",
                 "artist_fname": "Cynthia",
-                "artist_id": "56a1b1352310406ca0736f8a",
-                "media": "Sculpture",
-                "price": "400"
+                "price": "400",
+                "mainFile": "../images/David_(1).JPG"
             },
             {
+                "artist_id": "56a1b1352310406ca0736f8a",
+                "artist_lname": "Wisener",
+                "description": "Man",
+                "numFiles": "6",
+                "media": "Sculpture",
                 "keywords": [
                     "clay",
                     "man",
@@ -92,16 +101,16 @@ export var ARTISTS: Artist[] =
                     "../images/Intensity_(6).JPG"
                 ],
                 "name": "Intensity",
-                "mainFile": "../images/Intensity_(1).JPG",
-                "numFiles": "6",
-                "artist_lname": "Wisener",
-                "description": "Man",
                 "artist_fname": "Cynthia",
-                "artist_id": "56a1b1352310406ca0736f8a",
-                "media": "Sculpture",
-                "price": "400"
+                "price": "400",
+                "mainFile": "../images/Intensity_(1).JPG"
             },
             {
+                "artist_id": "56a1b1352310406ca0736f8a",
+                "artist_lname": "Wisener",
+                "description": "woman sitting on a stone",
+                "numFiles": "7",
+                "media": "Sculpture",
                 "keywords": [
                     "clay",
                     "woman",
@@ -117,29 +126,29 @@ export var ARTISTS: Artist[] =
                     "../images/Seated_Woman_(7).JPG"
                 ],
                 "name": "Seated Woman",
-                "mainFile": "../images/Seated_Woman_(1).JPG",
-                "numFiles": "7",
-                "artist_lname": "Wisener",
-                "description": "woman sitting on a stone",
                 "artist_fname": "Cynthia",
-                "artist_id": "56a1b1352310406ca0736f8a",
-                "media": "Sculpture",
-                "price": "400"
+                "price": "400",
+                "mainFile": "../images/Seated_Woman_(1).JPG"
             }
         ],
-        "description": "Houston artist",
-        "profilePic": "../images/profile_1.jpg",
         "lastName": "Wisener",
-        "numWorks": "5",
-        "locationCity": "Houston",
-        "firstName": "Cynthia",
         "locationState": "Texas",
+        "profilePic": "../images/profile_1.jpg",
         "id": "56a1b1352310406ca0736f8a",
-        "media": "Sculpture"
+        "locationCity": "Houston"
     },
     {
+        "description": "I was born and raised in Ft. Worth, Texas  I earned a B. A. and an M. A., in English literature at Rice University. I studied medieval English poetry and prose at the University of Texas in Austin. I love to eat, but would rather read. I am a perennial student of Spanish, and I have a special fondness for the United Kingdom, France, Mexico, Portugal, Brazil, Kenya, and Bulgaria.  <br>  In 2001 I moved back to Houston, Texas, from  Arlington, Virginia, to open a Macromedia and Adobe Authorized Center, Connect Learning, which closed in 2011. <br>I am fortunate to have two sisters,  two sons and four grandchildren.",
+        "numWorks": "6",
+        "media": "Paint",
+        "firstName": "Sally",
         "works": [
             {
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "artist_lname": "Smith",
+                "description": "Eve in garden",
+                "numFiles": "1",
+                "media": "Paint",
                 "keywords": [
                     "paint",
                     "eve",
@@ -149,16 +158,16 @@ export var ARTISTS: Artist[] =
                     "../images/Eve200x293.jpg"
                 ],
                 "name": "Eve",
-                "mainFile": "../images/Eve200x293.jpg",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "description": "Eve in garden",
                 "artist_fname": "Sally",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "media": "Paint",
-                "price": "N/A"
+                "price": "N/A",
+                "mainFile": "../images/Eve200x293.jpg"
             },
             {
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "artist_lname": "Smith",
+                "description": "Portrait",
+                "numFiles": "1",
+                "media": "Paint",
                 "keywords": [
                     "man",
                     "portrait"
@@ -167,16 +176,16 @@ export var ARTISTS: Artist[] =
                     "../images/pioneer200x252.jpg"
                 ],
                 "name": "Pioneer",
-                "mainFile": "../images/pioneer200x252.jpg",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "description": "Portrait",
                 "artist_fname": "Sally",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "media": "Paint",
-                "price": "400"
+                "price": "400",
+                "mainFile": "../images/pioneer200x252.jpg"
             },
             {
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "artist_lname": "Smith",
+                "description": "Woman in garden",
+                "numFiles": "1",
+                "media": "Paint",
                 "keywords": [
                     "Woman",
                     "sitting",
@@ -186,16 +195,16 @@ export var ARTISTS: Artist[] =
                     "../images/Garden200x260.jpg"
                 ],
                 "name": "Garden",
-                "mainFile": "../images/Garden200x260.jpg",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "description": "Woman in garden",
                 "artist_fname": "Sally",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "media": "Paint",
-                "price": "400"
+                "price": "400",
+                "mainFile": "../images/Garden200x260.jpg"
             },
             {
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "artist_lname": "Smith",
+                "description": "Father and son portrait",
+                "numFiles": "1",
+                "media": "Paint",
                 "keywords": [
                     "father",
                     "son",
@@ -205,16 +214,16 @@ export var ARTISTS: Artist[] =
                     "../images/FathernSon302x200.jpg"
                 ],
                 "name": "Father and Son",
-                "mainFile": "../images/FathernSon302x200.jpg",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "description": "Father and son portrait",
                 "artist_fname": "Sally",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "media": "Paint",
-                "price": "400"
+                "price": "400",
+                "mainFile": "../images/FathernSon302x200.jpg"
             },
             {
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "artist_lname": "Smith",
+                "description": "woman sitting in chair",
+                "numFiles": "1",
+                "media": "Paint",
                 "keywords": [
                     "woman",
                     "sitting"
@@ -223,16 +232,16 @@ export var ARTISTS: Artist[] =
                     "../images/Stephanie200x260.jpg"
                 ],
                 "name": "Stephanie",
-                "mainFile": "../images/Stephanie200x260.jpg",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "description": "woman sitting in chair",
                 "artist_fname": "Sally",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "media": "Paint",
-                "price": "400"
+                "price": "400",
+                "mainFile": "../images/Stephanie200x260.jpg"
             },
             {
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "artist_lname": "Smith",
+                "description": "Adam and Eve",
+                "numFiles": "1",
+                "media": "Paint",
                 "keywords": [
                     "Adam",
                     "Eve",
@@ -242,24 +251,15 @@ export var ARTISTS: Artist[] =
                     "../images/AdamnEve200x268.jpg"
                 ],
                 "name": "Adam and Eve",
-                "mainFile": "../images/AdamnEve200x268.jpg",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "description": "Adam and Eve",
                 "artist_fname": "Sally",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "media": "Paint",
-                "price": "400"
+                "price": "400",
+                "mainFile": "../images/AdamnEve200x268.jpg"
             }
         ],
-        "description": "I was born and raised in Ft. Worth, Texas  I earned a B. A. and an M. A., in English literature at Rice University. I studied medieval English poetry and prose at the University of Texas in Austin. I love to eat, but would rather read. I am a perennial student of Spanish, and I have a special fondness for the United Kingdom, France, Mexico, Portugal, Brazil, Kenya, and Bulgaria.  <br>  In 2001 I moved back to Houston, Texas, from  Arlington, Virginia, to open a Macromedia and Adobe Authorized Center, Connect Learning, which closed in 2011. <br>I am fortunate to have two sisters,  two sons and four grandchildren.",
-        "profilePic": "../images/9378171.jpg",
         "lastName": "Smith",
-        "numWorks": "6",
         "locationState": "Texas",
-        "firstName": "Sally",
-        "locationCity": "Houston",
+        "profilePic": "../images/9378171.jpg",
         "id": "56a1b1352310406ca0736f8b",
-        "media": "Paint"
+        "locationCity": "Houston"
     }
 ];
