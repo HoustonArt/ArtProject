@@ -12,6 +12,9 @@ import {ROUTER_DIRECTIVES, RouterLink,Router} from 'angular2/router';
 
 export class ArtSearchComponent {
   public works: ArtPiece[];
+  public selectedFile: string;
+  public selectedIndex: number;
+  public notStarted: boolean;
 
   constructor(public _artistService: ArtistService){
   }
@@ -21,6 +24,22 @@ export class ArtSearchComponent {
   }
   ngOnInit() {
     this.getWorks();
+    this.notStarted = true;
+  }
+
+  initGal(){
+    this.notStarted = false;
+    this.selectedIndex = 0;
+    this.selectedFile = this.works[0].mainFile;
+  }
+  next(){
+    if(this.selectedIndex < 10){
+      this.selectedIndex = this.selectedIndex + 1;
+    }
+    else{
+      this.selectedIndex = 0;
+    }
+    this.selectedFile = this.works[this.selectedIndex].mainFile;
   }
 
 }

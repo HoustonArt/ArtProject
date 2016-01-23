@@ -32,6 +32,21 @@ System.register(['angular2/core', '../../app/artists.service', 'angular2/router'
                 };
                 ArtSearchComponent.prototype.ngOnInit = function () {
                     this.getWorks();
+                    this.notStarted = true;
+                };
+                ArtSearchComponent.prototype.initGal = function () {
+                    this.notStarted = false;
+                    this.selectedIndex = 0;
+                    this.selectedFile = this.works[0].mainFile;
+                };
+                ArtSearchComponent.prototype.next = function () {
+                    if (this.selectedIndex < 10) {
+                        this.selectedIndex = this.selectedIndex + 1;
+                    }
+                    else {
+                        this.selectedIndex = 0;
+                    }
+                    this.selectedFile = this.works[this.selectedIndex].mainFile;
                 };
                 ArtSearchComponent = __decorate([
                     core_1.Component({

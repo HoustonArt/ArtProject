@@ -21,47 +21,45 @@ export class WorkDetailComponent {
   path2: string;
   public location: Location;
   public selectedFile: string;
-  public selectedIndex: number
+  public selectedIndex: number;
 
-constructor(params:RouteParams,location:Location, public _artistService: ArtistService){
-  this.location = location;
-}
-
-getWork() {
-  this._artistService.getWork(this.path1, this.path2).then(work => this.work = work);
-}
-getArtist() {
-  this._artistService.getArtist(this.path1).then(artist => this.artist = artist);
-}
-initGal(){
-  this.selectedIndex = 0;
-  this.selectedFile = this.work.files[0];
-
-}
-
-previous(){
-  if(this.selectedIndex > 0){
-    this.selectedIndex = this.selectedIndex - 1;
+  constructor(params:RouteParams,location:Location, public _artistService: ArtistService){
+    this.location = location;
   }
-  else{
-    this.selectedIndex = this.work.numFiles-1;
+
+  getWork() {
+    this._artistService.getWork(this.path1, this.path2).then(work => this.work = work);
   }
-  this.selectedFile = this.work.files[this.selectedIndex];
-}
-next(){
-  if(this.selectedIndex < this.work.numFiles-1){
-    this.selectedIndex = this.selectedIndex + 1;
+  getArtist() {
+    this._artistService.getArtist(this.path1).then(artist => this.artist = artist);
   }
-  else{
+  initGal(){
     this.selectedIndex = 0;
+    this.selectedFile = this.work.files[0];
   }
-  this.selectedFile = this.work.files[this.selectedIndex];
-}
-ngOnInit() {
-  var path = this.location.path().split('/').slice(-1).pop()
-  this.path1 = path.split('-')[0];
-  this.path2 = path.split('-').slice(-1).pop();
-  this.getWork();
-  this.getArtist();
-}
+  previous(){
+    if(this.selectedIndex > 0){
+      this.selectedIndex = this.selectedIndex - 1;
+    }
+    else{
+      this.selectedIndex = this.work.numFiles-1;
+    }
+    this.selectedFile = this.work.files[this.selectedIndex];
+  }
+  next(){
+    if(this.selectedIndex < this.work.numFiles-1){
+      this.selectedIndex = this.selectedIndex + 1;
+    }
+    else{
+      this.selectedIndex = 0;
+    }
+    this.selectedFile = this.work.files[this.selectedIndex];
+  }
+  ngOnInit() {
+    var path = this.location.path().split('/').slice(-1).pop()
+    this.path1 = path.split('-')[0];
+    this.path2 = path.split('-').slice(-1).pop();
+    this.getWork();
+    this.getArtist();
+  }
 }
