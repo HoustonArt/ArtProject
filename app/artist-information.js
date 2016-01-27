@@ -5,15 +5,28 @@ System.register([], function(exports_1) {
         execute: function() {
             exports_1("ARTISTS", ARTISTS = [
                 {
-                    "firstName": "Cynthia",
                     "locationState": "Texas",
+                    "id": "56a1b1352310406ca0736f8a",
+                    "lastName": "Wisener",
+                    "locationCity": "Houston",
+                    "profilePic": "../images/profile_1.jpg",
+                    "firstName": "Cynthia",
+                    "description": "Houston artist",
                     "works": [
                         {
-                            "artist_id": "56a1b1352310406ca0736f8a",
-                            "name": "Blue Head",
+                            "mainFile": "../images/Blue_Head_(1).JPG",
+                            "price": "400",
                             "artist_lname": "Wisener",
-                            "description": "black clay",
+                            "artist_id": "56a1b1352310406ca0736f8a",
+                            "keywords": [
+                                "clay",
+                                "man"
+                            ],
                             "numFiles": "6",
+                            "name": "Blue Head",
+                            "artist_fname": "Cynthia",
+                            "description": "black clay",
+                            "media": "Sculpture",
                             "files": [
                                 "../images/Blue_Head_(1).JPG",
                                 "../images/Blue_Head_(2).JPG",
@@ -21,22 +34,23 @@ System.register([], function(exports_1) {
                                 "../images/Blue_Head_(4).JPG",
                                 "../images/Blue_Head_(5).JPG",
                                 "../images/Blue_Head_(6).JPG"
-                            ],
-                            "keywords": [
-                                "clay",
-                                "man"
-                            ],
-                            "mainFile": "../images/Blue_Head_(1).JPG",
-                            "price": "400",
-                            "artist_fname": "Cynthia",
-                            "media": "Sculpture"
+                            ]
                         },
                         {
-                            "artist_id": "56a1b1352310406ca0736f8a",
-                            "name": "Crossed Legged Woman",
+                            "mainFile": "../images/Crossed_Legged_Woman_(1).JPG",
+                            "price": "400",
                             "artist_lname": "Wisener",
-                            "description": "woman sitting",
+                            "artist_id": "56a1b1352310406ca0736f8a",
+                            "keywords": [
+                                "clay",
+                                "woman",
+                                "sitting"
+                            ],
                             "numFiles": "10",
+                            "name": "Crossed Legged Woman",
+                            "artist_fname": "Cynthia",
+                            "description": "woman sitting",
+                            "media": "Sculpture",
                             "files": [
                                 "../images/Crossed_Legged_Woman_(1).JPG",
                                 "../images/Crossed_Legged_Woman_(2).JPG",
@@ -48,45 +62,45 @@ System.register([], function(exports_1) {
                                 "../images/Crossed_Legged_Woman_(8).JPG",
                                 "../images/Crossed_Legged_Woman_(9).JPG",
                                 "../images/Crossed_Legged_Woman_(10).JPG"
-                            ],
-                            "keywords": [
-                                "clay",
-                                "woman",
-                                "sitting"
-                            ],
-                            "mainFile": "../images/Crossed_Legged_Woman_(1).JPG",
-                            "price": "400",
-                            "artist_fname": "Cynthia",
-                            "media": "Sculpture"
+                            ]
                         },
                         {
-                            "artist_id": "56a1b1352310406ca0736f8a",
-                            "name": "David",
+                            "mainFile": "../images/David_(1).JPG",
+                            "price": "400",
                             "artist_lname": "Wisener",
-                            "description": "Man",
-                            "numFiles": "4",
-                            "files": [
-                                "../images/David_(1).JPG",
-                                "../images/David_(2).JPG",
-                                "../images/David_(3).JPG",
-                                "../images/David_(4).JPG"
-                            ],
+                            "artist_id": "56a1b1352310406ca0736f8a",
                             "keywords": [
                                 "clay",
                                 "man",
                                 "face"
                             ],
-                            "mainFile": "../images/David_(1).JPG",
-                            "price": "400",
+                            "numFiles": "4",
+                            "name": "David",
                             "artist_fname": "Cynthia",
-                            "media": "Sculpture"
+                            "description": "Man",
+                            "media": "Sculpture",
+                            "files": [
+                                "../images/David_(1).JPG",
+                                "../images/David_(2).JPG",
+                                "../images/David_(3).JPG",
+                                "../images/David_(4).JPG"
+                            ]
                         },
                         {
-                            "artist_id": "56a1b1352310406ca0736f8a",
-                            "name": "Intensity",
+                            "mainFile": "../images/Intensity_(1).JPG",
+                            "price": "400",
                             "artist_lname": "Wisener",
-                            "description": "Man",
+                            "artist_id": "56a1b1352310406ca0736f8a",
+                            "keywords": [
+                                "clay",
+                                "man",
+                                "face"
+                            ],
                             "numFiles": "6",
+                            "name": "Intensity",
+                            "artist_fname": "Cynthia",
+                            "description": "Man",
+                            "media": "Sculpture",
                             "files": [
                                 "../images/Intensity_(1).JPG",
                                 "../images/Intensity_(2).JPG",
@@ -94,23 +108,23 @@ System.register([], function(exports_1) {
                                 "../images/Intensity_(4).JPG",
                                 "../images/Intensity_(5).JPG",
                                 "../images/Intensity_(6).JPG"
-                            ],
-                            "keywords": [
-                                "clay",
-                                "man",
-                                "face"
-                            ],
-                            "mainFile": "../images/Intensity_(1).JPG",
-                            "price": "400",
-                            "artist_fname": "Cynthia",
-                            "media": "Sculpture"
+                            ]
                         },
                         {
-                            "artist_id": "56a1b1352310406ca0736f8a",
-                            "name": "Seated Woman",
+                            "mainFile": "../images/Seated_Woman_(1).JPG",
+                            "price": "400",
                             "artist_lname": "Wisener",
-                            "description": "woman sitting on a stone",
+                            "artist_id": "56a1b1352310406ca0736f8a",
+                            "keywords": [
+                                "clay",
+                                "woman",
+                                "sitting"
+                            ],
                             "numFiles": "7",
+                            "name": "Seated Woman",
+                            "artist_fname": "Cynthia",
+                            "description": "woman sitting on a stone",
+                            "media": "Sculpture",
                             "files": [
                                 "../images/Seated_Woman_(1).JPG",
                                 "../images/Seated_Woman_(2).JPG",
@@ -119,263 +133,229 @@ System.register([], function(exports_1) {
                                 "../images/Seated_Woman_(5).JPG",
                                 "../images/Seated_Woman_(6).JPG",
                                 "../images/Seated_Woman_(7).JPG"
-                            ],
-                            "keywords": [
-                                "clay",
-                                "woman",
-                                "sitting"
-                            ],
-                            "mainFile": "../images/Seated_Woman_(1).JPG",
-                            "price": "400",
-                            "artist_fname": "Cynthia",
-                            "media": "Sculpture"
+                            ]
                         }
                     ],
-                    "id": "56a1b1352310406ca0736f8a",
-                    "profilePic": "../images/profile_1.jpg",
-                    "locationCity": "Houston",
-                    "description": "Houston artist",
-                    "lastName": "Wisener",
-                    "numWorks": "5",
-                    "media": "Sculpture"
+                    "media": "Sculpture",
+                    "numWorks": "5"
                 },
                 {
-                    "firstName": "Sally",
                     "locationState": "Texas",
+                    "id": "56a1b1352310406ca0736f8b",
+                    "lastName": "Smith",
+                    "description": "I was born and raised in Ft. Worth, Texas  I earned a B. A. and an M. A., in English literature at Rice University. I studied medieval English poetry and prose at the University of Texas in Austin. I love to eat, but would rather read. I am a perennial student of Spanish, and I have a special fondness for the United Kingdom, France, Mexico, Portugal, Brazil, Kenya, and Bulgaria.  <br>  In 2001 I moved back to Houston, Texas, from  Arlington, Virginia, to open a Macromedia and Adobe Authorized Center, Connect Learning, which closed in 2011. <br>I am fortunate to have two sisters,  two sons and four grandchildren.",
+                    "profilePic": "../images/9378171.jpg",
+                    "firstName": "Sally",
+                    "locationCity": "Houston",
                     "works": [
                         {
-                            "artist_id": "56a1b1352310406ca0736f8b",
-                            "name": "Eve",
+                            "mainFile": "../images/Eve200x293.jpg",
+                            "price": "N/A",
                             "artist_lname": "Smith",
-                            "description": "Eve in garden",
-                            "numFiles": "1",
-                            "files": [
-                                "../images/Eve200x293.jpg"
-                            ],
+                            "artist_id": "56a1b1352310406ca0736f8b",
                             "keywords": [
                                 "paint",
                                 "eve",
                                 "garden"
                             ],
-                            "mainFile": "../images/Eve200x293.jpg",
-                            "price": "N/A",
+                            "numFiles": "1",
+                            "name": "Eve",
                             "artist_fname": "Sally",
-                            "media": "Paint"
+                            "description": "Eve in garden",
+                            "media": "Paint",
+                            "files": [
+                                "../images/Eve200x293.jpg"
+                            ]
                         },
                         {
-                            "artist_id": "56a1b1352310406ca0736f8b",
-                            "name": "Pioneer",
+                            "mainFile": "../images/pioneer200x252.jpg",
+                            "price": "400",
                             "artist_lname": "Smith",
-                            "description": "Portrait",
-                            "numFiles": "1",
-                            "files": [
-                                "../images/pioneer200x252.jpg"
-                            ],
+                            "artist_id": "56a1b1352310406ca0736f8b",
                             "keywords": [
                                 "man",
                                 "portrait"
                             ],
-                            "mainFile": "../images/pioneer200x252.jpg",
-                            "price": "400",
+                            "numFiles": "1",
+                            "name": "Pioneer",
                             "artist_fname": "Sally",
-                            "media": "Paint"
+                            "description": "Portrait",
+                            "media": "Paint",
+                            "files": [
+                                "../images/pioneer200x252.jpg"
+                            ]
                         },
                         {
-                            "artist_id": "56a1b1352310406ca0736f8b",
-                            "name": "Garden",
+                            "mainFile": "../images/Garden200x260.jpg",
+                            "price": "400",
                             "artist_lname": "Smith",
-                            "description": "Woman in garden",
-                            "numFiles": "1",
-                            "files": [
-                                "../images/Garden200x260.jpg"
-                            ],
+                            "artist_id": "56a1b1352310406ca0736f8b",
                             "keywords": [
                                 "Woman",
                                 "sitting",
                                 "garden"
                             ],
-                            "mainFile": "../images/Garden200x260.jpg",
-                            "price": "400",
+                            "numFiles": "1",
+                            "name": "Garden",
                             "artist_fname": "Sally",
-                            "media": "Paint"
+                            "description": "Woman in garden",
+                            "media": "Paint",
+                            "files": [
+                                "../images/Garden200x260.jpg"
+                            ]
                         },
                         {
-                            "artist_id": "56a1b1352310406ca0736f8b",
-                            "name": "Father and Son",
+                            "mainFile": "../images/FathernSon302x200.jpg",
+                            "price": "400",
                             "artist_lname": "Smith",
-                            "description": "Father and son portrait",
-                            "numFiles": "1",
-                            "files": [
-                                "../images/FathernSon302x200.jpg"
-                            ],
+                            "artist_id": "56a1b1352310406ca0736f8b",
                             "keywords": [
                                 "father",
                                 "son",
                                 "bright"
                             ],
-                            "mainFile": "../images/FathernSon302x200.jpg",
-                            "price": "400",
+                            "numFiles": "1",
+                            "name": "Father and Son",
                             "artist_fname": "Sally",
-                            "media": "Paint"
+                            "description": "Father and son portrait",
+                            "media": "Paint",
+                            "files": [
+                                "../images/FathernSon302x200.jpg"
+                            ]
                         },
                         {
-                            "artist_id": "56a1b1352310406ca0736f8b",
-                            "name": "Stephanie",
+                            "mainFile": "../images/Stephanie200x260.jpg",
+                            "price": "400",
                             "artist_lname": "Smith",
-                            "description": "woman sitting in chair",
-                            "numFiles": "1",
-                            "files": [
-                                "../images/Stephanie200x260.jpg"
-                            ],
+                            "artist_id": "56a1b1352310406ca0736f8b",
                             "keywords": [
                                 "woman",
                                 "sitting"
                             ],
-                            "mainFile": "../images/Stephanie200x260.jpg",
-                            "price": "400",
+                            "numFiles": "1",
+                            "name": "Stephanie",
                             "artist_fname": "Sally",
-                            "media": "Paint"
+                            "description": "woman sitting in chair",
+                            "media": "Paint",
+                            "files": [
+                                "../images/Stephanie200x260.jpg"
+                            ]
                         },
                         {
-                            "artist_id": "56a1b1352310406ca0736f8b",
-                            "name": "Adam and Eve",
+                            "mainFile": "../images/AdamnEve200x268.jpg",
+                            "price": "400",
                             "artist_lname": "Smith",
-                            "description": "Adam and Eve",
-                            "numFiles": "1",
-                            "files": [
-                                "../images/AdamnEve200x268.jpg"
-                            ],
+                            "artist_id": "56a1b1352310406ca0736f8b",
                             "keywords": [
                                 "Adam",
                                 "Eve",
                                 "Dark"
                             ],
-                            "mainFile": "../images/AdamnEve200x268.jpg",
-                            "price": "400",
+                            "numFiles": "1",
+                            "name": "Adam and Eve",
                             "artist_fname": "Sally",
-                            "media": "Paint"
+                            "description": "Adam and Eve",
+                            "media": "Paint",
+                            "files": [
+                                "../images/AdamnEve200x268.jpg"
+                            ]
                         }
                     ],
-                    "id": "56a1b1352310406ca0736f8b",
-                    "profilePic": "../images/9378171.jpg",
-                    "locationCity": "Houston",
-                    "description": "I was born and raised in Ft. Worth, Texas  I earned a B. A. and an M. A., in English literature at Rice University. I studied medieval English poetry and prose at the University of Texas in Austin. I love to eat, but would rather read. I am a perennial student of Spanish, and I have a special fondness for the United Kingdom, France, Mexico, Portugal, Brazil, Kenya, and Bulgaria.  <br>  In 2001 I moved back to Houston, Texas, from  Arlington, Virginia, to open a Macromedia and Adobe Authorized Center, Connect Learning, which closed in 2011. <br>I am fortunate to have two sisters,  two sons and four grandchildren.",
-                    "lastName": "Smith",
-                    "numWorks": "6",
-                    "media": "Paint"
+                    "media": "Paint",
+                    "numWorks": "6"
                 },
                 {
+                    "locationState": "Texas",
+                    "id": "56a8218c2310401ce105045a",
+                    "media": "Paint",
+                    "locationCity": "Houston",
+                    "profilePic": "../images/romeo.JPG",
                     "firstName": "Romeo",
+                    "description": "Houston Artist",
                     "works": [
                         {
-                            "artist_id": "56a8218c2310401ce105045a",
-                            "name": "Thin Man",
-                            "artist_lname": "Robinson",
-                            "description": "Man raising hand",
-                            "numFiles": "1",
-                            "files": [
-                                "../images/romeo_2.jpg"
-                            ],
-                            "keywords": [
-                                "man",
-                                "hair",
-                                "light",
-                                "newspaper"
-                            ],
-                            "mainFile": "../images/romeo_2.jpg",
-                            "price": "400",
-                            "artist_fname": "Romeo",
-                            "media": "Paint"
-                        },
-                        {
-                            "artist_id": "56a8218c2310401ce105045a",
-                            "name": "Blue Hair",
-                            "artist_lname": "Robinson",
-                            "description": "Woman smiling with blue hair, newspaper.",
-                            "numFiles": "1",
-                            "files": [
-                                "../images/romeo_3.jpg"
-                            ],
-                            "keywords": [
-                                "woman",
-                                "hair",
-                                "light",
-                                "newspaper"
-                            ],
                             "mainFile": "../images/romeo_3.jpg",
                             "price": "400",
-                            "artist_fname": "Romeo",
-                            "media": "Paint"
-                        },
-                        {
-                            "artist_id": "56a8218c2310401ce105045a",
-                            "name": "Legacy",
                             "artist_lname": "Robinson",
-                            "description": "Woman staring into distance, newspaper",
+                            "artist_id": "56a8218c2310401ce105045a",
+                            "media": "Paint",
                             "numFiles": "1",
-                            "files": [
-                                "../images/romeo_4.jpg"
-                            ],
+                            "name": "Blue Hair",
+                            "artist_fname": "Romeo",
+                            "description": "Woman smiling with blue hair, newspaper.",
                             "keywords": [
                                 "woman",
                                 "hair",
                                 "light",
                                 "newspaper"
                             ],
-                            "mainFile": "../images/romeo_4.jpg",
-                            "price": "400",
-                            "artist_fname": "Romeo",
-                            "media": "Paint"
+                            "files": [
+                                "../images/romeo_3.jpg"
+                            ]
                         },
                         {
-                            "artist_id": "56a8218c2310401ce105045a",
-                            "name": "Aviator Man",
+                            "mainFile": "../images/romeo_4.jpg",
+                            "price": "400",
                             "artist_lname": "Robinson",
-                            "description": "Man with full beard.",
+                            "artist_id": "56a8218c2310401ce105045a",
+                            "media": "Paint",
                             "numFiles": "1",
-                            "files": [
-                                "../images/romeo_5.jpg"
+                            "name": "Legacy",
+                            "artist_fname": "Romeo",
+                            "description": "Woman staring into distance, newspaper",
+                            "keywords": [
+                                "woman",
+                                "hair",
+                                "light",
+                                "newspaper"
                             ],
+                            "files": [
+                                "../images/romeo_4.jpg"
+                            ]
+                        },
+                        {
+                            "mainFile": "../images/romeo_5.jpg",
+                            "price": "400",
+                            "artist_lname": "Robinson",
+                            "artist_id": "56a8218c2310401ce105045a",
+                            "media": "Paint",
+                            "numFiles": "1",
+                            "name": "Aviator Man",
+                            "artist_fname": "Romeo",
+                            "description": "Man with full beard.",
                             "keywords": [
                                 "man",
                                 "hair",
                                 "light",
                                 "glasses"
                             ],
-                            "mainFile": "../images/romeo_5.jpg",
-                            "price": "400",
-                            "artist_fname": "Romeo",
-                            "media": "Paint"
+                            "files": [
+                                "../images/romeo_5.jpg"
+                            ]
                         },
                         {
-                            "artist_id": "56a8218c2310401ce105045a",
-                            "name": "Woman",
+                            "mainFile": "../images/romeo_1.jpg",
+                            "price": "400",
                             "artist_lname": "Robinson",
-                            "description": "Woman staring with newspaper",
+                            "artist_id": "56a8218c2310401ce105045a",
+                            "media": "Paint",
                             "numFiles": "1",
-                            "files": [
-                                "../images/romeo_1.jpg"
-                            ],
+                            "name": "Woman",
+                            "artist_fname": "Romeo",
+                            "description": "Woman staring with newspaper",
                             "keywords": [
                                 "woman",
                                 "hair",
                                 "staring",
                                 "newspaper"
                             ],
-                            "mainFile": "../images/romeo_1.jpg",
-                            "price": "400",
-                            "artist_fname": "Romeo",
-                            "media": "Paint"
+                            "files": [
+                                "../images/romeo_1.jpg"
+                            ]
                         }
                     ],
-                    "id": "56a8218c2310401ce105045a",
-                    "profilePic": "../images/romeo.JPG",
-                    "locationCity": "Houston",
-                    "description": "Houston Artist",
-                    "locationState": "Texas",
                     "lastName": "Robinson",
-                    "numWorks": "5",
-                    "media": "Paint"
+                    "numWorks": "4"
                 }
             ]);
         }
