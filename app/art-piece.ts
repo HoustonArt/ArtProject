@@ -6,6 +6,7 @@ export interface ArtPiece{
   name :string;
   media: string;
   price: string;
+  _id: string;
   description : string;
   keywords: stringArray;
   mainFile: string;

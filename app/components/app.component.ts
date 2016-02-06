@@ -9,6 +9,8 @@ import {AboutComponent} from './about.component';
 import {HomeComponent} from './home.component';
 import {AllWorksComponent} from './works.component';
 import {ArtSearchComponent} from './art-search.component';
+import {GalleryCreatorComponent} from './gallery-creator.component';
+import {GalleryViewerComponent} from './gallery-viewer.component';
 
 @Component({
   selector: 'my-app',
@@ -23,7 +25,9 @@ import {ArtSearchComponent} from './art-search.component';
     {path: '/about', component:AboutComponent, as: 'About'},
     {path: '/work/:id', component: WorkDetailComponent, as: 'Work'},
     {path: '/works/',component: AllWorksComponent, as: 'Works'},
-    {path:'/artsearch/',component: ArtSearchComponent, as: 'ArtSearch'}
+    {path:'/artsearch/',component: ArtSearchComponent, as: 'ArtSearch'},
+    {path:'/gallery-create/',component: GalleryCreatorComponent, as:'GalleryCreate'},
+    {path:'/gallery-view/:id',component: GalleryViewerComponent, as:'GalleryView'}
 ])
 
 export class AppComponent {

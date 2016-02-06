@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row" *ngIf="loading==1">
+    Loading your gallery
+  </div>
+  <div class="row" *ngIf="model">
+    <div class="col-lg-12 text-center">
+      <h2>{{model.name}}</h2>
+      <div *ngIf="model.curator != ''">
+        Curated by {{model.curator}}
+        <hr>
+      </div>
+      <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of galleryWorks">
+        <img style="max-height:{{picHeight}}px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
+        <h4>{{work.name}}<small> {{work.artist_fname}} {{work.artist_lname}}</small></h4>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,598 +3,433 @@ import {ArtPiece} from './art-piece';
 export var ARTISTS: Artist[] =
 [
     {
-        "media": "Sculpture",
-        "id": "56a1b1352310406ca0736f8a",
-        "profilePic": "../images/profile_1.jpg",
-        "description": "Houston artist",
-        "locationCity": "Houston",
         "locationState": "Texas",
+        "description": "Houston artist",
+        "media": "Sculpture",
+        "numWorks": "5",
+        "works": [
+            {
+                "media": "Sculpture",
+                "files": "['../images/Blue_Head_(1).JPG', '../images/Blue_Head_(2).JPG', '../images/Blue_Head_(3).JPG', '../images/Blue_Head_(4).JPG', '../images/Blue_Head_(5).JPG', '../images/Blue_Head_(6).JPG']",
+                "_id": "56a1b20b2310406d55a8b762",
+                "numFiles": "186",
+                "artist_id": "56a1b1352310406ca0736f8a",
+                "keywords": "['clay', 'man']",
+                "artist_lname": "Wisener",
+                "description": "black clay",
+                "artist_fname": "Cynthia",
+                "mainFile": "../images/Blue_Head_(1).JPG",
+                "name": "Blue Head",
+                "price": "400"
+            },
+            {
+                "media": "Sculpture",
+                "files": "['../images/Crossed_Legged_Woman_(1).JPG', '../images/Crossed_Legged_Woman_(2).JPG', '../images/Crossed_Legged_Woman_(3).JPG', '../images/Crossed_Legged_Woman_(4).JPG', '../images/Crossed_Legged_Woman_(5).JPG', '../images/Crossed_Legged_Woman_(6).JPG', '../images/Crossed_Legged_Woman_(7).JPG', '../images/Crossed_Legged_Woman_(8).JPG', '../images/Crossed_Legged_Woman_(9).JPG', '../images/Crossed_Legged_Woman_(10).JPG']",
+                "_id": "56a1b20b2310406d55a8b763",
+                "numFiles": "421",
+                "artist_id": "56a1b1352310406ca0736f8a",
+                "keywords": "['clay', 'woman', 'sitting']",
+                "artist_lname": "Wisener",
+                "description": "woman sitting",
+                "artist_fname": "Cynthia",
+                "mainFile": "../images/Crossed_Legged_Woman_(1).JPG",
+                "name": "Crossed Legged Woman",
+                "price": "400"
+            },
+            {
+                "media": "Sculpture",
+                "files": "['../images/David_(1).JPG', '../images/David_(2).JPG', '../images/David_(3).JPG', '../images/David_(4).JPG']",
+                "_id": "56a1b20b2310406d55a8b764",
+                "numFiles": "108",
+                "artist_id": "56a1b1352310406ca0736f8a",
+                "keywords": "['clay', 'man', 'face']",
+                "artist_lname": "Wisener",
+                "description": "Man",
+                "artist_fname": "Cynthia",
+                "mainFile": "../images/David_(1).JPG",
+                "name": "David",
+                "price": "400"
+            },
+            {
+                "media": "Sculpture",
+                "files": "['../images/Intensity_(1).JPG', '../images/Intensity_(2).JPG', '../images/Intensity_(3).JPG', '../images/Intensity_(4).JPG', '../images/Intensity_(5).JPG', '../images/Intensity_(6).JPG']",
+                "_id": "56a1b20b2310406d55a8b765",
+                "numFiles": "186",
+                "artist_id": "56a1b1352310406ca0736f8a",
+                "keywords": "['clay', 'man', 'face']",
+                "artist_lname": "Wisener",
+                "description": "Man",
+                "artist_fname": "Cynthia",
+                "mainFile": "../images/Intensity_(1).JPG",
+                "name": "Intensity",
+                "price": "400"
+            },
+            {
+                "media": "Sculpture",
+                "files": "['../images/Seated_Woman_(1).JPG', '../images/Seated_Woman_(2).JPG', '../images/Seated_Woman_(3).JPG', '../images/Seated_Woman_(4).JPG', '../images/Seated_Woman_(5).JPG', '../images/Seated_Woman_(6).JPG', '../images/Seated_Woman_(7).JPG']",
+                "_id": "56a1b20b2310406d55a8b766",
+                "numFiles": "238",
+                "artist_id": "56a1b1352310406ca0736f8a",
+                "keywords": "['clay', 'woman', 'sitting']",
+                "artist_lname": "Wisener",
+                "description": "woman sitting on a stone",
+                "artist_fname": "Cynthia",
+                "mainFile": "../images/Seated_Woman_(1).JPG",
+                "name": "Seated Woman",
+                "price": "400"
+            }
+        ],
+        "profilePic": "../images/profile_1.jpg",
+        "locationCity": "Houston",
         "lastName": "Wisener",
         "firstName": "Cynthia",
-        "works": [
-            {
-                "media": "Sculpture",
-                "description": "black clay",
-                "numFiles": "6",
-                "artist_lname": "Wisener",
-                "keywords": [
-                    "clay",
-                    "man"
-                ],
-                "artist_fname": "Cynthia",
-                "price": "400",
-                "artist_id": "56a1b1352310406ca0736f8a",
-                "files": [
-                    "../images/Blue_Head_(1).JPG",
-                    "../images/Blue_Head_(2).JPG",
-                    "../images/Blue_Head_(3).JPG",
-                    "../images/Blue_Head_(4).JPG",
-                    "../images/Blue_Head_(5).JPG",
-                    "../images/Blue_Head_(6).JPG"
-                ],
-                "mainFile": "../images/Blue_Head_(1).JPG",
-                "name": "Blue Head"
-            },
-            {
-                "media": "Sculpture",
-                "description": "woman sitting",
-                "numFiles": "10",
-                "artist_lname": "Wisener",
-                "keywords": [
-                    "clay",
-                    "woman",
-                    "sitting"
-                ],
-                "artist_fname": "Cynthia",
-                "price": "400",
-                "artist_id": "56a1b1352310406ca0736f8a",
-                "files": [
-                    "../images/Crossed_Legged_Woman_(1).JPG",
-                    "../images/Crossed_Legged_Woman_(2).JPG",
-                    "../images/Crossed_Legged_Woman_(3).JPG",
-                    "../images/Crossed_Legged_Woman_(4).JPG",
-                    "../images/Crossed_Legged_Woman_(5).JPG",
-                    "../images/Crossed_Legged_Woman_(6).JPG",
-                    "../images/Crossed_Legged_Woman_(7).JPG",
-                    "../images/Crossed_Legged_Woman_(8).JPG",
-                    "../images/Crossed_Legged_Woman_(9).JPG",
-                    "../images/Crossed_Legged_Woman_(10).JPG"
-                ],
-                "mainFile": "../images/Crossed_Legged_Woman_(1).JPG",
-                "name": "Crossed Legged Woman"
-            },
-            {
-                "media": "Sculpture",
-                "description": "Man",
-                "numFiles": "4",
-                "artist_lname": "Wisener",
-                "keywords": [
-                    "clay",
-                    "man",
-                    "face"
-                ],
-                "artist_fname": "Cynthia",
-                "price": "400",
-                "artist_id": "56a1b1352310406ca0736f8a",
-                "files": [
-                    "../images/David_(1).JPG",
-                    "../images/David_(2).JPG",
-                    "../images/David_(3).JPG",
-                    "../images/David_(4).JPG"
-                ],
-                "mainFile": "../images/David_(1).JPG",
-                "name": "David"
-            },
-            {
-                "media": "Sculpture",
-                "description": "Man",
-                "numFiles": "6",
-                "artist_lname": "Wisener",
-                "keywords": [
-                    "clay",
-                    "man",
-                    "face"
-                ],
-                "artist_fname": "Cynthia",
-                "price": "400",
-                "artist_id": "56a1b1352310406ca0736f8a",
-                "files": [
-                    "../images/Intensity_(1).JPG",
-                    "../images/Intensity_(2).JPG",
-                    "../images/Intensity_(3).JPG",
-                    "../images/Intensity_(4).JPG",
-                    "../images/Intensity_(5).JPG",
-                    "../images/Intensity_(6).JPG"
-                ],
-                "mainFile": "../images/Intensity_(1).JPG",
-                "name": "Intensity"
-            },
-            {
-                "media": "Sculpture",
-                "description": "woman sitting on a stone",
-                "numFiles": "7",
-                "artist_lname": "Wisener",
-                "keywords": [
-                    "clay",
-                    "woman",
-                    "sitting"
-                ],
-                "artist_fname": "Cynthia",
-                "price": "400",
-                "artist_id": "56a1b1352310406ca0736f8a",
-                "files": [
-                    "../images/Seated_Woman_(1).JPG",
-                    "../images/Seated_Woman_(2).JPG",
-                    "../images/Seated_Woman_(3).JPG",
-                    "../images/Seated_Woman_(4).JPG",
-                    "../images/Seated_Woman_(5).JPG",
-                    "../images/Seated_Woman_(6).JPG",
-                    "../images/Seated_Woman_(7).JPG"
-                ],
-                "mainFile": "../images/Seated_Woman_(1).JPG",
-                "name": "Seated Woman"
-            }
-        ],
-        "numWorks": "5"
+        "id": "56a1b1352310406ca0736f8a"
     },
     {
-        "media": "Paint",
-        "id": "56a1b1352310406ca0736f8b",
-        "profilePic": "../images/9378171.jpg",
         "description": "I was born and raised in Ft. Worth, Texas  I earned a B. A. and an M. A., in English literature at Rice University. I studied medieval English poetry and prose at the University of Texas in Austin. I love to eat, but would rather read. I am a perennial student of Spanish, and I have a special fondness for the United Kingdom, France, Mexico, Portugal, Brazil, Kenya, and Bulgaria.  <br>  In 2001 I moved back to Houston, Texas, from  Arlington, Virginia, to open a Macromedia and Adobe Authorized Center, Connect Learning, which closed in 2011. <br>I am fortunate to have two sisters,  two sons and four grandchildren.",
-        "locationCity": "Houston",
         "locationState": "Texas",
+        "media": "Paint",
+        "numWorks": "6",
+        "works": [
+            {
+                "media": "Paint",
+                "files": "['../images/Eve200x293.jpg']",
+                "_id": "56a1b20b2310406d55a8b767",
+                "numFiles": "28",
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "keywords": "['paint', 'eve', 'garden']",
+                "artist_lname": "Smith",
+                "description": "Eve in garden",
+                "artist_fname": "Sally",
+                "mainFile": "../images/Eve200x293.jpg",
+                "name": "Eve",
+                "price": "N/A"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/pioneer200x252.jpg']",
+                "_id": "56a1b20b2310406d55a8b768",
+                "numFiles": "32",
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "keywords": "['man', 'portrait']",
+                "artist_lname": "Smith",
+                "description": "Portrait",
+                "artist_fname": "Sally",
+                "mainFile": "../images/pioneer200x252.jpg",
+                "name": "Pioneer",
+                "price": "400"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/Garden200x260.jpg']",
+                "_id": "56a1b20b2310406d55a8b769",
+                "numFiles": "31",
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "keywords": "['Woman', 'sitting', 'garden']",
+                "artist_lname": "Smith",
+                "description": "Woman in garden",
+                "artist_fname": "Sally",
+                "mainFile": "../images/Garden200x260.jpg",
+                "name": "Garden",
+                "price": "400"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/FathernSon302x200.jpg']",
+                "_id": "56a1b20b2310406d55a8b76a",
+                "numFiles": "35",
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "keywords": "['father', 'son', 'bright']",
+                "artist_lname": "Smith",
+                "description": "Father and son portrait",
+                "artist_fname": "Sally",
+                "mainFile": "../images/FathernSon302x200.jpg",
+                "name": "Father and Son",
+                "price": "400"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/Stephanie200x260.jpg']",
+                "_id": "56a1b20b2310406d55a8b76b",
+                "numFiles": "34",
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "keywords": "['woman', 'sitting']",
+                "artist_lname": "Smith",
+                "description": "woman sitting in chair",
+                "artist_fname": "Sally",
+                "mainFile": "../images/Stephanie200x260.jpg",
+                "name": "Stephanie",
+                "price": "400"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/AdamnEve200x268.jpg']",
+                "_id": "56a1b20b2310406d55a8b76c",
+                "numFiles": "33",
+                "artist_id": "56a1b1352310406ca0736f8b",
+                "keywords": "['Adam', 'Eve', 'Dark']",
+                "artist_lname": "Smith",
+                "description": "Adam and Eve",
+                "artist_fname": "Sally",
+                "mainFile": "../images/AdamnEve200x268.jpg",
+                "name": "Adam and Eve",
+                "price": "400"
+            }
+        ],
+        "profilePic": "../images/9378171.jpg",
+        "locationCity": "Houston",
         "lastName": "Smith",
         "firstName": "Sally",
+        "id": "56a1b1352310406ca0736f8b"
+    },
+    {
+        "locationState": "Texas",
+        "description": "Houston Artist",
+        "media": "Paint",
+        "numWorks": "13",
         "works": [
             {
                 "media": "Paint",
-                "description": "Eve in garden",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "keywords": [
-                    "paint",
-                    "eve",
-                    "garden"
-                ],
-                "artist_fname": "Sally",
-                "price": "N/A",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "files": [
-                    "../images/Eve200x293.jpg"
-                ],
-                "mainFile": "../images/Eve200x293.jpg",
-                "name": "Eve"
+                "files": "['../images/romeo_3.jpg']",
+                "_id": "56a824742310401ce105045d",
+                "numFiles": "25",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['woman', 'hair', 'light', 'newspaper']",
+                "artist_lname": "Robinson",
+                "description": "Woman smiling with blue hair, newspaper.",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_3.jpg",
+                "name": "Blue Hair",
+                "price": "400"
             },
             {
                 "media": "Paint",
-                "description": "Portrait",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "keywords": [
-                    "man",
-                    "portrait"
-                ],
-                "artist_fname": "Sally",
-                "price": "400",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "files": [
-                    "../images/pioneer200x252.jpg"
-                ],
-                "mainFile": "../images/pioneer200x252.jpg",
-                "name": "Pioneer"
+                "files": "['../images/romeo_4.jpg']",
+                "_id": "56a824742310401ce105045e",
+                "numFiles": "25",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['woman', 'hair', 'light', 'newspaper']",
+                "artist_lname": "Robinson",
+                "description": "Woman staring into distance, newspaper",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_4.jpg",
+                "name": "Legacy",
+                "price": "400"
             },
             {
                 "media": "Paint",
-                "description": "Woman in garden",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "keywords": [
-                    "Woman",
-                    "sitting",
-                    "garden"
-                ],
-                "artist_fname": "Sally",
-                "price": "400",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "files": [
-                    "../images/Garden200x260.jpg"
-                ],
-                "mainFile": "../images/Garden200x260.jpg",
-                "name": "Garden"
+                "files": "['../images/romeo_5.jpg']",
+                "_id": "56a824742310401ce105045f",
+                "numFiles": "25",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['man', 'hair', 'light', 'glasses']",
+                "artist_lname": "Robinson",
+                "description": "Man with full beard.",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_5.jpg",
+                "name": "Aviator Man",
+                "price": "400"
             },
             {
                 "media": "Paint",
-                "description": "Father and son portrait",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "keywords": [
-                    "father",
-                    "son",
-                    "bright"
-                ],
-                "artist_fname": "Sally",
-                "price": "400",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "files": [
-                    "../images/FathernSon302x200.jpg"
-                ],
-                "mainFile": "../images/FathernSon302x200.jpg",
-                "name": "Father and Son"
+                "files": "['../images/romeo_1.jpg']",
+                "_id": "56a825402310401ce1050460",
+                "numFiles": "25",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['woman', 'hair', 'staring', 'newspaper']",
+                "artist_lname": "Robinson",
+                "description": "Woman staring with newspaper",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_1.jpg",
+                "name": "Woman",
+                "price": "400"
             },
             {
                 "media": "Paint",
-                "description": "woman sitting in chair",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "keywords": [
-                    "woman",
-                    "sitting"
-                ],
-                "artist_fname": "Sally",
-                "price": "400",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "files": [
-                    "../images/Stephanie200x260.jpg"
-                ],
-                "mainFile": "../images/Stephanie200x260.jpg",
-                "name": "Stephanie"
+                "files": "['../images/romeo_7.jpg']",
+                "_id": "56b5532c2310406de4fc871b",
+                "numFiles": "25",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['girl', 'hair', 'red', 'blue top']",
+                "artist_lname": "Robinson",
+                "description": "Girl with read hair",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_7.jpg",
+                "name": "Girl with red hair",
+                "price": "400"
             },
             {
                 "media": "Paint",
-                "description": "Adam and Eve",
-                "numFiles": "1",
-                "artist_lname": "Smith",
-                "keywords": [
-                    "Adam",
-                    "Eve",
-                    "Dark"
-                ],
-                "artist_fname": "Sally",
-                "price": "400",
-                "artist_id": "56a1b1352310406ca0736f8b",
-                "files": [
-                    "../images/AdamnEve200x268.jpg"
-                ],
-                "mainFile": "../images/AdamnEve200x268.jpg",
-                "name": "Adam and Eve"
+                "files": "['../images/romeo_8.jpg']",
+                "_id": "56b5532c2310406de4fc871c",
+                "numFiles": "25",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['woman', 'braids', 'necklace']",
+                "artist_lname": "Robinson",
+                "description": "woman with braids and necklace",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_8.jpg",
+                "name": "Woman with braids",
+                "price": "400"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/romeo_9.jpg']",
+                "_id": "56b5532c2310406de4fc871d",
+                "numFiles": "25",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['woman', 'headband', 'big har']",
+                "artist_lname": "Robinson",
+                "description": "woman staring into distance",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_9.jpg",
+                "name": "Colorful Headband",
+                "price": "400"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/romeo_10.jpg']",
+                "_id": "56b5532c2310406de4fc871e",
+                "numFiles": "26",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['woman', 'red hair', 'proud']",
+                "artist_lname": "Robinson",
+                "description": "Woman with red hair and green shrit",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_10.jpg",
+                "name": "Red hair and green shirt",
+                "price": "400"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/romeo_11.jpg']",
+                "_id": "56b5532c2310406de4fc871f",
+                "numFiles": "26",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['woman', 'staring', 'hat']",
+                "artist_lname": "Robinson",
+                "description": "woman staring into distance",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_11.jpg",
+                "name": "Proud Woman",
+                "price": "400"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/romeo_12.jpg']",
+                "_id": "56b5532c2310406de4fc8720",
+                "numFiles": "26",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['woman', 'red', 'wrap']",
+                "artist_lname": "Robinson",
+                "description": "woman with wrapping",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_12.jpg",
+                "name": "Woman wrapped",
+                "price": "400"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/romeo_13.jpg']",
+                "_id": "56b5532c2310406de4fc8721",
+                "numFiles": "26",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['woman', 'side', 'hat', 'earings']",
+                "artist_lname": "Robinson",
+                "description": "side profile of woman looking into distance",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_13.jpg",
+                "name": "Woman side",
+                "price": "400"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/romeo_14.jpg']",
+                "_id": "56b5532c2310406de4fc8722",
+                "numFiles": "26",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['man', 'hat', 'parrots']",
+                "artist_lname": "Robinson",
+                "description": "man with hat and parrots",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_14.jpg",
+                "name": "Man split in two",
+                "price": "400"
+            },
+            {
+                "media": "Paint",
+                "files": "['../images/romeo_15.jpg']",
+                "_id": "56b5532c2310406de4fc8723",
+                "numFiles": "26",
+                "artist_id": "56a8218c2310401ce105045a",
+                "keywords": "['woman', 'split', 'hat']",
+                "artist_lname": "Robinson",
+                "description": "woman split",
+                "artist_fname": "Romeo",
+                "mainFile": "../images/romeo_15.jpg",
+                "name": "Woman split in two",
+                "price": "400"
             }
         ],
-        "numWorks": "6"
-    },
-    {
-        "media": "Paint",
-        "id": "56a8218c2310401ce105045a",
         "profilePic": "../images/romeo.JPG",
         "firstName": "Romeo",
-        "locationState": "Texas",
-        "locationCity": "Houston",
         "lastName": "Robinson",
-        "description": "Houston Artist",
-        "works": [
-            {
-                "media": "Paint",
-                "description": "Woman smiling with blue hair, newspaper.",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "woman",
-                    "hair",
-                    "light",
-                    "newspaper"
-                ],
-                "artist_fname": "Romeo",
-                "files": [
-                    "../images/romeo_3.jpg"
-                ],
-                "artist_id": "56a8218c2310401ce105045a",
-                "price": "400",
-                "mainFile": "../images/romeo_3.jpg",
-                "name": "Blue Hair"
-            },
-            {
-                "media": "Paint",
-                "description": "Woman staring into distance, newspaper",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "woman",
-                    "hair",
-                    "light",
-                    "newspaper"
-                ],
-                "artist_fname": "Romeo",
-                "files": [
-                    "../images/romeo_4.jpg"
-                ],
-                "artist_id": "56a8218c2310401ce105045a",
-                "price": "400",
-                "mainFile": "../images/romeo_4.jpg",
-                "name": "Legacy"
-            },
-            {
-                "media": "Paint",
-                "description": "Man with full beard.",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "man",
-                    "hair",
-                    "light",
-                    "glasses"
-                ],
-                "artist_fname": "Romeo",
-                "files": [
-                    "../images/romeo_5.jpg"
-                ],
-                "artist_id": "56a8218c2310401ce105045a",
-                "price": "400",
-                "mainFile": "../images/romeo_5.jpg",
-                "name": "Aviator Man"
-            },
-            {
-                "media": "Paint",
-                "description": "Woman staring with newspaper",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "woman",
-                    "hair",
-                    "staring",
-                    "newspaper"
-                ],
-                "artist_fname": "Romeo",
-                "files": [
-                    "../images/romeo_1.jpg"
-                ],
-                "artist_id": "56a8218c2310401ce105045a",
-                "price": "400",
-                "mainFile": "../images/romeo_1.jpg",
-                "name": "Woman"
-            },
-            {
-                "media": "Paint",
-                "description": "Girl with read hair",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "girl",
-                    "hair",
-                    "red",
-                    "blue top"
-                ],
-                "artist_fname": "Romeo",
-                "price": "400",
-                "artist_id": "56a8218c2310401ce105045a",
-                "files": [
-                    "../images/romeo_7.jpg"
-                ],
-                "mainFile": "../images/romeo_7.jpg",
-                "name": "Girl with red hair"
-            },
-            {
-                "media": "Paint",
-                "description": "woman with braids and necklace",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "woman",
-                    "braids",
-                    "necklace"
-                ],
-                "artist_fname": "Romeo",
-                "price": "400",
-                "artist_id": "56a8218c2310401ce105045a",
-                "files": [
-                    "../images/romeo_8.jpg"
-                ],
-                "mainFile": "../images/romeo_8.jpg",
-                "name": "Woman with braids"
-            },
-            {
-                "media": "Paint",
-                "description": "woman staring into distance",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "woman",
-                    "headband",
-                    "big har"
-                ],
-                "artist_fname": "Romeo",
-                "price": "400",
-                "artist_id": "56a8218c2310401ce105045a",
-                "files": [
-                    "../images/romeo_9.jpg"
-                ],
-                "mainFile": "../images/romeo_9.jpg",
-                "name": "Colorful Headband"
-            },
-            {
-                "media": "Paint",
-                "description": "Woman with red hair and green shrit",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "woman",
-                    "red hair",
-                    "proud"
-                ],
-                "artist_fname": "Romeo",
-                "price": "400",
-                "artist_id": "56a8218c2310401ce105045a",
-                "files": [
-                    "../images/romeo_10.jpg"
-                ],
-                "mainFile": "../images/romeo_10.jpg",
-                "name": "Red hair and green shirt"
-            },
-            {
-                "media": "Paint",
-                "description": "woman staring into distance",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "woman",
-                    "staring",
-                    "hat"
-                ],
-                "artist_fname": "Romeo",
-                "price": "400",
-                "artist_id": "56a8218c2310401ce105045a",
-                "files": [
-                    "../images/romeo_11.jpg"
-                ],
-                "mainFile": "../images/romeo_11.jpg",
-                "name": "Proud Woman"
-            },
-            {
-                "media": "Paint",
-                "description": "woman with wrapping",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "woman",
-                    "red",
-                    "wrap"
-                ],
-                "artist_fname": "Romeo",
-                "price": "400",
-                "artist_id": "56a8218c2310401ce105045a",
-                "files": [
-                    "../images/romeo_12.jpg"
-                ],
-                "mainFile": "../images/romeo_12.jpg",
-                "name": "Woman wrapped"
-            },
-            {
-                "media": "Paint",
-                "description": "side profile of woman looking into distance",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "woman",
-                    "side",
-                    "hat",
-                    "earings"
-                ],
-                "artist_fname": "Romeo",
-                "price": "400",
-                "artist_id": "56a8218c2310401ce105045a",
-                "files": [
-                    "../images/romeo_13.jpg"
-                ],
-                "mainFile": "../images/romeo_13.jpg",
-                "name": "Woman side"
-            },
-            {
-                "media": "Paint",
-                "description": "man with hat and parrots",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "man",
-                    "hat",
-                    "parrots"
-                ],
-                "artist_fname": "Romeo",
-                "price": "400",
-                "artist_id": "56a8218c2310401ce105045a",
-                "files": [
-                    "../images/romeo_14.jpg"
-                ],
-                "mainFile": "../images/romeo_14.jpg",
-                "name": "Man split in two"
-            },
-            {
-                "media": "Paint",
-                "description": "woman split",
-                "numFiles": "1",
-                "artist_lname": "Robinson",
-                "keywords": [
-                    "woman",
-                    "split",
-                    "hat"
-                ],
-                "artist_fname": "Romeo",
-                "price": "400",
-                "artist_id": "56a8218c2310401ce105045a",
-                "files": [
-                    "../images/romeo_15.jpg"
-                ],
-                "mainFile": "../images/romeo_15.jpg",
-                "name": "Woman split in two"
-            }
-        ],
-        "numWorks": "13"
+        "locationCity": "Houston",
+        "id": "56a8218c2310401ce105045a"
     },
     {
-        "media": "Pastel W/Spray Paint",
-        "id": "56b54c502310406de4fc8714",
-        "profilePic": "../images/IMG_0360Robin.JPG",
         "description": "Houston artist",
         "locationState": "Texas",
-        "locationCity": "Weston Lakes",
-        "lastName": "Mouton",
-        "firstName": "Robin E.",
+        "media": "Pastel W/Spray Paint",
+        "numWorks": "3",
         "works": [
             {
                 "media": "Pastel W/Spray Paint on Rives BFK",
-                "description": "Minotaur",
-                "numFiles": "1",
-                "artist_lname": "Mouton",
-                "keywords": [
-                    "minotaur",
-                    "horns",
-                    "reds"
-                ],
-                "artist_fname": "Robin E.",
-                "price": "400",
+                "files": "['../images/Robin_1.JPG']",
+                "_id": "56b54e6a2310406de4fc8715",
+                "numFiles": "25",
                 "artist_id": "56b54c502310406de4fc8714",
-                "files": [
-                    "../images/Robin_1.JPG"
-                ],
+                "keywords": "['minotaur', 'horns', 'reds']",
+                "artist_lname": "Mouton",
+                "description": "Minotaur",
+                "artist_fname": "Robin E.",
                 "mainFile": "../images/Robin_1.JPG",
-                "name": "Deaf Minotaur"
+                "name": "Deaf Minotaur",
+                "price": "400"
             },
             {
                 "media": "Charcoal on Paper",
-                "description": "Athene Gesture",
-                "numFiles": "1",
-                "artist_lname": "Mouton",
-                "keywords": [
-                    "woman",
-                    "back",
-                    "athene"
-                ],
-                "artist_fname": "Robin E.",
-                "price": "100",
+                "files": "['../images/Robin_2.JPG']",
+                "_id": "56b54e6a2310406de4fc8716",
+                "numFiles": "25",
                 "artist_id": "56b54c502310406de4fc8714",
-                "files": [
-                    "../images/Robin_2.JPG"
-                ],
+                "keywords": "['woman', 'back', 'athene']",
+                "artist_lname": "Mouton",
+                "description": "Athene Gesture",
+                "artist_fname": "Robin E.",
                 "mainFile": "../images/Robin_2.JPG",
-                "name": "Athene Gesture"
+                "name": "Athene Gesture",
+                "price": "100"
             },
             {
                 "media": "Pastel W/Spray Paint on Rives BFK",
-                "description": "Woman beginning to weave",
-                "numFiles": "1",
-                "artist_lname": "Mouton",
-                "keywords": [
-                    "arachne",
-                    "weave"
-                ],
-                "artist_fname": "Robin E.",
-                "price": "200",
+                "files": "['../images/Robin_3.JPG']",
+                "_id": "56b54e6a2310406de4fc8717",
+                "numFiles": "25",
                 "artist_id": "56b54c502310406de4fc8714",
-                "files": [
-                    "../images/Robin_3.JPG"
-                ],
+                "keywords": "['arachne', 'weave']",
+                "artist_lname": "Mouton",
+                "description": "Woman beginning to weave",
+                "artist_fname": "Robin E.",
                 "mainFile": "../images/Robin_3.JPG",
-                "name": "Arachne, Beginning to Weave"
+                "name": "Arachne, Beginning to Weave",
+                "price": "200"
             }
         ],
-        "numWorks": "3"
+        "profilePic": "../images/IMG_0360Robin.JPG",
+        "locationCity": "Weston Lakes",
+        "lastName": "Mouton",
+        "firstName": "Robin E.",
+        "id": "56b54c502310406de4fc8714"
     }
 ];
