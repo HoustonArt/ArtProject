@@ -40,7 +40,6 @@ export class GalleryCreatorComponent {
   }
 
   setHeights(size){
-    console.log(size);
     if (size == 'sm'){
       this.containHeight = 200;
       this.picHeight = 120;

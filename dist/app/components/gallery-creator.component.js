@@ -36,7 +36,6 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                     this.router = router;
                 }
                 GalleryCreatorComponent.prototype.setHeights = function (size) {
-                    console.log(size);
                     if (size == 'sm') {
                         this.containHeight = 200;
                         this.picHeight = 120;
