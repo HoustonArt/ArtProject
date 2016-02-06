@@ -6,23 +6,23 @@
     <div class="col-lg-12">
       <h1 class="page-header">Works
       </h1>
-        </div>
+    </div>
   </div>
 
   <div class="row">
     <div style="height:300px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of works">
       <a [routerLink]="['/Work', {id: work.artist_id + '-'+ work.name}]">
-      <img style="max-height:250px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
-    </a>
+        <img style="max-height:250px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
+      </a>
       <h4>{{work.name}}<small> {{work.artist_fname}} {{work.artist_lname}}</small></h4>
     </div>
   </div>
 </div>
 
 <script>
-$(window).scroll(function(){
-    if ($(window).scrollTop() == $(document).height()-$(window).height()){
-        alert("We're at the bottom of the page!!");
+  $(window).scroll(function() {
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+      alert("We're at the bottom of the page!!");
     }
-});
+  });
 </script>

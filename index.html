@@ -1,35 +1,66 @@
 <html>
 
-  <head>
-    <title>ArtLike</title>
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/bootstrap-theme.min.css">
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="node_modules/angular2/bundles/router.dev.js"></script>
-    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- 2. Configure SystemJS -->
-    <script>
-      System.config({
-        packages: {
-          app: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
+<head>
+  <title>ArtLike</title>
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="./assets/css/jquery.joyride.css">
+  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <script src="node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="node_modules/angular2/bundles/router.dev.js"></script>
+  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- 2. Configure SystemJS -->
+  <script>
+    System.config({
+      packages: {
+        app: {
+          format: 'register',
+          defaultExtension: 'js'
         }
-      });
-      System.import('app/boot')
-            .then(null, console.error.bind(console));
-    </script>
+      }
+    });
+    System.import('app/boot')
+      .then(null, console.error.bind(console));
+  </script>
 
-  </head>
-  <base href="/">
-  <!-- 3. Display the application -->
-  <body>
-    <my-app>Loading...</my-app>
-  </body>
+</head>
+<base href="/">
+<!-- 3. Display the application -->
+
+<body>
+  <my-app>Loading...</my-app>
+</body>
+<script src="node_modules/jquery.joyride/jquery.joyride.js"></script>
+<ol id="joyRideTipContent">
+  <li data-id="searchButton">
+    <h2>Stop #3</h2>
+    <p>It works as a modal too!</p>
+  </li>
+  <li data-id="artButton" data-button="Next">
+    <h2>Stop #1</h2>
+    <p>Get the details right by styling Joyride with a custom stylesheet!</p>
+  </li>
+  <li data-id="workButton" data-button="Close">
+    <h2>Stop #2</h2>
+    <p>It works right aligned.</p>
+  </li>
+</ol>
+<script>
+  $(window).load(function() {
+    $('#joyRideTipContent').joyride({
+      autoStart: true,
+      postStepCallback: function(index, tip) {
+        if (index == 2) {
+          $(this).joyride('set_li', false, 1);
+        }
+      },
+      modal: true,
+      expose: true
+    });
+  });
+</script>
 
 </html>
