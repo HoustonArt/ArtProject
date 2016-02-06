@@ -32,7 +32,13 @@ export class GalleryViewerComponent {
    path = path.slice(14,path.length);
    path = path.replace(/%/g,' ');
    var info = path.split('@');
-   model = new Gallery(2,info[0],info[1],'')
-   console.log(model);
+   this.model = new Gallery(2,info[0],info[1],'')
+   this.containHeight= parseInt(info[2])
+   this.picHeight = parseInt(info[3])
+   pics = info.slice(4,info.length);
+   for(var i=0;i<pics.length;i++){
+     this._artistService.getOneWork(pics[i]).then(works => this.galleryWorks.push(works)));
+   }
+   this.loading=0;
  }
 }

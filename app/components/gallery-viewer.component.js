@@ -35,12 +35,20 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                     this.location = location;
                 }
                 GalleryViewerComponent.prototype.ngOnInit = function () {
+                    var _this = this;
                     var path = this.location.path();
                     path = path.slice(14, path.length);
                     path = path.replace(/%/g, ' ');
                     var info = path.split('@');
-                    model = new gallery_1.Gallery(2, info[0], info[1], '');
-                    console.log(model);
+                    this.model = new gallery_1.Gallery(2, info[0], info[1], '');
+                    this.containHeight = parseInt(info[2]);
+                    this.picHeight = parseInt(info[3]);
+                    pics = info.slice(4, info.length);
+                    for (var i = 0; i < pics.length; i++) {
+                        this._artistService.getOneWork(pics[i]).then(function (works) { return _this.galleryWorks.push(works); });
+                        ;
+                    }
+                    this.loading = 0;
                 };
                 GalleryViewerComponent = __decorate([
                     core_1.Component({

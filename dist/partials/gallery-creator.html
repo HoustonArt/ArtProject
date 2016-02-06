@@ -26,9 +26,9 @@
         <input type="text" class="form-control" placehold="optional Description" [(ngModel)]="model.info" ngControl="info" #info="ngForm">
         <label for="size">Size</label>
         <br>
-          <button type="button" class="btn btn-primary btn-xs"  (click)="setHeights('sm')">Small</button>
-          <button type="button" class="btn btn-primary btn-sm"  (click)="setHeights('md')">Medium</button>
-        <button type="button" class="btn btn-primary"  (click)="setHeights('lg')">Large</button>
+        <button type="button" class="btn btn-primary btn-xs" (click)="setHeights('sm')">Small</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="setHeights('md')">Medium</button>
+        <button type="button" class="btn btn-primary" (click)="setHeights('lg')">Large</button>
       </form>
 
       <hr>
@@ -51,8 +51,10 @@
         </div>
       </div>
       <hr>
-      <button type="button" class="btn btn-success btn-lg" (click)="createPage()">Create Page</button>
-      <button type="button" class="btn btn-primary btn-lg" (click)="previewPage()">Preview</button>
+      <div [hidden]="curator.errors">
+        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal" (click)="createPage()">Create Page</button>
+        <button type="button" class="btn btn-primary btn-lg" (click)="previewPage()">Preview</button>
+      </div>
     </div>
     <div class="col-md-8 text-center">
       <h2>{{model.name}}</h2>
@@ -64,6 +66,25 @@
         <img style="max-height:{{picHeight}}px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
         <h4>{{work.name}}<small> {{work.artist_fname}} {{work.artist_lname}}</small></h4>
         <button type="button" class="btn btn-danger btn-xs" (click)="removeWork(work)">Remove</button>
+      </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Link</h4>
+          </div>
+          <div class="modal-body" style="word-wrap:break-word">
+            <a [routerLink]="['/GalleryView', {id: url}]">
+              <button type="button" class="btn btn-success btn-lg" data-dismiss="modal">Go to Gallery!</button>
+            </a>
+                <hr>
+              URL:
+              <br>
+              {{full_url}}
+          </div>
+        </div>
       </div>
     </div>
   </div>

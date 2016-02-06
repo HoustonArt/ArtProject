@@ -30,7 +30,8 @@ export class GalleryCreatorComponent {
   public preview:number;
   public model = new Gallery(2, '', '', '');
   public Artists: Artist[];
-
+  public url:string;
+  public full_url:string;
   public artheight:number[] = [200,120,340,250,500,450];
   public containHeight:number = 340;
   public picHeight:number = 250;
@@ -54,7 +55,7 @@ export class GalleryCreatorComponent {
     }
   }
   getWorks() {
-    this._artistService.getAllWorks().then(works =>this.works=works).then(works=>this.displayedWorks=works);
+    this._artistService.getAllWorks().then(works => this.works=works).then(works=>this.displayedWorks=works);
   }
   getArtists() {
     this._artistService.getArtists().then(Artists => this.Artists=Artists);
@@ -69,10 +70,11 @@ export class GalleryCreatorComponent {
   createPage(){
     var url = this.model.stringify();
     url = url + "@" + this.containHeight + "@" + this.picHeight;
-    for(var i=0;i < this.galleryWorks.length;i++){
+    for(var i=0; i < this.galleryWorks.length; i++){
       url = url + "@" + this.galleryWorks[i]['_id'].replace(/\s/g,"%");
     }
-    console.log(url);
+    this.url = url
+    this.full_url = 'houstonart.github.io/#/gallery-view/' + url;
 
   }
   //filter artists when selected by first and last name
@@ -103,5 +105,6 @@ export class GalleryCreatorComponent {
     exitPreview(){
       this.preview = 0;
     }
+
 
 }

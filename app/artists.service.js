@@ -48,6 +48,16 @@ System.register(['./artist-information', 'angular2/core'], function(exports_1) {
                     }
                     return Promise.resolve(this.artist);
                 };
+                ArtistService.prototype.getOneWork = function (id) {
+                    for (var i = 0; i < artist_information_1.ARTISTS.length; i++) {
+                        var numWorks = parseInt(artist_information_1.ARTISTS[i].numWorks);
+                        for (var j = 0; j < numWorks; j++) {
+                            if (artist_information_1.ARTISTS[i].works[j]['_id'] == id) {
+                                return Promise.resolve(artist_information_1.ARTISTS[i].works[j]);
+                            }
+                        }
+                    }
+                };
                 ArtistService.prototype.getWork = function (aid, wid) {
                     for (var i = 0; i < artist_information_1.ARTISTS.length; i++) {
                         if (artist_information_1.ARTISTS[i]['id'] == aid) {

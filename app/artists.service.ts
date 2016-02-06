@@ -36,6 +36,18 @@ export class ArtistService {
     }
     return Promise.resolve(this.artist);
   }
+  getOneWork(id:string){
+    for (var i =0;i <ARTISTS.length;i++){
+      var numWorks = parseInt(ARTISTS[i].numWorks);
+      for (var j=0; j < numWorks ;j++){
+          if(ARTISTS[i].works[j]['_id'] == id){
+            return Promise.resolve(ARTISTS[i].works[j]);
+          }
+      }
+
+    }
+  }
+
   getWork(aid: string, wid: string) {
     for (var i =0;i<ARTISTS.length;i++){
       if (ARTISTS[i]['id'] == aid){
@@ -50,7 +62,7 @@ export class ArtistService {
         break
       }
     }
-    return Promise.resolve(this.work)
+    return Promise.resolve(this.work);
   }
   getAllWorks(){
     var WORKS = [];

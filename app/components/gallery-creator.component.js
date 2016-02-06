@@ -68,7 +68,8 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                     for (var i = 0; i < this.galleryWorks.length; i++) {
                         url = url + "@" + this.galleryWorks[i]['_id'].replace(/\s/g, "%");
                     }
-                    console.log(url);
+                    this.url = url;
+                    this.full_url = 'houstonart.github.io/#/gallery-view/' + url;
                 };
                 //filter artists when selected by first and last name
                 //should make this by id at some point.....
