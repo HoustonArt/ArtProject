@@ -18,7 +18,8 @@
     "zone.js": "0.5.10",
     "bootstrap": "3.3.6",
     "jquery": "2.2.0",
-    "jquery.joyride":"^2.0.0"
+    "jquery.joyride":"^2.0.0",
+    "firebase":"^2.3.2"
   },
   "devDependencies": {
     "concurrently": "^1.0.0",
