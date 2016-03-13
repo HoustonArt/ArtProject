@@ -44,7 +44,7 @@ export class AppComponent {
   ref: Firebase;
   router: Router;
   authData: authData;
-  hideModal: boolean = false;
+  hideModal: boolean = true;
   user: User;
 
   constructor(router: Router) {
@@ -64,6 +64,9 @@ export class AppComponent {
     }
   }
 
+  createLogin(){
+    this.hideModal=false;
+  }
   logOut() {
     this.ref.unauth();
     this.isLoggedIn = false;

@@ -59,7 +59,7 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
                     this.isLoggedIn = false;
                     this.doLogin = false;
-                    this.hideModal = false;
+                    this.hideModal = true;
                     this.router = router;
                     this.ref = new Firebase(this.firebaseUrl);
                     this.authLogin();
@@ -74,6 +74,9 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                             _this.user = data.val();
                         });
                     }
+                };
+                AppComponent.prototype.createLogin = function () {
+                    this.hideModal = false;
                 };
                 AppComponent.prototype.logOut = function () {
                     this.ref.unauth();

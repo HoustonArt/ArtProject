@@ -68,5 +68,7 @@ export class NewUser {
             });
         }
       });
+      ref.unath();
+      this.router.parent.navigate(['Home']);
   }
 }

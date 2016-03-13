@@ -69,6 +69,8 @@ System.register(['angular2/core', 'angular2/router', '../../app/user'], function
                             });
                         }
                     });
+                    ref.unath();
+                    this.router.parent.navigate(['Home']);
                 };
                 NewUser = __decorate([
                     core_1.Component({
