@@ -28,6 +28,7 @@ System.register(['angular2/core', '../../app/artists.service', 'angular2/router'
                 function HomeComponent(_artistService, router) {
                     this._artistService = _artistService;
                     this.title = 'Houston Artists';
+                    this.isLoggedIn = false;
                     this.router = router;
                 }
                 HomeComponent.prototype.getArtists = function () {

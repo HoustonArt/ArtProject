@@ -28,7 +28,7 @@ export class NewUser {
 
   constructor(router: Router) {
     this.router = router;
-    this.firebaseUrl = "https://artlike.firebaseIO.com/"
+    this.firebaseUrl = "https://artlike.firebaseIO.com/";
   }
 
 

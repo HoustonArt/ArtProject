@@ -17,9 +17,11 @@ export class HomeComponent {
   public artists: Artist[];
   public router: Router;
   public works: ArtPiece[];
+  public isLoggedIn = false;
 
   constructor(private _artistService: ArtistService, router: Router){
     this.router = router;
+
   }
   getArtists() {
     this._artistService.getArtists().then(artists => this.artists = artists);
