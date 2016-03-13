@@ -6,7 +6,7 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             User = (function () {
-                function User(id, firstName, lastName, locationCity, locationState, description, email, password, info) {
+                function User(id, firstName, lastName, locationCity, locationState, description, email, info) {
                     this.id = id;
                     this.firstName = firstName;
                     this.lastName = lastName;
@@ -14,7 +14,6 @@ System.register([], function(exports_1, context_1) {
                     this.locationState = locationState;
                     this.description = description;
                     this.email = email;
-                    this.password = password;
                     this.info = info;
                 }
                 return User;

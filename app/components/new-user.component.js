@@ -26,31 +26,47 @@ System.register(['angular2/core', 'angular2/router', '../../app/user'], function
         execute: function() {
             NewUser = (function () {
                 function NewUser(router) {
-                    this.user = new user_1.User('', '', '', '', '', '', '', '', '');
+                    this.user = new user_1.User('', '', '', '', '', '', '', '');
                     this.message = '';
                     this.router = router;
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
                 }
                 NewUser.prototype.createNewUser = function () {
+                    var _this = this;
                     var ref = new Firebase(this.firebaseUrl);
                     ref.createUser({
                         email: this.user.email,
-                        password: this.user.password
+                        password: this.password
                     }, function (error, userData) {
                         if (error) {
                             switch (error.code) {
                                 case "EMAIL_TAKEN":
-                                    console.log("The new user account cannot be created because the email is already in use.");
+                                    _this.message = "The new user account cannot be created because the email is already in use.";
                                     break;
                                 case "INVALID_EMAIL":
-                                    console.log("The specified email is not a valid email.");
+                                    _this.message = "The specified email is not a valid email.";
                                     break;
                                 default:
                                     console.log("Error creating user:", error);
                             }
                         }
                         else {
-                            console.log("Successfully created user account with uid:", userData.uid);
+                            _this.message = "Successfully created user account";
+                            //now login and set user data
+                            ref.authWithPassword({
+                                email: _this.user.email,
+                                password: _this.password
+                            }, function (error, authData) {
+                                if (error) {
+                                    console.log("Login Failed!", error);
+                                }
+                                else {
+                                    console.log("Authenticated successfully with payload:", authData);
+                                    var userBase = new Firebase(_this.firebaseUrl + 'users/' + authData.uid);
+                                    _this.user.id = authData.uid;
+                                    userBase.set(_this.user);
+                                }
+                            });
                         }
                     });
                 };

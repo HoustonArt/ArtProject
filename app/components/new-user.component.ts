@@ -20,8 +20,9 @@ import {User} from '../../app/user';
 
 export class NewUser {
   public router: Router;
-  public user = new User('', '', '', '', '', '', '', '', '');
+  public user = new User('', '', '', '', '', '', '', '');
   public message = '';
+  public password;
   firebaseUrl: string;
   authData: any;
 
@@ -31,25 +32,40 @@ export class NewUser {
   }
 
 
+
   createNewUser() {
     var ref = new Firebase(this.firebaseUrl);
     ref.createUser({
       email: this.user.email,
-      password: this.user.password
-    }, function(error, userData) {
+      password: this.password
+    }, (error, userData) => {
         if (error) {
           switch (error.code) {
             case "EMAIL_TAKEN":
-              console.log("The new user account cannot be created because the email is already in use.");
+              this.message = "The new user account cannot be created because the email is already in use.";
               break;
             case "INVALID_EMAIL":
-              console.log("The specified email is not a valid email.");
+              this.message = "The specified email is not a valid email.";
               break;
             default:
               console.log("Error creating user:", error);
           }
         } else {
-          console.log("Successfully created user account with uid:", userData.uid);
+          this.message = "Successfully created user account";
+          //now login and set user data
+          ref.authWithPassword({
+            email: this.user.email,
+            password: this.password
+          }, (error, authData) => {
+              if (error) {
+                console.log("Login Failed!", error);
+              } else {
+                console.log("Authenticated successfully with payload:", authData);
+                var userBase = new Firebase(this.firebaseUrl + 'users/' + authData.uid);
+                this.user.id = authData.uid;
+                userBase.set(this.user);
+              }
+            });
         }
       });
   }
