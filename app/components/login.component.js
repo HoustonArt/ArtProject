@@ -24,7 +24,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
             Login = (function () {
                 function Login(router) {
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
-                    this.string = "";
+                    this.message = "";
                     this.loginevent = new core_1.EventEmitter();
                     this.router = router;
                 }

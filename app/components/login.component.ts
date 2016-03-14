@@ -1,7 +1,6 @@
 import {Component, Output, EventEmitter} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 import {User} from '../../app/user';
-import {Auth} from '../../auth.service';
 
 @Component({
   selector: 'login',
@@ -20,10 +19,11 @@ import {Auth} from '../../auth.service';
 
 
 export class Login {
-  public string: username;
-  public string: password;
+  public username: string;
+  public password: string;
   firebaseUrl = "https://artlike.firebaseIO.com/";
-  public string: message = "";
+  public message : string = "";
+  router: Router;
   @Output() loginevent: EventEmitter = new EventEmitter();
 
   constructor(router: Router) {

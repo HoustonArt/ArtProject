@@ -14,6 +14,7 @@ import {GalleryViewerComponent} from './gallery-viewer.component';
 import {NewUser} from './new-user.component';
 import {Login} from './login.component';
 import {User} from '../../app/User';
+import {NewWork} from './new-work.component';
 
 @Component({
   selector: 'my-app',
@@ -32,7 +33,8 @@ import {User} from '../../app/User';
   { path: '/artsearch/', component: ArtSearchComponent, as: 'ArtSearch' },
   { path: '/gallery-create/', component: GalleryCreatorComponent, as: 'GalleryCreate' },
   { path: '/gallery-view/:id', component: GalleryViewerComponent, as: 'GalleryView' },
-  { path: '/new-user/', component: NewUser, as: 'NewUser' }
+  { path: '/new-user/', component: NewUser, as: 'NewUser' },
+  { path: '/new-work/', component: NewWork, as: 'NewWork' }
 ])
 
 export class AppComponent {
@@ -58,14 +60,14 @@ export class AppComponent {
     if (this.authData != null) {
       this.isLoggedIn = true;
       var userBase = new Firebase(this.firebaseUrl + 'users/' + this.authData.uid);
-      userBase.once("value",(data)=>{
+      userBase.once("value", (data) => {
         this.user = data.val();
       });
     }
   }
 
-  createLogin(){
-    this.hideModal=false;
+  createLogin() {
+    this.hideModal = false;
   }
   logOut() {
     this.ref.unauth();
@@ -74,7 +76,7 @@ export class AppComponent {
 
   handleLoginEvent(arg) {
     this.hideModal = true;
-    if (arg != "newUser"){
+    if (arg != "newUser") {
       this.authLogin();
     }
   }
