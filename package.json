@@ -20,7 +20,7 @@
     "jquery": "2.2.0",
     "jquery.joyride":"^2.0.0",
     "firebase":"^2.3.2",
-    "ng-2file-upload":"^1.0.0"
+    "ng2-file-upload":"^0.46.0"
   },
   "devDependencies": {
     "concurrently": "^1.0.0",

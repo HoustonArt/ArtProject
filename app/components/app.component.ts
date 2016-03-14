@@ -13,7 +13,7 @@ import {GalleryCreatorComponent} from './gallery-creator.component';
 import {GalleryViewerComponent} from './gallery-viewer.component';
 import {NewUser} from './new-user.component';
 import {Login} from './login.component';
-import {User} from '../../app/User';
+import {User} from '../../app/user';
 import {NewWork} from './new-work.component';
 
 @Component({
@@ -43,9 +43,9 @@ export class AppComponent {
   isLoggedIn: boolean = false;
   doLogin: boolean = false;
   uid: string;
-  ref: Firebase;
+  ref: any;
   router: Router;
-  authData: authData;
+  authData: any;
   hideModal: boolean = true;
   user: User;
 

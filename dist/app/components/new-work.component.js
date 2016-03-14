@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../app/art-piece'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/art-piece'], fun
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, art_piece_1;
+    var core_1, router_1, work_piece_1;
     var NewWork;
     return {
         setters:[
@@ -20,14 +20,14 @@ System.register(['angular2/core', 'angular2/router', '../../app/art-piece'], fun
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (art_piece_1_1) {
-                art_piece_1 = art_piece_1_1;
+            function (work_piece_1_1) {
+                work_piece_1 = work_piece_1_1;
             }],
         execute: function() {
             NewWork = (function () {
                 function NewWork(router) {
                     var _this = this;
-                    this.work = new art_piece_1.Work('', '', '', '', '', [], '', [], '', '', '', 0);
+                    this.work = new work_piece_1.WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0);
                     this.message = '';
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
                     this.router = router;
