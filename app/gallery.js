@@ -1,4 +1,6 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var Gallery;
     return {
         setters:[],
@@ -17,7 +19,7 @@ System.register([], function(exports_1) {
                     return name + '@' + curator;
                 };
                 return Gallery;
-            })();
+            }());
             exports_1("Gallery", Gallery);
         }
     }
