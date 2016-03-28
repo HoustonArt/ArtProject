@@ -93,6 +93,8 @@ export class NewWork {
     this.work.description = '';
     this.work.price = '';
     this.work.mainFile = '';
+    this.display = false;
+    this.file = null;
   }
 
   uploadNewWork() {

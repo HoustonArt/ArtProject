@@ -89,6 +89,8 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     this.work.description = '';
                     this.work.price = '';
                     this.work.mainFile = '';
+                    this.display = false;
+                    this.file = null;
                 };
                 NewWork.prototype.uploadNewWork = function () {
                     var _this = this;
