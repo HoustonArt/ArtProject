@@ -27,7 +27,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
             NewWork = (function () {
                 function NewWork(router) {
                     var _this = this;
-                    this.work = new work_piece_1.WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0);
+                    this.work = new work_piece_1.WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0, '', '', '');
                     this.message = '';
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
                     this.display = false;
@@ -84,15 +84,16 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     }
                 };
                 NewWork.prototype.resetWork = function () {
-                    this.router.parent.navigate(['/NewWork']);
-                    /**
                     this.work.name = '';
                     this.work.media = '';
                     this.work.description = '';
                     this.work.price = '';
                     this.work.mainFile = '';
                     this.display = false;
-                    this.file = undefined;*/
+                    this.file = undefined;
+                    this.work.depth = '';
+                    this.work.width = '';
+                    this.work.length = '';
                 };
                 NewWork.prototype.uploadNewWork = function () {
                     var _this = this;

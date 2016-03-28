@@ -15,6 +15,9 @@ export class WorkUpLoad{
     public artist_fname: string,
     public artist_lname:string,
     public arist_id:string,
-    public numFiles:number
+    public numFiles:number,
+    public length: string,
+    public width: string,
+    public depth: string
   ){}
 }

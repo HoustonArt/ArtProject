@@ -19,7 +19,7 @@ import {WorkUpLoad} from '../../app/work-piece';
 export class NewWork {
   public router: Router;
   public user: User;
-  public work = new WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0);
+  public work = new WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0,'','','');
   public message = '';
   public password: string;
   firebaseUrl: string = "https://artlike.firebaseIO.com/";
@@ -88,15 +88,16 @@ export class NewWork {
   }
 
   resetWork(){
-    this.router.parent.navigate(['/NewWork']);
-    /**
     this.work.name = '';
     this.work.media = '';
     this.work.description = '';
     this.work.price = '';
     this.work.mainFile = '';
     this.display = false;
-    this.file = undefined;*/
+    this.file = undefined;
+    this.work.depth = '';
+    this.work.width = '';
+    this.work.length = '';
   }
 
   uploadNewWork() {

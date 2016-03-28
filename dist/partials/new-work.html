@@ -23,15 +23,27 @@
         </div>
         <div class="form-group">
           <label for="description">Price (American $)</label>
-          <input type="number" class="form-control" placeholder="Enter price" required [(ngModel)]="work.price" ngControl="description" #name="ngForm">
+          <input type="number" class="form-control" placeholder="Enter price" required [(ngModel)]="work.price" ngControl="price" #name="ngForm">
+        </div>
+        <div class="form-group">
+          <label for="length">Length (in)</label>
+          <input type="number" class="form-control" placeholder="Enter length" required [(ngModel)]="work.length" ngControl="length" #name="ngForm">
+        </div>
+        <div class="form-group">
+          <label for="width">Width (in)</label>
+          <input type="number" class="form-control" placeholder="Enter width" required [(ngModel)]="work.width" ngControl="width" #name="ngForm">
+        </div>
+        <div class="form-group">
+          <label for="depth">Depth (in) (0 if 2d)</label>
+          <input type="number" class="form-control" placeholder="Enter depth" required [(ngModel)]="work.depth" ngControl="depth" #name="ngForm">
         </div>
         <button type="submit" class="btn btn-default btn-block">Create Work</button>
       </div>
       <div class="col-md-6"></div>
       Upload art!
-      <input type = "file" (change) = "changeListener($event)"/>
+      <input type="file" (change)="changeListener($event)"/>
       <div *ngIf="display">
-          <img style="max-height:200px" class="img-responsive center-block" src="{{img.src}}">
+        <img style="max-height:200px" class="img-responsive center-block" src="{{img.src}}">
       </div>
     </form>
     {{message}}

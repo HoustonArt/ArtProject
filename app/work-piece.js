@@ -1,10 +1,12 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var WorkUpLoad;
     return {
         setters:[],
         execute: function() {
             WorkUpLoad = (function () {
-                function WorkUpLoad(name, media, price, _id, description, keywords, mainFile, files, artist_fname, artist_lname, arist_id, numFiles) {
+                function WorkUpLoad(name, media, price, _id, description, keywords, mainFile, files, artist_fname, artist_lname, arist_id, numFiles, length, width, depth) {
                     this.name = name;
                     this.media = media;
                     this.price = price;
@@ -17,9 +19,12 @@ System.register([], function(exports_1) {
                     this.artist_lname = artist_lname;
                     this.arist_id = arist_id;
                     this.numFiles = numFiles;
+                    this.length = length;
+                    this.width = width;
+                    this.depth = depth;
                 }
                 return WorkUpLoad;
-            })();
+            }());
             exports_1("WorkUpLoad", WorkUpLoad);
         }
     }
