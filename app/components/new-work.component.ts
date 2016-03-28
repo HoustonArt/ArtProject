@@ -88,13 +88,15 @@ export class NewWork {
   }
 
   resetWork(){
+    this.router.parent.navigate(['/NewWork']);
+    /**
     this.work.name = '';
     this.work.media = '';
     this.work.description = '';
     this.work.price = '';
     this.work.mainFile = '';
     this.display = false;
-    this.file = null;
+    this.file = undefined;*/
   }
 
   uploadNewWork() {

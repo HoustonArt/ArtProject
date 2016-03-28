@@ -84,13 +84,15 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     }
                 };
                 NewWork.prototype.resetWork = function () {
+                    this.router.parent.navigate(['/NewWork']);
+                    /**
                     this.work.name = '';
                     this.work.media = '';
                     this.work.description = '';
                     this.work.price = '';
                     this.work.mainFile = '';
                     this.display = false;
-                    this.file = null;
+                    this.file = undefined;*/
                 };
                 NewWork.prototype.uploadNewWork = function () {
                     var _this = this;
