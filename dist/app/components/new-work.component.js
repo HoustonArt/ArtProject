@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -30,10 +28,19 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     this.work = new work_piece_1.WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0);
                     this.message = '';
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
+                    this.display = false;
+                    this.img = new Image();
                     this.router = router;
                     this.ref = new Firebase(this.firebaseUrl);
                     this.ref.onAuth(function (authdata) {
                         _this.authDataCallback(authdata);
+                    });
+                    var credsBase = new Firebase(this.firebaseUrl + 'S3auth');
+                    credsBase.once("value", function (data) {
+                        var stuff = data.val();
+                        _this.access_key = stuff.access_key;
+                        _this.access_id = stuff.access_ID;
+                        _this.bucket = stuff.bucket;
                     });
                 }
                 NewWork.prototype.authDataCallback = function (authData) {
@@ -43,14 +50,72 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                         var userBase = new Firebase(this.firebaseUrl + 'users/' + authData.uid);
                         userBase.once("value", function (data) {
                             _this.user = data.val();
+                            _this.work.artist_fname = _this.user.firstName;
+                            _this.work.artist_lname = _this.user.lastName;
+                            _this.work.arist_id = authData.uid;
+                            _this.work.numFiles = 1;
+                            //get number of works
+                            _this.numWorks = data.child('Works').numChildren();
                         });
                     }
                     else {
                         this.isLoggedIn = false;
                     }
                 };
+                NewWork.prototype.changeListener = function ($event) {
+                    var _this = this;
+                    this.file = $event.target.files[0];
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        _this.img.src = reader.result;
+                    };
+                    reader.readAsDataURL(this.file);
+                    this.display = true;
+                };
                 NewWork.prototype.createNewWork = function () {
-                    console.log(this.work);
+                    if (this.numWorks < 15) {
+                        this.uploadNewWork();
+                        this.numWorks = this.numWorks + 1;
+                    }
+                    else {
+                        this.message = "You have exceeded allowed number of works.";
+                    }
+                };
+                NewWork.prototype.uploadNewWork = function () {
+                    var _this = this;
+                    //first we will log it to Firebase, then to S3
+                    var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+                    var newRef = fileBase.child("Works").push();
+                    this.work.mainFile = "https://s3.amazonaws.com/artlike/" + newRef.key();
+                    newRef.set(this.work);
+                    AWS.config.update({
+                        accessKeyId: this.access_id,
+                        secretAccessKey: this.access_key
+                    });
+                    AWS.config.region = 'us-east-1';
+                    if (this.display) {
+                        var params = {
+                            Key: newRef.key(),
+                            ContentType: this.file.type,
+                            Body: this.file,
+                            ServerSideEncryption: 'AES256'
+                        };
+                        var AWSbucket = new AWS.S3({
+                            params: { Bucket: 'artlike/' + this.user.id }
+                        });
+                        AWSbucket.putObject(params, function (err, data) {
+                            if (err) {
+                                console.log(err);
+                                _this.message = "there was an error";
+                            }
+                            else {
+                                _this.message = "upload complete. refresh page to upload another file";
+                            }
+                        });
+                    }
+                    else {
+                        alert("no file selected");
+                    }
                 };
                 NewWork = __decorate([
                     core_1.Component({
@@ -62,7 +127,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     __metadata('design:paramtypes', [router_1.Router])
                 ], NewWork);
                 return NewWork;
-            }());
+            })();
             exports_1("NewWork", NewWork);
         }
     }

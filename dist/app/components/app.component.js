@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './artist-detail.component', './work-detail.component', './artists.component', './about.component', './home.component', './works.component', './art-search.component', './gallery-creator.component', './gallery-viewer.component', './new-user.component', './login.component', './new-work.component'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', './artist-detail.component', './work-detail.component', './artists.component', './about.component', './home.component', './works.component', './art-search.component', './gallery-creator.component', './gallery-viewer.component', './new-user.component', './login.component', './new-work.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -70,11 +68,12 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                 AppComponent.prototype.authLogin = function () {
                     var _this = this;
                     this.authData = this.ref.getAuth();
+                    this.isLoggedIn = true;
                     if (this.authData != null) {
-                        this.isLoggedIn = true;
                         var userBase = new Firebase(this.firebaseUrl + 'users/' + this.authData.uid);
                         userBase.once("value", function (data) {
                             _this.user = data.val();
+                            _this.numWorks = data.child('Works').numChildren();
                         });
                     }
                 };
@@ -84,6 +83,17 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                 AppComponent.prototype.logOut = function () {
                     this.ref.unauth();
                     this.isLoggedIn = false;
+                };
+                AppComponent.prototype.accountInfo = function () {
+                    var outstr = '';
+                    if (this.user) {
+                        outstr += 'Welcome to ArtLike ' + this.user.firstName + '\n';
+                        outstr += 'You have ' + this.numWorks.toString() + ' works!';
+                    }
+                    else {
+                        outstr += 'Not logged in';
+                    }
+                    alert(outstr);
                 };
                 AppComponent.prototype.handleLoginEvent = function (arg) {
                     this.hideModal = true;
@@ -114,7 +124,7 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                     __metadata('design:paramtypes', [router_1.Router])
                 ], AppComponent);
                 return AppComponent;
-            }());
+            })();
             exports_1("AppComponent", AppComponent);
         }
     }

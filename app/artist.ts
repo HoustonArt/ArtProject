@@ -1,4 +1,5 @@
 import {ArtPiece} from './art-piece';
+
 interface ArtPieceArray {
   [i: number]: ArtPiece;
 }

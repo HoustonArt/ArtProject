@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../app/artists.service', 'angular2/common'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', '../../app/artists.service', 'angular2/common'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80,7 +78,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
                     __metadata('design:paramtypes', [router_1.RouteParams, router_1.Location, artists_service_1.ArtistService])
                 ], WorkDetailComponent);
                 return WorkDetailComponent;
-            }());
+            })();
             exports_1("WorkDetailComponent", WorkDetailComponent);
         }
     }

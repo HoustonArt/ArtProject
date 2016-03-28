@@ -24,7 +24,7 @@ export class Login {
   firebaseUrl = "https://artlike.firebaseIO.com/";
   public message : string = "";
   router: Router;
-  @Output() loginevent: EventEmitter = new EventEmitter();
+  @Output() loginevent: EventEmitter<any> = new EventEmitter();
 
   constructor(router: Router) {
     this.router = router;

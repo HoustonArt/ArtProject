@@ -40,7 +40,7 @@ import {NewWork} from './new-work.component';
 export class AppComponent {
   public selectedArtist: string;
   firebaseUrl: string = "https://artlike.firebaseIO.com/";
-  isLoggedIn: boolean = false;
+  public isLoggedIn: boolean = false;
   doLogin: boolean = false;
   uid: string;
   ref: any;
@@ -48,6 +48,7 @@ export class AppComponent {
   authData: any;
   hideModal: boolean = true;
   user: User;
+  numWorks: number;
 
   constructor(router: Router) {
     this.router = router;
@@ -57,11 +58,12 @@ export class AppComponent {
 
   authLogin() {
     this.authData = this.ref.getAuth();
+    this.isLoggedIn = true
     if (this.authData != null) {
-      this.isLoggedIn = true;
       var userBase = new Firebase(this.firebaseUrl + 'users/' + this.authData.uid);
       userBase.once("value", (data) => {
         this.user = data.val();
+        this.numWorks = data.child('Works').numChildren();
       });
     }
   }
@@ -74,6 +76,17 @@ export class AppComponent {
     this.isLoggedIn = false;
   }
 
+  accountInfo(){
+    var outstr = '';
+    if (this.user){
+      outstr += 'Welcome to ArtLike ' + this.user.firstName + '\n';
+      outstr += 'You have ' + this.numWorks.toString() + ' works!'
+    }
+    else{
+      outstr += 'Not logged in';
+    }
+    alert(outstr);
+  }
   handleLoginEvent(arg) {
     this.hideModal = true;
     if (arg != "newUser") {

@@ -22,13 +22,17 @@
           <input type="text" class="form-control" placeholder="Enter description" [(ngModel)]="work.description" ngControl="description" #name="ngForm">
         </div>
         <div class="form-group">
-          <label for="description">Price (Amreican $)</label>
+          <label for="description">Price (American $)</label>
           <input type="number" class="form-control" placeholder="Enter price" required [(ngModel)]="work.price" ngControl="description" #name="ngForm">
         </div>
         <button type="submit" class="btn btn-default btn-block">Create Work</button>
       </div>
       <div class="col-md-6"></div>
       Upload art!
+      <input type = "file" (change) = "changeListener($event)">
+      <div *ngIf="display">
+          <img style="max-height:200px" class="img-responsive center-block" src="{{img.src}}">
+      </div>
     </form>
     {{message}}
   </div>

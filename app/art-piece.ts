@@ -3,14 +3,14 @@ interface stringArray {
 }
 
 export interface ArtPiece{
-  name :string;
+  name:string;
   media: string;
   price: string;
   _id: string;
   description: string;
   keywords: stringArray;
   mainFile: string;
-  files : stringArray;
+  files: stringArray;
   artist_fname: string;
   artist_lname:string;
   arist_id:string;
