@@ -24,9 +24,11 @@ function shuffle(array) {
 export class ArtistService {
   private artist: Artist;
   private work: ArtPiece;
+
   getArtists() {
     return Promise.resolve(ARTISTS);
   }
+
   getArtist(id:string){
     for (var i =0;i<ARTISTS.length;i++){
       if (ARTISTS[i]['id'] == id){
@@ -36,6 +38,7 @@ export class ArtistService {
     }
     return Promise.resolve(this.artist);
   }
+
   getOneWork(id:string){
     for (var i =0;i <ARTISTS.length;i++){
       var numWorks = parseInt(ARTISTS[i].numWorks);

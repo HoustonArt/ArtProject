@@ -87,19 +87,29 @@ export class NewWork {
     }
   }
 
+  resetWork(){
+    this.work.name = '';
+    this.work.media = '';
+    this.work.description = '';
+    this.work.price = '';
+    this.work.mainFile = '';
+  }
+
   uploadNewWork() {
-    //first we will log it to Firebase, then to S3
-    var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
-    var newRef = fileBase.child("Works").push();
-    this.work.mainFile = "https://s3.amazonaws.com/artlike/"  + newRef.key();
-    newRef.set(this.work);
-    AWS.config.update({
-      accessKeyId: this.access_id,
-      secretAccessKey: this.access_key
-    });
-    AWS.config.region = 'us-east-1';
 
     if (this.display) {
+      //first we will log it to Firebase, then to S3
+      var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+      var newRef = fileBase.child("Works").push();
+      this.work.mainFile = "https://s3.amazonaws.com/artlike/"  + newRef.key();
+      newRef.set(this.work);
+      AWS.config.update({
+        accessKeyId: this.access_id,
+        secretAccessKey: this.access_key
+      });
+      AWS.config.region = 'us-east-1';
+
+
       var params = {
         Key: newRef.key(),
         ContentType: this.file.type,
@@ -117,7 +127,8 @@ export class NewWork {
           this.message = "there was an error";
         }
         else {
-          this.message = "upload complete. refresh page to upload another file"
+          this.message = "upload complete!, Resetting form!";
+          this.resetWork();
         }
       });
     }
