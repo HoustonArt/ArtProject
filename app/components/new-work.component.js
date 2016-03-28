@@ -136,7 +136,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     core_1.Component({
                         selector: 'new-work',
                         templateUrl: './partials/new-work.html',
-                        styles: ["\n    .ng-valid[required] {\n  border-left: 5px solid #42A948;\n    }\n\n.ng-invalid {\n  border-left: 5px solid #a94442;\n}"],
+                        styles: ["\n    .ng-valid[required] {\n    border-left: 5px solid #42A948;\n      }\n\n    .ng-invalid {\n      border-left: 5px solid #a94442;\n    }"],
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router])

@@ -7,19 +7,19 @@ import {WorkUpLoad} from '../../app/work-piece';
   templateUrl: './partials/new-work.html',
   styles: [`
     .ng-valid[required] {
-  border-left: 5px solid #42A948;
-    }
+    border-left: 5px solid #42A948;
+      }
 
-.ng-invalid {
-  border-left: 5px solid #a94442;
-}`],
+    .ng-invalid {
+      border-left: 5px solid #a94442;
+    }`],
   directives: [ROUTER_DIRECTIVES, RouterLink],
 })
 
 export class NewWork {
   public router: Router;
   public user: User;
-  public work = new WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0,'','','');
+  public work = new WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0, '', '', '');
   public message = '';
   public password: string;
   firebaseUrl: string = "https://artlike.firebaseIO.com/";
@@ -77,17 +77,17 @@ export class NewWork {
     reader.readAsDataURL(this.file);
     this.display = true;
   }
-  createNewWork(){
-    if(this.numWorks < 15){
+  createNewWork() {
+    if (this.numWorks < 15) {
       this.uploadNewWork();
       this.numWorks = this.numWorks + 1;
     }
-    else{
+    else {
       this.message = "You have exceeded allowed number of works."
     }
   }
 
-  resetWork(){
+  resetWork() {
     this.work.name = '';
     this.work.media = '';
     this.work.description = '';
@@ -106,14 +106,13 @@ export class NewWork {
       //first we will log it to Firebase, then to S3
       var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
       var newRef = fileBase.child("Works").push();
-      this.work.mainFile = "https://s3.amazonaws.com/artlike/"  + newRef.key();
+      this.work.mainFile = "https://s3.amazonaws.com/artlike/" + newRef.key();
       newRef.set(this.work);
       AWS.config.update({
         accessKeyId: this.access_id,
         secretAccessKey: this.access_key
       });
       AWS.config.region = 'us-east-1';
-
 
       var params = {
         Key: newRef.key(),
@@ -123,7 +122,7 @@ export class NewWork {
       };
 
       var AWSbucket = new AWS.S3({
-        params: { Bucket: 'artlike/' + this.user.id}
+        params: { Bucket: 'artlike/' + this.user.id }
       });
 
       AWSbucket.putObject(params, (err, data) => {
