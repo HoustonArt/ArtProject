@@ -21,7 +21,11 @@
     "jquery.joyride":"^2.0.0",
     "firebase":"^2.3.2",
     "ng2-file-upload":"^0.46.0",
-    "cors":"^2.7.1"
+    "cors":"^2.7.1",
+    "gulp":"^3.9.0",
+    "gulp-typescript":"^2.8.0",
+    "del":"^2.1.0",
+    "gulp-sourcemaps":"^1.6.0"
   },
   "devDependencies": {
     "concurrently": "^1.0.0",

@@ -132,7 +132,7 @@ export class NewWork {
       AWSbucket.putObject(params, (err, data) => {
         if (err) {
           console.log(err);
-          this.message = "there was an error";
+          this.message = "there was an error" + err;
         }
         else {
           this.message = "upload complete!, Resetting form!";

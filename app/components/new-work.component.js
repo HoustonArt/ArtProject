@@ -123,7 +123,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                         AWSbucket.putObject(params, function (err, data) {
                             if (err) {
                                 console.log(err);
-                                _this.message = "there was an error";
+                                _this.message = "there was an error" + err;
                             }
                             else {
                                 _this.message = "upload complete!, Resetting form!";

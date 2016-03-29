@@ -36,33 +36,27 @@
   <!-- /.container -->
 </nav>
 
-
-
 <!-- Main App -->
 <br>
 <br>
 <br>
-<login *ngIf = "!hideModal" (loginevent)="handleLoginEvent($event)"></login>
-<router-outlet></router-outlet>
+<login *ngIf="!hideModal" (loginevent)="handleLoginEvent($event)"></login>
 
-<!-- Footer -->
-<br>
-<br>
-<br>
-<nav *ngIf="isLoggedIn" class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-  <div class="container">
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-left">
-        <li>
-          <button (click)="accountInfo()" class="btn navbar-btn">My Account</button>
-        </li>
-        <li>
-          <a [routerLink]="['/NewWork']">Add New Art</a>
-        </li>
-      </ul>
-    </div>
-    <!-- /.navbar-collapse -->
+<div class="row">
+  <div *ngIf="isLoggedIn" class="col-sm-2" [ngStyle] = "{'background-color':'lightgrey','height':'100%'}">
+    <ul class="nav navbar-nav navbar-left">
+      <li>
+        <button (click)="accountInfo()" class="btn navbar-btn">My Account</button>
+      </li>
+      <li>
+        <a [routerLink]="['/NewWork']">Add New Art</a>
+      </li>
+    </ul>
   </div>
-  <!-- /.container -->
-</nav>
+
+  <div [ngClass]="{'col-sm-10': isLoggedIn, 'col-sm-12':!isLoggedIn}">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
+<!-- Footer -->
