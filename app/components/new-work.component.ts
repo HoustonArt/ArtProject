@@ -100,6 +100,10 @@ export class NewWork {
     this.work.length = '';
   }
 
+  clearForm(){
+    this.resetWork();
+  }
+
   uploadNewWork() {
 
     if (this.display) {

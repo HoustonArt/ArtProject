@@ -95,6 +95,9 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     this.work.width = '';
                     this.work.length = '';
                 };
+                NewWork.prototype.clearForm = function () {
+                    this.resetWork();
+                };
                 NewWork.prototype.uploadNewWork = function () {
                     var _this = this;
                     if (this.display) {
