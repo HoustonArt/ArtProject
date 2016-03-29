@@ -110,7 +110,7 @@ export class NewWork {
       //first we will log it to Firebase, then to S3
       var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
       var newRef = fileBase.child("Works").push();
-      this.work.mainFile = "https://s3.amazonaws.com/artlike/" + newRef.key();
+      this.work.mainFile = "https://s3.amazonaws.com/artlike/" + this.user.id + '/' + newRef.key();
       newRef.set(this.work);
       AWS.config.update({
         accessKeyId: this.access_id,
