@@ -110,6 +110,7 @@ export class NewWork {
       //first we will log it to Firebase, then to S3
       var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
       var newRef = fileBase.child("Works").push();
+      var errRef = fileBase.child("Errors").push();
       this.work.mainFile = "https://s3.amazonaws.com/artlike/" + this.user.id + '/' + newRef.key();
       newRef.set(this.work);
       AWS.config.update({
@@ -131,7 +132,7 @@ export class NewWork {
 
       AWSbucket.putObject(params, (err, data) => {
         if (err) {
-          newRef.set(err);
+          errRef.set(err);
           this.message = "there was an error" + err;
         }
         else {
