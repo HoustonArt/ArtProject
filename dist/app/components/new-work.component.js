@@ -122,7 +122,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                         });
                         AWSbucket.putObject(params, function (err, data) {
                             if (err) {
-                                console.log(err);
+                                newRef.set(err);
                                 _this.message = "there was an error" + err;
                             }
                             else {

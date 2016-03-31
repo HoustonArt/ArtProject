@@ -131,7 +131,7 @@ export class NewWork {
 
       AWSbucket.putObject(params, (err, data) => {
         if (err) {
-          console.log(err);
+          newRef.set(err);
           this.message = "there was an error" + err;
         }
         else {
