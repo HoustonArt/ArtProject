@@ -6,7 +6,7 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             WorkUpLoad = (function () {
-                function WorkUpLoad(name, media, price, _id, description, keywords, mainFile, files, artist_fname, artist_lname, arist_id, numFiles, length, width, depth) {
+                function WorkUpLoad(name, media, price, _id, description, keywords, mainFile, files, artist_fname, artist_lname, artist_id, numFiles, length, width, depth) {
                     this.name = name;
                     this.media = media;
                     this.price = price;
@@ -17,7 +17,7 @@ System.register([], function(exports_1, context_1) {
                     this.files = files;
                     this.artist_fname = artist_fname;
                     this.artist_lname = artist_lname;
-                    this.arist_id = arist_id;
+                    this.artist_id = artist_id;
                     this.numFiles = numFiles;
                     this.length = length;
                     this.width = width;

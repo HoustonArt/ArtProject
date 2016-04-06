@@ -36,6 +36,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     this.ref = new Firebase(this.firebaseUrl);
                     this.ref.onAuth(function (authdata) {
                         _this.authDataCallback(authdata);
+                        console.log(authdata);
                     });
                     var credsBase = new Firebase(this.firebaseUrl + 'S3auth');
                     credsBase.once("value", function (data) {
@@ -54,7 +55,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                             _this.user = data.val();
                             _this.work.artist_fname = _this.user.firstName;
                             _this.work.artist_lname = _this.user.lastName;
-                            _this.work.arist_id = authData.uid;
+                            _this.work.artist_id = authData.uid;
                             _this.work.numFiles = 1;
                             //get number of works
                             _this.numWorks = data.child('Works').numChildren();

@@ -2,6 +2,8 @@ import {Component} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 import {User} from '../../app/user';
 import {WorkUpLoad} from '../../app/work-piece';
+
+
 @Component({
   selector: 'new-work',
   templateUrl: './partials/new-work.html',
@@ -39,6 +41,7 @@ export class NewWork {
     this.ref = new Firebase(this.firebaseUrl);
     this.ref.onAuth((authdata) => {
       this.authDataCallback(authdata);
+      console.log(authdata)
     });
 
     var credsBase = new Firebase(this.firebaseUrl + 'S3auth');
@@ -59,7 +62,7 @@ export class NewWork {
         this.user = data.val();
         this.work.artist_fname = this.user.firstName;
         this.work.artist_lname = this.user.lastName;
-        this.work.arist_id = authData.uid;
+        this.work.artist_id = authData.uid;
         this.work.numFiles = 1;
         //get number of works
         this.numWorks = data.child('Works').numChildren();

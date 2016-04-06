@@ -14,7 +14,7 @@ export class WorkUpLoad{
     public files : stringArray,
     public artist_fname: string,
     public artist_lname:string,
-    public arist_id:string,
+    public artist_id:string,
     public numFiles:number,
     public length: string,
     public width: string,

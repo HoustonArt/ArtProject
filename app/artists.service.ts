@@ -1,7 +1,8 @@
 import {Artist} from './artist';
 import {ArtPiece} from './art-piece';
-import {ARTISTS} from './artist-information';
+//import {ARTISTS} from './artist-information';
 import {Injectable} from 'angular2/core'
+
 function shuffle(array) {
       var currentIndex = array.length, temporaryValue, randomIndex ;
 
@@ -22,59 +23,42 @@ function shuffle(array) {
     }
 @Injectable()
 export class ArtistService {
-  private artist: Artist;
-  private work: ArtPiece;
+  public artist: Artist;
+  public work: ArtPiece;
+  public ARTISTS: Artist[] = [];
+  public WORKS = [];
+
+  //private ARTISTS: Artist[];
+  firebaseUrl: string = "https://artlike.firebaseIO.com/users/";
+
+  fromFirebase(){
+    this.WORKS = [];
+    this.ARTISTS = [];
+    var base = new Firebase(this.firebaseUrl);
+    base.once("value", (snapShot)=>{
+      snapShot.forEach((snapShotChild)=>{
+        if(snapShotChild.hasChild('Works')){
+          this.ARTISTS.push(snapShotChild.val());
+          snapShotChild.child('Works').forEach((work) => {
+            this.work = work.val();
+            this.work['_id'] = work.key();
+            this.WORKS.push(this.work);
+          });
+        }
+      });
+    });
+  }
+
 
   getArtists() {
-    return Promise.resolve(ARTISTS);
+    this.fromFirebase();
+    return Promise.resolve(this.ARTISTS);
   }
 
-  getArtist(id:string){
-    for (var i =0;i<ARTISTS.length;i++){
-      if (ARTISTS[i]['id'] == id){
-        this.artist = ARTISTS[i];
-        break
-      }
-    }
-    return Promise.resolve(this.artist);
-  }
 
-  getOneWork(id:string){
-    for (var i =0;i <ARTISTS.length;i++){
-      var numWorks = parseInt(ARTISTS[i].numWorks);
-      for (var j=0; j < numWorks ;j++){
-          if(ARTISTS[i].works[j]['_id'] == id){
-            return Promise.resolve(ARTISTS[i].works[j]);
-          }
-      }
 
-    }
-  }
-
-  getWork(aid: string, wid: string) {
-    for (var i =0;i<ARTISTS.length;i++){
-      if (ARTISTS[i]['id'] == aid){
-        this.artist = ARTISTS[i];
-        break
-      }
-    }
-    var numWorks = parseInt(this.artist.numWorks);
-    for (var j=0; j < numWorks ;j++){
-      if (this.artist.works[j]['name']== wid){
-        this.work = this.artist.works[j];
-        break
-      }
-    }
-    return Promise.resolve(this.work);
-  }
   getAllWorks(){
-    var WORKS = [];
-    for (var i=0; i<ARTISTS.length;i++){
-      for (var j=0; j < parseInt(ARTISTS[i]['numWorks']); j++){
-        WORKS.push(ARTISTS[i]['works'][j]);
-      }
-    }
-    //
-    return Promise.resolve(shuffle(WORKS));
+    this.fromFirebase();
+    return Promise.resolve(shuffle(this.WORKS));
   }
 }

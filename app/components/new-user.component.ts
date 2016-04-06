@@ -20,7 +20,8 @@ import {User} from '../../app/user';
 
 export class NewUser {
   public router: Router;
-  public user = new User('', '', '', '', '', '', '', '');
+  public user = new User('', '', '', '', '', '', '','');
+  public email: string;
   public message = '';
   public password;
   firebaseUrl: string;
@@ -36,7 +37,7 @@ export class NewUser {
   createNewUser() {
     var ref = new Firebase(this.firebaseUrl);
     ref.createUser({
-      email: this.user.email,
+      email: this.email,
       password: this.password
     }, (error, userData) => {
         if (error) {
@@ -54,7 +55,7 @@ export class NewUser {
           this.message = "Successfully created user account";
           //now login and set user data
           ref.authWithPassword({
-            email: this.user.email,
+            email: this.email,
             password: this.password
           }, (error, authData) => {
               if (error) {
@@ -63,12 +64,14 @@ export class NewUser {
                 console.log("Authenticated successfully with payload:", authData);
                 var userBase = new Firebase(this.firebaseUrl + 'users/' + authData.uid);
                 this.user.id = authData.uid;
+                this.user.profilePic ="https://s3.amazonaws.com/artlike/assets/noperson.jpg";
                 userBase.set(this.user);
               }
             });
+            ref.unauth();
+            this.router.parent.navigate(['Home']);
         }
       });
-      ref.unauth();
-      this.router.parent.navigate(['Home']);
+
   }
 }

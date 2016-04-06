@@ -35,7 +35,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/user'], function
                     var _this = this;
                     var ref = new Firebase(this.firebaseUrl);
                     ref.createUser({
-                        email: this.user.email,
+                        email: this.email,
                         password: this.password
                     }, function (error, userData) {
                         if (error) {
@@ -54,7 +54,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/user'], function
                             _this.message = "Successfully created user account";
                             //now login and set user data
                             ref.authWithPassword({
-                                email: _this.user.email,
+                                email: _this.email,
                                 password: _this.password
                             }, function (error, authData) {
                                 if (error) {
@@ -64,13 +64,14 @@ System.register(['angular2/core', 'angular2/router', '../../app/user'], function
                                     console.log("Authenticated successfully with payload:", authData);
                                     var userBase = new Firebase(_this.firebaseUrl + 'users/' + authData.uid);
                                     _this.user.id = authData.uid;
+                                    _this.user.profilePic = "https://s3.amazonaws.com/artlike/assets/noperson.jpg";
                                     userBase.set(_this.user);
                                 }
                             });
+                            ref.unauth();
+                            _this.router.parent.navigate(['Home']);
                         }
                     });
-                    ref.unauth();
-                    this.router.parent.navigate(['Home']);
                 };
                 NewUser = __decorate([
                     core_1.Component({

@@ -58,10 +58,10 @@ export class AppComponent {
 
   authLogin() {
     this.authData = this.ref.getAuth();
-    this.isLoggedIn = true
     if (this.authData != null) {
-      var userBase = new Firebase(this.firebaseUrl + 'users/' + this.authData.uid);
-      userBase.once("value", (data) => {
+        this.isLoggedIn = true;
+        var userBase = new Firebase(this.firebaseUrl + 'users/' + this.authData.uid);
+        userBase.once("value", (data) => {
         this.user = data.val();
         this.numWorks = data.child('Works').numChildren();
       });

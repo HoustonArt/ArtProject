@@ -22,17 +22,31 @@ export class WorkDetailComponent {
   public location: Location;
   public selectedFile: string;
   public selectedIndex: number;
+  firebaseUrl: string = "https://artlike.firebaseIO.com/users/";
+
 
   constructor(params:RouteParams,location:Location, public _artistService: ArtistService){
     this.location = location;
   }
 
   getWork() {
-    this._artistService.getWork(this.path1, this.path2).then(work => this.work = work);
+    var path = this.path1 + '/Works/' + this.path2;
+    var base = new Firebase(this.firebaseUrl + path);
+    base.once("value", (data) =>{
+        this.work = data.val();
+        return Promise.resolve(this.work);
+      }
+    );
+
   }
   getArtist() {
-    this._artistService.getArtist(this.path1).then(artist => this.artist = artist);
+    var path = this.firebaseUrl + this.path1;
+    var base = new Firebase(path);
+    base.once("value", (data)=>{
+      this.artist = data.val();
+    })
   }
+  
   initGal(){
     this.selectedIndex = 0;
     this.selectedFile = this.work.files[0];
@@ -57,8 +71,8 @@ export class WorkDetailComponent {
   }
   ngOnInit() {
     var path = this.location.path().split('/').slice(-1).pop()
-    this.path1 = path.split('-')[0];
-    this.path2 = path.split('-').slice(-1).pop();
+    this.path1 = path.split('@%25')[0];
+    this.path2 = path.split('@%25').slice(-1).pop();
     this.getWork();
     this.getArtist();
   }

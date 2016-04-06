@@ -12,7 +12,7 @@ export interface Artist{
    locationState: string;
    media: string;
    numWorks:string;
-   works: ArtPieceArray;
+   Works: ArtPieceArray;
    profilePic: string;
    description: string;
 }

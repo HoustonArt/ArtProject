@@ -6,7 +6,7 @@ export class User {
     public locationCity: string,
     public locationState: string,
     public description: string,
-    public email: string,
+    public profilePic: string,
     public info?: string
   ) { }
 

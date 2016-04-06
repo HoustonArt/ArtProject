@@ -70,8 +70,8 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                 AppComponent.prototype.authLogin = function () {
                     var _this = this;
                     this.authData = this.ref.getAuth();
-                    this.isLoggedIn = true;
                     if (this.authData != null) {
+                        this.isLoggedIn = true;
                         var userBase = new Firebase(this.firebaseUrl + 'users/' + this.authData.uid);
                         userBase.once("value", function (data) {
                             _this.user = data.val();

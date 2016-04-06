@@ -30,15 +30,25 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
             WorkDetailComponent = (function () {
                 function WorkDetailComponent(params, location, _artistService) {
                     this._artistService = _artistService;
+                    this.firebaseUrl = "https://artlike.firebaseIO.com/users/";
                     this.location = location;
                 }
                 WorkDetailComponent.prototype.getWork = function () {
                     var _this = this;
-                    this._artistService.getWork(this.path1, this.path2).then(function (work) { return _this.work = work; });
+                    var path = this.path1 + '/Works/' + this.path2;
+                    var base = new Firebase(this.firebaseUrl + path);
+                    base.once("value", function (data) {
+                        _this.work = data.val();
+                        return Promise.resolve(_this.work);
+                    });
                 };
                 WorkDetailComponent.prototype.getArtist = function () {
                     var _this = this;
-                    this._artistService.getArtist(this.path1).then(function (artist) { return _this.artist = artist; });
+                    var path = this.firebaseUrl + this.path1;
+                    var base = new Firebase(path);
+                    base.once("value", function (data) {
+                        _this.artist = data.val();
+                    });
                 };
                 WorkDetailComponent.prototype.initGal = function () {
                     this.selectedIndex = 0;
@@ -64,8 +74,8 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
                 };
                 WorkDetailComponent.prototype.ngOnInit = function () {
                     var path = this.location.path().split('/').slice(-1).pop();
-                    this.path1 = path.split('-')[0];
-                    this.path2 = path.split('-').slice(-1).pop();
+                    this.path1 = path.split('@%25')[0];
+                    this.path2 = path.split('@%25').slice(-1).pop();
                     this.getWork();
                     this.getArtist();
                 };

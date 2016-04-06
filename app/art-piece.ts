@@ -13,6 +13,8 @@ export interface ArtPiece{
   files: stringArray;
   artist_fname: string;
   artist_lname:string;
-  arist_id:string;
+  artist_id:string;
   numFiles:number;
+  length: string;
+  depth: string;
 }

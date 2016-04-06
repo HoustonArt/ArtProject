@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../app/artists.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, artists_service_1;
+    var core_1, router_1;
     var ArtistDetailComponent;
     return {
         setters:[
@@ -19,19 +19,26 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
             },
             function (router_1_1) {
                 router_1 = router_1_1;
-            },
-            function (artists_service_1_1) {
-                artists_service_1 = artists_service_1_1;
             }],
         execute: function() {
             ArtistDetailComponent = (function () {
-                function ArtistDetailComponent(params, location, _artistService) {
-                    this._artistService = _artistService;
+                function ArtistDetailComponent(params, location) {
+                    this.firebaseUrl = "https://artlike.firebaseIO.com/users/";
+                    this.works = [];
                     this.location = location;
                 }
                 ArtistDetailComponent.prototype.getArtist = function () {
                     var _this = this;
-                    this._artistService.getArtist(this.path).then(function (artist) { return _this.artist = artist; });
+                    var path = this.firebaseUrl + this.path;
+                    var base = new Firebase(path);
+                    base.once("value", function (data) {
+                        _this.artist = data.val();
+                        var k = 0;
+                        for (var i in _this.artist.Works) {
+                            _this.works[k] = _this.artist.Works[i];
+                            k = k + 1;
+                        }
+                    });
                 };
                 ArtistDetailComponent.prototype.ngOnInit = function () {
                     this.path = this.location.path().split('/').slice(-1).pop();
@@ -42,10 +49,10 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
                         selector: 'artist-detail',
                         templateUrl: './partials/artist.html',
                         inputs: ['artist'],
-                        providers: [artists_service_1.ArtistService],
+                        providers: [],
                         directives: [router_1.RouterLink]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, router_1.Location, artists_service_1.ArtistService])
+                    __metadata('design:paramtypes', [router_1.RouteParams, router_1.Location])
                 ], ArtistDetailComponent);
                 return ArtistDetailComponent;
             }());
