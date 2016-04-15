@@ -15,6 +15,7 @@ import {NewUser} from './new-user.component';
 import {Login} from './login.component';
 import {User} from '../../app/user';
 import {NewWork} from './new-work.component';
+import {UserPanelComponent} from './user-panel.component';
 
 @Component({
   selector: 'my-app',
@@ -34,7 +35,8 @@ import {NewWork} from './new-work.component';
   { path: '/gallery-create/', component: GalleryCreatorComponent, as: 'GalleryCreate' },
   { path: '/gallery-view/:id', component: GalleryViewerComponent, as: 'GalleryView' },
   { path: '/new-user/', component: NewUser, as: 'NewUser' },
-  { path: '/new-work/', component: NewWork, as: 'NewWork' }
+  { path: '/new-work/', component: NewWork, as: 'NewWork' },
+  { path: '/user-panel/', component: UserPanelComponent, as: 'User'}
 ])
 
 export class AppComponent {

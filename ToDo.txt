@@ -1,0 +1,5 @@
+4. Rotate the images
+7. user interface (list of works etc)
+5. contact file (interested in work, pulled from the page
+6. Gallery creator store galleries
+3. Check for duplicate files
