@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Input} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 import {ViewChild, AfterViewInit} from "angular2/core";
 import {User} from '../../app/user';
@@ -22,7 +22,9 @@ import {WorkUpLoad} from '../../app/work-piece';
 export class NewWork implements AfterViewInit{
   public router: Router;
   public user: User;
-  public work = new WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0, '', '', '');
+  
+  @Input() work = new WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0, '', '', '');
+  
   public message = '';
   public password: string;
   firebaseUrl: string = "https://artlike.firebaseIO.com/";
@@ -43,9 +45,6 @@ export class NewWork implements AfterViewInit{
   public size: number;
 
   @ViewChild("imageCanvas") imageCanvas;
-  @ViewChild("imageCanvas1") imageCanvas1;
-  @ViewChild("imageCanvas2") imageCanvas2;
-  @ViewChild("imageCanvas3") imageCanvas3;
   public canvas: any = [];
   public ctx: any = [];
   public imageHeight: number;
@@ -71,6 +70,7 @@ export class NewWork implements AfterViewInit{
       this.access_id = stuff.access_ID;
       this.bucket = stuff.bucket;
     });
+    
   }
 
 
@@ -210,11 +210,20 @@ getDataURL() {
     if (this.display) {
       if (this.file.size < 3000000){
         //first we will log it to Firebase, then to S3
-        var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
-        var newRef = fileBase.child("Works").push();
-        var errRef = fileBase.child("Errors").push();
-        this.work.mainFile = "https://s3.amazonaws.com/artlike/" + this.user.id + '/' + newRef.key();
-        newRef.set(this.work);
+        //if work already there, will have a mainFile
+        if (this.work.mainFile){
+            var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+
+        }
+        else{
+            var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+            var newRef = fileBase.child("Works").push();
+            var errRef = fileBase.child("Errors").push();
+            this.work.mainFile = "https://s3.amazonaws.com/artlike/" + this.user.id + '/' + newRef.key();
+            newRef.set(this.work);
+        }
+        
+        
         AWS.config.update({
           accessKeyId: this.access_id,
           secretAccessKey: this.access_key

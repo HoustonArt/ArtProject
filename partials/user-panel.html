@@ -1,11 +1,16 @@
-<!-- Page Content -->
-<div *ngIf ='dataRecieved' class="container">
+<div *ngIf ='user' class="container">
     Welcome {{user.firstName}}
     <br>
     You have {{numWorks}} works on ArtLike.
     <br>
-    <div *ngIf = 'noEdit' style="height:300px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of works">
+    <div *ngIf = "noEdit">
+    <div [hidden] = 'workLengthCheck()' style="height:300px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of works">
         <img (click)=  "edit($event.target)"  style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
       <h3>{{work.name}}</h3>
+    </div>
+    </div>
+    <div *ngIf = "work">
+        {{work.name}}
+        <new-work [work] = "work"></new-work>
     </div>
 </div>

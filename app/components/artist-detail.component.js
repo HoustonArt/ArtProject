@@ -47,7 +47,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 ArtistDetailComponent = __decorate([
                     core_1.Component({
                         selector: 'artist-detail',
-                        templateUrl: './partials/artiSst.html',
+                        templateUrl: './partials/artist.html',
                         inputs: ['artist'],
                         providers: [],
                         directives: [router_1.RouterLink]

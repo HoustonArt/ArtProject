@@ -5,7 +5,7 @@ import {RouteParams,Location,RouterLink} from 'angular2/router';
 
 @Component({
   selector: 'artist-detail',
-  templateUrl : './partials/artiSst.html',
+  templateUrl : './partials/artist.html',
   inputs: ['artist'],
   providers: [],
   directives: [RouterLink]

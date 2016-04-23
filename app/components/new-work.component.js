@@ -177,11 +177,17 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     if (this.display) {
                         if (this.file.size < 3000000) {
                             //first we will log it to Firebase, then to S3
-                            var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
-                            var newRef = fileBase.child("Works").push();
-                            var errRef = fileBase.child("Errors").push();
-                            this.work.mainFile = "https://s3.amazonaws.com/artlike/" + this.user.id + '/' + newRef.key();
-                            newRef.set(this.work);
+                            //if work already there, will have a mainFile
+                            if (this.work.mainFile) {
+                                var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+                            }
+                            else {
+                                var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+                                var newRef = fileBase.child("Works").push();
+                                var errRef = fileBase.child("Errors").push();
+                                this.work.mainFile = "https://s3.amazonaws.com/artlike/" + this.user.id + '/' + newRef.key();
+                                newRef.set(this.work);
+                            }
                             AWS.config.update({
                                 accessKeyId: this.access_id,
                                 secretAccessKey: this.access_key
@@ -221,21 +227,13 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     }
                 };
                 __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], NewWork.prototype, "work", void 0);
+                __decorate([
                     core_2.ViewChild("imageCanvas"), 
                     __metadata('design:type', Object)
                 ], NewWork.prototype, "imageCanvas", void 0);
-                __decorate([
-                    core_2.ViewChild("imageCanvas1"), 
-                    __metadata('design:type', Object)
-                ], NewWork.prototype, "imageCanvas1", void 0);
-                __decorate([
-                    core_2.ViewChild("imageCanvas2"), 
-                    __metadata('design:type', Object)
-                ], NewWork.prototype, "imageCanvas2", void 0);
-                __decorate([
-                    core_2.ViewChild("imageCanvas3"), 
-                    __metadata('design:type', Object)
-                ], NewWork.prototype, "imageCanvas3", void 0);
                 NewWork = __decorate([
                     core_1.Component({
                         selector: 'new-work',
