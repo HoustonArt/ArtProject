@@ -177,7 +177,6 @@ export class NewWork implements AfterViewInit{
     this.ctx.rotate(this.angle);
     this.ctx.drawImage(this.uploadImage,-this.imageWidth/2,-this.imageHeight/2, this.imageWidth, this.imageHeight);
     this.ctx.restore();
-    this.getDataURL();
   }
 
 //function to get dataurl from canvas
@@ -188,21 +187,21 @@ getDataURL() {
   if (Math.abs(this.angle) < .1 || Math.abs(this.angle - Math.PI) < .1){
     newCanvas.width = this.imageWidth;
     newCanvas.height = this.imageHeight;
+
   }//else we are sideways
   else{
+    console.log('here');
     newCanvas.width = this.imageHeight;
     newCanvas.height = this.imageWidth;
+
   }
   var newContext = newCanvas.getContext('2d');
-  //check if right side up
+  var widthDif = this.canvas.width - newCanvas.width;
+  var heightDif = this.canvas.height - newCanvas.height;
 
+  newContext.drawImage(this.canvas, widthDif/2, heightDif/2, newCanvas.width, newCanvas.height, 0, 0, newCanvas.width, newCanvas.height);
 
-  var dif = Math.max(this.size - this.imageWidth, this.size - this.imageHeight);
-  newContext.drawImage(this.canvas, 0, 0, newCanvas.width, newCanvas.height, 0, 0, newCanvas.width, newCanvas.height);
-
-
-  this.img.src = newCanvas.toDataURL(this.file.type);
-  //this.img.src = this.canvas.toDataURL(this.file.type);
+  return newCanvas.toDataURL(this.file.type);
 }
 
 
@@ -222,7 +221,8 @@ getDataURL() {
         });
         AWS.config.region = 'us-east-1';
         //create new file since they are immutable
-        var uploadFile = this.dataURItoBlob(this.canvas.toDataURL(this.file.type));
+        this.getDataURL();
+        var uploadFile = this.dataURItoBlob(this.getDataURL());
         var params = {
           Key: newRef.key(),
           ContentType: uploadFile.type,

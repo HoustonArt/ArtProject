@@ -3,7 +3,7 @@ import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 import {User} from '../../app/user';
 import {Artist} from '../../app/artist';
 import {ArtPiece} from '../../app/art-piece';
-
+import {ArtistDetailComponent} from './artist-detail.component';
 
 @Component({
   selector: 'user-panel',
@@ -22,19 +22,22 @@ import {ArtPiece} from '../../app/art-piece';
 
 export class UserPanelComponent {
   public type: string;
-  public works: ArtPiece[] = [];
+  public works: ArtPiece[];
   public base: any;
   firebaseUrl: string = "https://artlike.firebaseIO.com/";
   public isLoggedIn: boolean = false;
   public userPath: string;
   public user: User;
+  public artist: Artist;
+  public numWorks: number;
+  public noEdit: boolean = true;
+  public dataRecieved: boolean = false;
 
   constructor() {
     this.base = new Firebase(this.firebaseUrl);
     this.base.onAuth((authdata) => {
       this.authDataCallback(authdata);
     });
-    this.getArtist();
   }
 
   authDataCallback(authData) {
@@ -43,21 +46,28 @@ export class UserPanelComponent {
       this.userPath = 'users/' + authData.uid;
       this.base.child(this.userPath).once("value", (data) => {
         this.user = data.val();
-        console.log(this.user)
       });
     } else {
       this.isLoggedIn = false;
     }
   }
 
-  getArtist() {
+   ngOnInit() {
     this.base.child(this.userPath).once("value", (data) => {
       this.artist = data.val();
-      var k = 0;
+      this.numWorks = 0;
+      this.works = []
       for (var i in this.artist.Works) {
-        this.works[k] = this.artist.Works[i];
-        k = k + 1;
+        this.works[this.numWorks] = this.artist.Works[i];
+        this.numWorks = this.numWorks + 1;
       }
+      this.dataRecieved = true;
     })
+  }
+  // Function to set up editing template
+  edit(picture){
+    var pic_id = picture['src'].split('/').pop(-1);
+    console.log(pic_id);
+
   }
 }

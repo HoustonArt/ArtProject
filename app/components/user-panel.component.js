@@ -24,14 +24,14 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
             UserPanelComponent = (function () {
                 function UserPanelComponent() {
                     var _this = this;
-                    this.works = [];
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
                     this.isLoggedIn = false;
+                    this.noEdit = true;
+                    this.dataRecieved = false;
                     this.base = new Firebase(this.firebaseUrl);
                     this.base.onAuth(function (authdata) {
                         _this.authDataCallback(authdata);
                     });
-                    this.getArtist();
                 }
                 UserPanelComponent.prototype.authDataCallback = function (authData) {
                     var _this = this;
@@ -40,23 +40,29 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                         this.userPath = 'users/' + authData.uid;
                         this.base.child(this.userPath).once("value", function (data) {
                             _this.user = data.val();
-                            console.log(_this.user);
                         });
                     }
                     else {
                         this.isLoggedIn = false;
                     }
                 };
-                UserPanelComponent.prototype.getArtist = function () {
+                UserPanelComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this.base.child(this.userPath).once("value", function (data) {
                         _this.artist = data.val();
-                        var k = 0;
+                        _this.numWorks = 0;
+                        _this.works = [];
                         for (var i in _this.artist.Works) {
-                            _this.works[k] = _this.artist.Works[i];
-                            k = k + 1;
+                            _this.works[_this.numWorks] = _this.artist.Works[i];
+                            _this.numWorks = _this.numWorks + 1;
                         }
+                        _this.dataRecieved = true;
                     });
+                };
+                // Function to set up editing template
+                UserPanelComponent.prototype.edit = function (picture) {
+                    var pic_id = picture['src'].split('/').pop(-1);
+                    console.log(pic_id);
                 };
                 UserPanelComponent = __decorate([
                     core_1.Component({

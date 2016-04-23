@@ -151,7 +151,6 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     this.ctx.rotate(this.angle);
                     this.ctx.drawImage(this.uploadImage, -this.imageWidth / 2, -this.imageHeight / 2, this.imageWidth, this.imageHeight);
                     this.ctx.restore();
-                    this.getDataURL();
                 };
                 //function to get dataurl from canvas
                 //Note that the dimension which is not dominant will be in the center
@@ -163,15 +162,15 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                         newCanvas.height = this.imageHeight;
                     } //else we are sideways
                     else {
+                        console.log('here');
                         newCanvas.width = this.imageHeight;
                         newCanvas.height = this.imageWidth;
                     }
                     var newContext = newCanvas.getContext('2d');
-                    //check if right side up
-                    var dif = Math.max(this.size - this.imageWidth, this.size - this.imageHeight);
-                    newContext.drawImage(this.canvas, 0, 0, newCanvas.width, newCanvas.height, 0, 0, newCanvas.width, newCanvas.height);
-                    this.img.src = newCanvas.toDataURL(this.file.type);
-                    //this.img.src = this.canvas.toDataURL(this.file.type);
+                    var widthDif = this.canvas.width - newCanvas.width;
+                    var heightDif = this.canvas.height - newCanvas.height;
+                    newContext.drawImage(this.canvas, widthDif / 2, heightDif / 2, newCanvas.width, newCanvas.height, 0, 0, newCanvas.width, newCanvas.height);
+                    return newCanvas.toDataURL(this.file.type);
                 };
                 NewWork.prototype.uploadNewWork = function () {
                     var _this = this;
@@ -189,7 +188,8 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                             });
                             AWS.config.region = 'us-east-1';
                             //create new file since they are immutable
-                            var uploadFile = this.dataURItoBlob(this.canvas.toDataURL(this.file.type));
+                            this.getDataURL();
+                            var uploadFile = this.dataURItoBlob(this.getDataURL());
                             var params = {
                                 Key: newRef.key(),
                                 ContentType: uploadFile.type,
