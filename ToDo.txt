@@ -6,3 +6,5 @@
 6. Package AWS upload as service
 7. Package firebase as service (especially getting artists and works)
 
+* Maybe don't have users re-visit pieces they already rated if logged in?
+
