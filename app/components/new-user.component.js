@@ -27,10 +27,30 @@ System.register(['angular2/core', 'angular2/router', '../../app/user'], function
             NewUser = (function () {
                 function NewUser(router) {
                     this.user = new user_1.User('', '', '', '', '', '', '', '');
+                    this._newUser = true;
+                    this.doneEvent = new core_1.EventEmitter();
                     this.message = '';
                     this.router = router;
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
                 }
+                NewUser.prototype.updateUser = function () {
+                    var _this = this;
+                    if (this._newUser == true) {
+                        this.createNewUser();
+                    }
+                    else {
+                        var ref = new Firebase(this.firebaseUrl);
+                        ref.onAuth(function (authData) {
+                            if (authData) {
+                                ref.child('users/' + authData.uid).set(_this.user);
+                                _this.doneEvent.next();
+                            }
+                            else {
+                                _this.message = "authorization error";
+                            }
+                        });
+                    }
+                };
                 NewUser.prototype.createNewUser = function () {
                     var _this = this;
                     var ref = new Firebase(this.firebaseUrl);
@@ -73,6 +93,18 @@ System.register(['angular2/core', 'angular2/router', '../../app/user'], function
                         }
                     });
                 };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', user_1.User)
+                ], NewUser.prototype, "user", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Boolean)
+                ], NewUser.prototype, "_newUser", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], NewUser.prototype, "doneEvent", void 0);
                 NewUser = __decorate([
                     core_1.Component({
                         selector: 'new-user',

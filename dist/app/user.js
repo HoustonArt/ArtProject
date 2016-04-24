@@ -6,14 +6,14 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             User = (function () {
-                function User(id, firstName, lastName, locationCity, locationState, description, email, info) {
+                function User(id, firstName, lastName, locationCity, locationState, description, profilePic, info) {
                     this.id = id;
                     this.firstName = firstName;
                     this.lastName = lastName;
                     this.locationCity = locationCity;
                     this.locationState = locationState;
                     this.description = description;
-                    this.email = email;
+                    this.profilePic = profilePic;
                     this.info = info;
                 }
                 return User;

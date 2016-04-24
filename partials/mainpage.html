@@ -43,10 +43,10 @@
 <login *ngIf="!hideModal" (loginevent)="handleLoginEvent($event)"></login>
 
 <div class="row">
-  <div *ngIf="isLoggedIn" class="col-sm-2" [ngStyle] = "{'background-color':'lightgrey','height':'100%'}">
+  <div *ngIf="isLoggedIn" class="col-sm-2" [ngStyle]="{'background-color':'lightgrey','height':'100%'}">
     <ul class="nav navbar-nav navbar-left">
       <li>
-        <button (click)="accountInfo()" class="btn navbar-btn">My Account</button>
+          <a [routerLink]="['/User']">My Profile</a>
       </li>
       <li>
         <a [routerLink]="['/NewWork']">Add New Art</a>
@@ -59,4 +59,8 @@
   </div>
 
 </div>
-<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <a href="http://ourdisclaimer.com/?i=ArtLike">Disclaimer</a>
+  </div>
+</footer>

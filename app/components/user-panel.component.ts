@@ -6,6 +6,7 @@ import {ArtPiece} from '../../app/art-piece';
 import {ArtistDetailComponent} from './artist-detail.component';
 import {WorkUpLoad} from '../../app/work-piece';
 import {NewWork} from './new-work.component';
+import {NewUser} from './new-user.component';
 
 @Component({
   selector: 'user-panel',
@@ -19,7 +20,7 @@ import {NewWork} from './new-work.component';
       border-left: 5px solid #a94442;
     }
       `],
-  directives: [ROUTER_DIRECTIVES, RouterLink, NewWork],
+  directives: [ROUTER_DIRECTIVES, RouterLink, NewWork, NewUser],
 })
 
 export class UserPanelComponent {
@@ -34,6 +35,7 @@ export class UserPanelComponent {
   public numWorks: number;
   public noEdit: boolean = true;
   public work: WorkUpLoad;
+  public editUser: boolean = false;
 
   constructor() {
     this.base = new Firebase(this.firebaseUrl);
@@ -53,7 +55,7 @@ export class UserPanelComponent {
       this.isLoggedIn = false;
     }
   }
-  
+
   //get the artist information and build array of works from
   //the firebase
   getArtist(){
@@ -71,7 +73,7 @@ export class UserPanelComponent {
    ngOnInit() {
        this.getArtist();
    }
-   
+
    //check if the work array is built yet so we don't
    //try to render things which are not yet here
    //it will hide the works if this function returns true
@@ -85,6 +87,20 @@ export class UserPanelComponent {
     this.noEdit = false;
     this.base.child(this.userPath).child('Works').child(pic_id).once("value", (data) =>{
         this.work = data.val();
+        this.work._id = pic_id;
     });
+  }
+
+// Function to set up profile editing
+editProfile(pic){
+  this.noEdit = false;
+  this.editUser = true;
+}
+
+  //handle when image is submitted
+  handleDoneEvent(evt){
+    this.noEdit = true;
+    this.work = null;
+    this.editUser = false;
   }
 }

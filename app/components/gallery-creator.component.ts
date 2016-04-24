@@ -66,7 +66,7 @@ export class GalleryCreatorComponent {
   }
 
 
-  //create link to page.  Fill spaces with %characters.  Separate fields with @
+  //create link to page by adding firebase url 
   createPage(){
     var url = this.model.stringify();
     url = url + "@" + this.containHeight + "@" + this.picHeight;

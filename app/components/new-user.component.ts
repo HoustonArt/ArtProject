@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 import {User} from '../../app/user';
 
@@ -20,7 +20,9 @@ import {User} from '../../app/user';
 
 export class NewUser {
   public router: Router;
-  public user = new User('', '', '', '', '', '', '','');
+  @Input() user: User = new User('', '', '', '', '', '', '','');
+  @Input() _newUser: boolean = true;
+  @Output() doneEvent: EventEmitter<any> = new EventEmitter();
   public email: string;
   public message = '';
   public password;
@@ -32,6 +34,23 @@ export class NewUser {
     this.firebaseUrl = "https://artlike.firebaseIO.com/";
   }
 
+updateUser(){
+  if (this._newUser == true){
+    this.createNewUser();
+  }
+  else{
+    var ref = new Firebase(this.firebaseUrl);
+    ref.onAuth((authData) => {
+      if(authData){
+        ref.child('users/' + authData.uid).set(this.user);
+        this.doneEvent.next();
+      }
+      else{
+        this.message = "authorization error";
+      }
+    });
+  }
+}
 
 
   createNewUser() {

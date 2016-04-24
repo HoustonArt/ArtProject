@@ -63,7 +63,7 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                     this.getWorks();
                     this.getArtists();
                 };
-                //create link to page.  Fill spaces with %characters.  Separate fields with @
+                //create link to page by adding firebase url 
                 GalleryCreatorComponent.prototype.createPage = function () {
                     var url = this.model.stringify();
                     url = url + "@" + this.containHeight + "@" + this.picHeight;

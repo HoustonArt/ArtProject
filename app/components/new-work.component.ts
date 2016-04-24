@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 import {ViewChild, AfterViewInit} from "angular2/core";
 import {User} from '../../app/user';
@@ -21,10 +21,10 @@ import {WorkUpLoad} from '../../app/work-piece';
 
 export class NewWork implements AfterViewInit{
   public router: Router;
-  public user: User;
-  
+  @Input() user: User;
   @Input() work = new WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0, '', '', '');
-  
+  @Input() _newWork: boolean = true;
+  @Output() doneEvent: EventEmitter<any> = new EventEmitter();
   public message = '';
   public password: string;
   firebaseUrl: string = "https://artlike.firebaseIO.com/";
@@ -50,6 +50,7 @@ export class NewWork implements AfterViewInit{
   public imageHeight: number;
   public imageWidth: number;
   public angle: number = 0;
+  public oldWork: boolean = false;
 
   ngAfterViewInit(){
     this.canvas = this.imageCanvas.nativeElement;
@@ -70,9 +71,24 @@ export class NewWork implements AfterViewInit{
       this.access_id = stuff.access_ID;
       this.bucket = stuff.bucket;
     });
-    
   }
 
+  ngOnInit(){
+    if (!this._newWork){
+      this.oldWork = true;
+      this.file = this.work.mainFile;
+      this.img.src = this.work.mainFile;
+      //so we can edit this bad boy
+      this.uploadImage.crossOrigin = 'anonymous'
+      this.uploadImage.src = this.work.mainFile + '?crossorigin';
+
+      this.displayFile();
+    }
+  }
+
+getImageFromS3(data){
+    console.log('sup br')
+}
 
   authDataCallback(authData) {
     if (authData) {
@@ -100,6 +116,10 @@ export class NewWork implements AfterViewInit{
       this.uploadImage.src = this.img.src;
     }
     reader.readAsDataURL(this.file);
+    this.displayFile();
+  }
+
+  displayFile(){
     this.display = true;
     this.uploadImage.onload = () =>{
       this.imageWidth = this.uploadImage.width;
@@ -190,7 +210,6 @@ getDataURL() {
 
   }//else we are sideways
   else{
-    console.log('here');
     newCanvas.width = this.imageHeight;
     newCanvas.height = this.imageWidth;
 
@@ -201,19 +220,29 @@ getDataURL() {
 
   newContext.drawImage(this.canvas, widthDif/2, heightDif/2, newCanvas.width, newCanvas.height, 0, 0, newCanvas.width, newCanvas.height);
 
-  return newCanvas.toDataURL(this.file.type);
+  return newCanvas.toDataURL();
 }
 
 
 
   uploadNewWork() {
     if (this.display) {
-      if (this.file.size < 3000000){
+      if (this.file.size < 3000000 || this.work.mainFile != ''){
+        for (var i =0; i < 4; i++){
+          this.rotate();
+        }
         //first we will log it to Firebase, then to S3
         //if work already there, will have a mainFile
-        if (this.work.mainFile){
+        if (!this._newWork){
             var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
-
+            fileBase.child('Works').child(this.work._id).set(this.work);
+            var uploadFile = this.dataURItoBlob(this.getDataURL());
+            var params = {
+              Key: this.work._id,
+              ContentType: uploadFile.type,
+              Body: uploadFile,
+              ServerSideEncryption: 'AES256'
+            };
         }
         else{
             var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
@@ -221,23 +250,22 @@ getDataURL() {
             var errRef = fileBase.child("Errors").push();
             this.work.mainFile = "https://s3.amazonaws.com/artlike/" + this.user.id + '/' + newRef.key();
             newRef.set(this.work);
+            var uploadFile = this.dataURItoBlob(this.getDataURL());
+            var params = {
+              Key: newRef.key(),
+              ContentType: uploadFile.type,
+              Body: uploadFile,
+              ServerSideEncryption: 'AES256'
+            };
         }
-        
-        
+
+
         AWS.config.update({
           accessKeyId: this.access_id,
           secretAccessKey: this.access_key
         });
         AWS.config.region = 'us-east-1';
         //create new file since they are immutable
-        this.getDataURL();
-        var uploadFile = this.dataURItoBlob(this.getDataURL());
-        var params = {
-          Key: newRef.key(),
-          ContentType: uploadFile.type,
-          Body: uploadFile,
-          ServerSideEncryption: 'AES256'
-        };
 
         var AWSbucket = new AWS.S3({
           params: { Bucket: 'artlike/' + this.user.id }
@@ -250,7 +278,13 @@ getDataURL() {
           }
           else {
             this.message = "upload complete!, Resetting form!";
+            //kluge fix this
+            if (!this._newWork){
+              this.doneEvent.next();
+            }
+            else{
             this.router.parent.navigate(['/User']);
+          }
           }
         }).on('httpUploadProgress', (progress)=>{
           this.progressNum = Math.round(progress.loaded/progress.total*100);

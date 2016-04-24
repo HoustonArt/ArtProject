@@ -26,8 +26,22 @@ System.register(['angular2/core', '../../app/artists.service', 'angular2/router'
         execute: function() {
             ArtSearchComponent = (function () {
                 function ArtSearchComponent(_artistService) {
+                    var _this = this;
                     this._artistService = _artistService;
+                    this.ref = new Firebase("https://artlike.firebaseIO.com/");
+                    this.ref.onAuth(function (authdata) {
+                        _this.authDataCallback(authdata);
+                    });
                 }
+                ArtSearchComponent.prototype.authDataCallback = function (authData) {
+                    if (authData) {
+                        this.isLoggedIn = true;
+                        this.user = authData.uid;
+                    }
+                    else {
+                        this.isLoggedIn = false;
+                    }
+                };
                 ArtSearchComponent.prototype.getWorks = function () {
                     var _this = this;
                     this._artistService.getAllWorks().then(function (works) { return _this.works = works; });
@@ -36,10 +50,40 @@ System.register(['angular2/core', '../../app/artists.service', 'angular2/router'
                     this.getWorks();
                     this.notStarted = true;
                 };
+                //create firebase database to hold stuff
+                // if no user authentication, store as anonymous
                 ArtSearchComponent.prototype.initGal = function () {
                     this.notStarted = false;
                     this.selectedIndex = 0;
                     this.selectedFile = this.works[0].mainFile;
+                    this.newRef = this.ref.child('artSearch').push();
+                    if (this.isLoggedIn) {
+                        this.newRef.set({ "user": this.user });
+                    }
+                    else {
+                        this.newRef.set({ "user": "anonymous" });
+                    }
+                };
+                ArtSearchComponent.prototype.hate = function () {
+                    this.pushAnswer(0, this.works[this.selectedIndex]);
+                    this.next();
+                };
+                ArtSearchComponent.prototype.meh = function () {
+                    this.pushAnswer(1, this.works[this.selectedIndex]);
+                    this.next();
+                };
+                ArtSearchComponent.prototype.okay = function () {
+                    this.pushAnswer(2, this.works[this.selectedIndex]);
+                    this.next();
+                };
+                ArtSearchComponent.prototype.love = function () {
+                    this.pushAnswer(3, this.works[this.selectedIndex]);
+                    this.next();
+                };
+                ArtSearchComponent.prototype.pushAnswer = function (val, work) {
+                    this.newRef.push({ "workID": work._id,
+                        "rating": val.toString(),
+                        "artist": work.artist_id });
                 };
                 ArtSearchComponent.prototype.next = function () {
                     if (this.selectedIndex < 10) {

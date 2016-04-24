@@ -9,7 +9,7 @@
   <div *ngIf="isLoggedIn" class="row">
     <div class="col-md-6">
       <form (ngSubmit)="createNewWork()">
-        <input type="file" (change)="changeListener($event)"/>
+        <input *ngIf ='!oldWork' type="file" (change)="changeListener($event)"/>
         <br>
         <div [hidden]='!showProgress' class="progress">
           <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{progressNum}}%;">

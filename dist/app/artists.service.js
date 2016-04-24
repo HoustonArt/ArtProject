@@ -1,4 +1,4 @@
-System.register(['./artist-information', 'angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['./artist-information', 'angular2/core'], function(exports_1, c
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var artist_information_1, core_1;
+    var core_1;
     var ArtistService;
     function shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
@@ -28,63 +28,42 @@ System.register(['./artist-information', 'angular2/core'], function(exports_1, c
     }
     return {
         setters:[
-            function (artist_information_1_1) {
-                artist_information_1 = artist_information_1_1;
-            },
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
             ArtistService = (function () {
                 function ArtistService() {
+                    this.ARTISTS = [];
+                    this.WORKS = [];
+                    //private ARTISTS: Artist[];
+                    this.firebaseUrl = "https://artlike.firebaseIO.com/users/";
                 }
-                ArtistService.prototype.getArtists = function () {
-                    return Promise.resolve(artist_information_1.ARTISTS);
-                };
-                ArtistService.prototype.getArtist = function (id) {
-                    for (var i = 0; i < artist_information_1.ARTISTS.length; i++) {
-                        if (artist_information_1.ARTISTS[i]['id'] == id) {
-                            this.artist = artist_information_1.ARTISTS[i];
-                            break;
-                        }
-                    }
-                    return Promise.resolve(this.artist);
-                };
-                ArtistService.prototype.getOneWork = function (id) {
-                    for (var i = 0; i < artist_information_1.ARTISTS.length; i++) {
-                        var numWorks = parseInt(artist_information_1.ARTISTS[i].numWorks);
-                        for (var j = 0; j < numWorks; j++) {
-                            if (artist_information_1.ARTISTS[i].works[j]['_id'] == id) {
-                                return Promise.resolve(artist_information_1.ARTISTS[i].works[j]);
+                ArtistService.prototype.fromFirebase = function () {
+                    var _this = this;
+                    this.WORKS = [];
+                    this.ARTISTS = [];
+                    var base = new Firebase(this.firebaseUrl);
+                    base.once("value", function (snapShot) {
+                        snapShot.forEach(function (snapShotChild) {
+                            if (snapShotChild.hasChild('Works')) {
+                                _this.ARTISTS.push(snapShotChild.val());
+                                snapShotChild.child('Works').forEach(function (work) {
+                                    _this.work = work.val();
+                                    _this.work['_id'] = work.key();
+                                    _this.WORKS.push(_this.work);
+                                });
                             }
-                        }
-                    }
+                        });
+                    });
                 };
-                ArtistService.prototype.getWork = function (aid, wid) {
-                    for (var i = 0; i < artist_information_1.ARTISTS.length; i++) {
-                        if (artist_information_1.ARTISTS[i]['id'] == aid) {
-                            this.artist = artist_information_1.ARTISTS[i];
-                            break;
-                        }
-                    }
-                    var numWorks = parseInt(this.artist.numWorks);
-                    for (var j = 0; j < numWorks; j++) {
-                        if (this.artist.works[j]['name'] == wid) {
-                            this.work = this.artist.works[j];
-                            break;
-                        }
-                    }
-                    return Promise.resolve(this.work);
+                ArtistService.prototype.getArtists = function () {
+                    this.fromFirebase();
+                    return Promise.resolve(this.ARTISTS);
                 };
                 ArtistService.prototype.getAllWorks = function () {
-                    var WORKS = [];
-                    for (var i = 0; i < artist_information_1.ARTISTS.length; i++) {
-                        for (var j = 0; j < parseInt(artist_information_1.ARTISTS[i]['numWorks']); j++) {
-                            WORKS.push(artist_information_1.ARTISTS[i]['works'][j]);
-                        }
-                    }
-                    //
-                    return Promise.resolve(shuffle(WORKS));
+                    this.fromFirebase();
+                    return Promise.resolve(shuffle(this.WORKS));
                 };
                 ArtistService = __decorate([
                     core_1.Injectable(), 

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../../app/user', '../../app/work-piece'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, core_2, work_piece_1;
+    var core_1, router_1, core_2, user_1, work_piece_1;
     var NewWork;
     return {
         setters:[
@@ -21,6 +21,9 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
             function (router_1_1) {
                 router_1 = router_1_1;
             },
+            function (user_1_1) {
+                user_1 = user_1_1;
+            },
             function (work_piece_1_1) {
                 work_piece_1 = work_piece_1_1;
             }],
@@ -29,6 +32,8 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                 function NewWork(router) {
                     var _this = this;
                     this.work = new work_piece_1.WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0, '', '', '');
+                    this._newWork = true;
+                    this.doneEvent = new core_1.EventEmitter();
                     this.message = '';
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
                     this.display = false;
@@ -38,6 +43,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     this.canvas = [];
                     this.ctx = [];
                     this.angle = 0;
+                    this.oldWork = false;
                     this.router = router;
                     this.ref = new Firebase(this.firebaseUrl);
                     this.ref.onAuth(function (authdata) {
@@ -54,6 +60,20 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                 NewWork.prototype.ngAfterViewInit = function () {
                     this.canvas = this.imageCanvas.nativeElement;
                     this.ctx = this.canvas.getContext("2d");
+                };
+                NewWork.prototype.ngOnInit = function () {
+                    if (!this._newWork) {
+                        this.oldWork = true;
+                        this.file = this.work.mainFile;
+                        this.img.src = this.work.mainFile;
+                        //so we can edit this bad boy
+                        this.uploadImage.crossOrigin = 'anonymous';
+                        this.uploadImage.src = this.work.mainFile + '?crossorigin';
+                        this.displayFile();
+                    }
+                };
+                NewWork.prototype.getImageFromS3 = function (data) {
+                    console.log('sup br');
                 };
                 NewWork.prototype.authDataCallback = function (authData) {
                     var _this = this;
@@ -83,6 +103,10 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                         _this.uploadImage.src = _this.img.src;
                     };
                     reader.readAsDataURL(this.file);
+                    this.displayFile();
+                };
+                NewWork.prototype.displayFile = function () {
+                    var _this = this;
                     this.display = true;
                     this.uploadImage.onload = function () {
                         _this.imageWidth = _this.uploadImage.width;
@@ -162,7 +186,6 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                         newCanvas.height = this.imageHeight;
                     } //else we are sideways
                     else {
-                        console.log('here');
                         newCanvas.width = this.imageHeight;
                         newCanvas.height = this.imageWidth;
                     }
@@ -170,16 +193,27 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                     var widthDif = this.canvas.width - newCanvas.width;
                     var heightDif = this.canvas.height - newCanvas.height;
                     newContext.drawImage(this.canvas, widthDif / 2, heightDif / 2, newCanvas.width, newCanvas.height, 0, 0, newCanvas.width, newCanvas.height);
-                    return newCanvas.toDataURL(this.file.type);
+                    return newCanvas.toDataURL();
                 };
                 NewWork.prototype.uploadNewWork = function () {
                     var _this = this;
                     if (this.display) {
-                        if (this.file.size < 3000000) {
+                        if (this.file.size < 3000000 || this.work.mainFile != '') {
+                            for (var i = 0; i < 4; i++) {
+                                this.rotate();
+                            }
                             //first we will log it to Firebase, then to S3
                             //if work already there, will have a mainFile
-                            if (this.work.mainFile) {
+                            if (!this._newWork) {
                                 var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+                                fileBase.child('Works').child(this.work._id).set(this.work);
+                                var uploadFile = this.dataURItoBlob(this.getDataURL());
+                                var params = {
+                                    Key: this.work._id,
+                                    ContentType: uploadFile.type,
+                                    Body: uploadFile,
+                                    ServerSideEncryption: 'AES256'
+                                };
                             }
                             else {
                                 var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
@@ -187,6 +221,13 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                                 var errRef = fileBase.child("Errors").push();
                                 this.work.mainFile = "https://s3.amazonaws.com/artlike/" + this.user.id + '/' + newRef.key();
                                 newRef.set(this.work);
+                                var uploadFile = this.dataURItoBlob(this.getDataURL());
+                                var params = {
+                                    Key: newRef.key(),
+                                    ContentType: uploadFile.type,
+                                    Body: uploadFile,
+                                    ServerSideEncryption: 'AES256'
+                                };
                             }
                             AWS.config.update({
                                 accessKeyId: this.access_id,
@@ -194,14 +235,6 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                             });
                             AWS.config.region = 'us-east-1';
                             //create new file since they are immutable
-                            this.getDataURL();
-                            var uploadFile = this.dataURItoBlob(this.getDataURL());
-                            var params = {
-                                Key: newRef.key(),
-                                ContentType: uploadFile.type,
-                                Body: uploadFile,
-                                ServerSideEncryption: 'AES256'
-                            };
                             var AWSbucket = new AWS.S3({
                                 params: { Bucket: 'artlike/' + this.user.id }
                             });
@@ -212,7 +245,13 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                                 }
                                 else {
                                     _this.message = "upload complete!, Resetting form!";
-                                    _this.router.parent.navigate(['/User']);
+                                    //kluge fix this
+                                    if (!_this._newWork) {
+                                        _this.doneEvent.next();
+                                    }
+                                    else {
+                                        _this.router.parent.navigate(['/User']);
+                                    }
                                 }
                             }).on('httpUploadProgress', function (progress) {
                                 _this.progressNum = Math.round(progress.loaded / progress.total * 100);
@@ -228,8 +267,20 @@ System.register(['angular2/core', 'angular2/router', '../../app/work-piece'], fu
                 };
                 __decorate([
                     core_1.Input(), 
+                    __metadata('design:type', user_1.User)
+                ], NewWork.prototype, "user", void 0);
+                __decorate([
+                    core_1.Input(), 
                     __metadata('design:type', Object)
                 ], NewWork.prototype, "work", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Boolean)
+                ], NewWork.prototype, "_newWork", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], NewWork.prototype, "doneEvent", void 0);
                 __decorate([
                     core_2.ViewChild("imageCanvas"), 
                     __metadata('design:type', Object)
