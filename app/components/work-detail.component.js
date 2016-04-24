@@ -33,9 +33,9 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
                     this.firebaseUrl = "https://artlike.firebaseIO.com/users/";
                     this.location = location;
                 }
-                WorkDetailComponent.prototype.getWork = function () {
+                WorkDetailComponent.prototype.getWork = function (path1, path2) {
                     var _this = this;
-                    var path = this.path1 + '/Works/' + this.path2;
+                    var path = path1 + '/Works/' + path2;
                     var base = new Firebase(this.firebaseUrl + path);
                     base.once("value", function (data) {
                         _this.work = data.val();
@@ -73,11 +73,10 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
                 };
                 WorkDetailComponent.prototype.ngOnInit = function () {
                     var path = this.location.path().split('/').slice(-1).pop();
-                    this.path1 = path.split('@%25')[0];
-                    this.path2 = path.split('@%25').slice(-1).pop();
-                    this.getWork();
+                    this.path1 = path.split('@%')[0];
+                    this.path2 = path.split('@%').slice(-1).pop();
+                    this.getWork(this.path1, this.path2);
                     this.getArtist();
-                    console.log(this.work);
                 };
                 WorkDetailComponent = __decorate([
                     core_1.Component({

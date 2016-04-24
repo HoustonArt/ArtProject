@@ -29,14 +29,13 @@ export class WorkDetailComponent {
     this.location = location;
   }
 
-  getWork() {
-    var path = this.path1 + '/Works/' + this.path2;
+  getWork(path1, path2) {
+    var path = path1 + '/Works/' + path2;
     var base = new Firebase(this.firebaseUrl + path);
     base.once("value", (data) =>{
         this.work = data.val();
       }
     );
-
   }
   getArtist() {
     var path = this.firebaseUrl + this.path1;
@@ -70,10 +69,9 @@ export class WorkDetailComponent {
   }
   ngOnInit() {
     var path = this.location.path().split('/').slice(-1).pop()
-    this.path1 = path.split('@%25')[0];
-    this.path2 = path.split('@%25').slice(-1).pop();
-    this.getWork();
+    this.path1 = path.split('@%')[0];
+    this.path2 = path.split('@%').slice(-1).pop();
+    this.getWork(this.path1, this.path2);
     this.getArtist();
-    console.log(this.work);
   }
 }
