@@ -88,6 +88,7 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                 AppComponent.prototype.logOut = function () {
                     this.ref.unauth();
                     this.isLoggedIn = false;
+                    this.user = null;
                 };
                 AppComponent.prototype.accountInfo = function () {
                     var outstr = '';

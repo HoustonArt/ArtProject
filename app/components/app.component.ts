@@ -76,6 +76,7 @@ export class AppComponent {
   logOut() {
     this.ref.unauth();
     this.isLoggedIn = false;
+    this.user = null;
   }
 
   accountInfo(){

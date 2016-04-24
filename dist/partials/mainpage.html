@@ -8,12 +8,22 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-    <div class="navbar-header">
+
       <a [routerLink]="['/Home']" class="navbar-brand">
         <span class="glyphicon glyphicon-edit"></span>ArtLike</a>
           <button *ngIf="!isLoggedIn" class="btn btn-success navbar-btn" (click)="createLogin()">Login</button>
-          <button *ngIf="isLoggedIn" (click)="logOut()" class="btn btn-danger navbar-btn">Logout</button>
-      </div>
+            <div *ngIf ="user" class="navbar-brand"><img style="max-height:30px" class="img-circle img-responsive" src="{{user.profilePic}}"></div>
+            <a class="navbar-brand dropdown-toggle" *ngIf="user" data-toggle="dropdown">{{user.firstName}}
+        <span class="caret"></span></a>
+            <ul *ngIf="isLoggedIn" class="dropdown-menu">
+              <li>
+                  <a [routerLink]="['/User']">My Profile</a>
+              </li>
+              <li>
+                <a [routerLink]="['/NewWork']">Add New Art</a>
+              </li>
+              <li><button  (click)="logOut()" class="btn btn-danger navbar-btn">Logout</button></li>
+            </ul>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
@@ -46,25 +56,13 @@
 <br>
 <login *ngIf="!hideModal" (loginevent)="handleLoginEvent($event)"></login>
 
-<div class="row">
-  <div *ngIf="isLoggedIn" class="col-sm-2" [ngStyle]="{'background-color':'lightgrey','height':'100%'}">
-    <ul class="nav navbar-nav navbar-left">
-      <li>
-          <a [routerLink]="['/User']">My Profile</a>
-      </li>
-      <li>
-        <a [routerLink]="['/NewWork']">Add New Art</a>
-      </li>
-    </ul>
-  </div>
+<div class = "container">
 
-  <div [ngClass]="{'col-sm-10': isLoggedIn, 'col-sm-12':!isLoggedIn}">
     <router-outlet></router-outlet>
-  </div>
 
 </div>
 <footer class="footer">
-  <div class="container">
+  <div class="container text-center">
     <a href="http://ourdisclaimer.com/?i=ArtLike">Disclaimer</a>
   </div>
 </footer>
