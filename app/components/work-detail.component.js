@@ -73,8 +73,8 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
                 };
                 WorkDetailComponent.prototype.ngOnInit = function () {
                     var path = this.location.path().split('/').slice(-1).pop();
-                    this.path1 = path.split('@%')[0];
-                    this.path2 = path.split('@%').slice(-1).pop();
+                    this.path1 = path.split('@')[0];
+                    this.path2 = path.split('@').slice(-1).pop();
                     this.getWork(this.path1, this.path2);
                     this.getArtist();
                 };

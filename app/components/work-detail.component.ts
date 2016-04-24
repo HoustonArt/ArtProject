@@ -69,8 +69,8 @@ export class WorkDetailComponent {
   }
   ngOnInit() {
     var path = this.location.path().split('/').slice(-1).pop()
-    this.path1 = path.split('@%')[0];
-    this.path2 = path.split('@%').slice(-1).pop();
+    this.path1 = path.split('@')[0];
+    this.path2 = path.split('@').slice(-1).pop();
     this.getWork(this.path1, this.path2);
     this.getArtist();
   }
