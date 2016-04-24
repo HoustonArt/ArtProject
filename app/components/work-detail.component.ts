@@ -74,5 +74,6 @@ export class WorkDetailComponent {
     this.path2 = path.split('@%25').slice(-1).pop();
     this.getWork();
     this.getArtist();
+    console.log(this.work);
   }
 }

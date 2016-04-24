@@ -32,6 +32,7 @@ export class ArtistDetailComponent {
       var k = 0;
       for (var i in this.artist.Works){
         this.works[k] = this.artist.Works[i];
+        this.works[k]['_id'] = i;
         k = k +1;
       }
     })

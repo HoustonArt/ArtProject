@@ -21,7 +21,7 @@
     <!-- /.row -->
     <h2>Gallery</h2>
     <div style="height:300px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of works">
-      <a [routerLink]="['/Work', {id: artist.id + '-'+ work.name}]">
+      <a [routerLink]="['/Work', {id: work.artist_id + '@%'+ work._id}]">
         <img style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
       </a>
       <h3>{{work.name}} <small>{{work.media}}</small></h3>

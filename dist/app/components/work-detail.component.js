@@ -77,6 +77,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
                     this.path2 = path.split('@%25').slice(-1).pop();
                     this.getWork();
                     this.getArtist();
+                    console.log(this.work);
                 };
                 WorkDetailComponent = __decorate([
                     core_1.Component({

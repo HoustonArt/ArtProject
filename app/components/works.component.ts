@@ -17,7 +17,7 @@ export class AllWorksComponent {
   }
 
   getWorks() {
-    this._artistService.getAllWorks().then(works =>this.works=works);
+    this._artistService.getAllWorks().then(works => this.works=works);
   }
   ngOnInit() {
     this.getWorks();

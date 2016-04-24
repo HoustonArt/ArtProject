@@ -36,6 +36,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                         var k = 0;
                         for (var i in _this.artist.Works) {
                             _this.works[k] = _this.artist.Works[i];
+                            _this.works[k]['_id'] = i;
                             k = k + 1;
                         }
                     });
