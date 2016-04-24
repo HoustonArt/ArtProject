@@ -34,7 +34,6 @@ export class WorkDetailComponent {
     var base = new Firebase(this.firebaseUrl + path);
     base.once("value", (data) =>{
         this.work = data.val();
-        return Promise.resolve(this.work);
       }
     );
 
@@ -46,7 +45,7 @@ export class WorkDetailComponent {
       this.artist = data.val();
     })
   }
-  
+
   initGal(){
     this.selectedIndex = 0;
     this.selectedFile = this.work.files[0];

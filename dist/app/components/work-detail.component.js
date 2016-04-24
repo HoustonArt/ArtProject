@@ -39,7 +39,6 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
                     var base = new Firebase(this.firebaseUrl + path);
                     base.once("value", function (data) {
                         _this.work = data.val();
-                        return Promise.resolve(_this.work);
                     });
                 };
                 WorkDetailComponent.prototype.getArtist = function () {
