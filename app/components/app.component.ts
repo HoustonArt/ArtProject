@@ -73,6 +73,7 @@ export class AppComponent {
   createLogin() {
     this.hideModal = false;
   }
+  
   logOut() {
     this.ref.unauth();
     this.isLoggedIn = false;

@@ -66,7 +66,7 @@ export class GalleryCreatorComponent {
   }
 
 
-  //create link to page by adding firebase url 
+  //create link to page by adding firebase url
   createPage(){
     var url = this.model.stringify();
     url = url + "@" + this.containHeight + "@" + this.picHeight;
@@ -74,7 +74,7 @@ export class GalleryCreatorComponent {
       url = url + "@" + this.galleryWorks[i]['_id'].replace(/\s/g,"%");
     }
     this.url = url
-    this.full_url = 'houstonart.github.io/#/gallery-view/' + url;
+    this.full_url = 'artlike.io/#/gallery-view/' + url;
 
   }
   //filter artists when selected by first and last name

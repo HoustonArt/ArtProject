@@ -21,7 +21,7 @@ import {User} from '../../app/user';
 export class Login {
   public username: string;
   public password: string;
-  firebaseUrl = "https://artlike.firebaseIO.com/";
+  firebaseUrl:string = "https://artlike.firebaseIO.com/";
   public message : string = "";
   router: Router;
   @Output() loginevent: EventEmitter<any> = new EventEmitter();

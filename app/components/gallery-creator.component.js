@@ -63,7 +63,7 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                     this.getWorks();
                     this.getArtists();
                 };
-                //create link to page by adding firebase url 
+                //create link to page by adding firebase url
                 GalleryCreatorComponent.prototype.createPage = function () {
                     var url = this.model.stringify();
                     url = url + "@" + this.containHeight + "@" + this.picHeight;
@@ -71,7 +71,7 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                         url = url + "@" + this.galleryWorks[i]['_id'].replace(/\s/g, "%");
                     }
                     this.url = url;
-                    this.full_url = 'houstonart.github.io/#/gallery-view/' + url;
+                    this.full_url = 'artlike.io/#/gallery-view/' + url;
                 };
                 //filter artists when selected by first and last name
                 //should make this by id at some point.....
