@@ -51,14 +51,13 @@
 </nav>
 
 <!-- Main App -->
-<br>
-<br>
-<br>
-<login *ngIf="!hideModal" (loginevent)="handleLoginEvent($event)"></login>
-
+<br><br><br>
 <div class = "container">
+    <div class = "row">
+    <login *ngIf="!hideModal" (loginevent)="handleLoginEvent($event)"></login>
 
     <router-outlet></router-outlet>
+    </div>
 
 </div>
 <footer class="footer navbar-fixed-bottom">

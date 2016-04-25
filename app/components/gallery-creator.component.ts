@@ -54,12 +54,14 @@ export class GalleryCreatorComponent {
       this.picHeight = 220;
     }
   }
+  
   getWorks() {
     this._artistService.getAllWorks().then(works => this.works=works).then(works=>this.displayedWorks=works);
   }
   getArtists() {
     this._artistService.getArtists().then(Artists => this.Artists=Artists);
   }
+  
   ngOnInit() {
     this.getWorks();
     this.getArtists();
@@ -89,10 +91,13 @@ export class GalleryCreatorComponent {
           this.displayedWorks = this.works.filter(a => a.artist_fname == fn && a.artist_lname == ln);
         }
     }
+    
+    
     //remove work from gallery works if button is clicked
     removeWork(work){
       this.galleryWorks = this.galleryWorks.filter(a => a != work);
     }
+    
     //what to do if selected
     onSelect(work){
       this.galleryWorks.push(work);

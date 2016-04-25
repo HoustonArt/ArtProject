@@ -12,7 +12,15 @@ import {User} from '../../app/user';
 
 .ng-invalid {
   border-left: 5px solid #a94442;
-}`],
+}
+
+ @media screen and (max-width: 400px) {
+   .loginrow {
+       padding-top:75px;
+   }
+   
+}
+`],
   directives: [ROUTER_DIRECTIVES, RouterLink]
 })
 
