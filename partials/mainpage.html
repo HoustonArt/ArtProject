@@ -54,9 +54,9 @@
 <br><br><br>
 <div class = "container">
     <div class = "row">
-    <login *ngIf="!hideModal" (loginevent)="handleLoginEvent($event)"></login>
 
-    <router-outlet></router-outlet>
+    <router-outlet *ngIf="hideModal"></router-outlet>
+     <login *ngIf="!hideModal" (loginevent)="handleLoginEvent($event)"></login>
     </div>
 
 </div>
