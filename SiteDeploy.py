@@ -9,8 +9,7 @@ TEXT = """
 
   <head>
     <title>ArtLike</title>
-         <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="./assets/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
         <script src="./assets/angular2-polyfills.min.js"></script>
         <script src="./assets/system.src.js"></script>
         <script src="./assets/Rx.min.js"></script>

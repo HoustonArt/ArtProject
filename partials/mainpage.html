@@ -54,12 +54,13 @@
 <br><br><br>
 <div class = "container">
     <div class = "row">
-
-    <router-outlet *ngIf="hideModal"></router-outlet>
+<br><br><br>
      <login *ngIf="!hideModal" (loginevent)="handleLoginEvent($event)"></login>
+    <router-outlet></router-outlet>
     </div>
 
 </div>
+<br><br>
 <footer class="footer navbar-fixed-bottom">
   <div class="container text-center">
     <a href="http://ourdisclaimer.com/?i=ArtLike">Disclaimer</a>
