@@ -51,17 +51,10 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                         this.picHeight = 220;
                     }
                 };
-                GalleryCreatorComponent.prototype.getWorks = function () {
-                    var _this = this;
-                    this._artistService.getAllWorks().then(function (works) { return _this.works = works; }).then(function (works) { return _this.displayedWorks = works; });
-                };
-                GalleryCreatorComponent.prototype.getArtists = function () {
+                GalleryCreatorComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._artistService.getArtists().then(function (Artists) { return _this.Artists = Artists; });
-                };
-                GalleryCreatorComponent.prototype.ngOnInit = function () {
-                    this.getWorks();
-                    this.getArtists();
+                    this._artistService.getAllWorks().then(function (works) { return _this.works = works; }).then(function (works) { return _this.displayedworks = _this.works; });
                 };
                 //create link to page by adding firebase url
                 GalleryCreatorComponent.prototype.createPage = function () {
@@ -76,7 +69,7 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                 //filter artists when selected by first and last name
                 //should make this by id at some point.....
                 GalleryCreatorComponent.prototype.filterArtists = function (artist) {
-                    if (artist == 'All') {
+                    if (artist == 'All' || artist == null) {
                         this.displayedWorks = this.works;
                     }
                     else {

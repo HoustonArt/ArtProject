@@ -36,7 +36,7 @@ export class GalleryCreatorComponent {
   public containHeight:number = 340;
   public picHeight:number = 250;
 
-  constructor(private _artistService: ArtistService, router: Router) {
+  constructor(public _artistService: ArtistService, router: Router) {
     this.router = router;
   }
 
@@ -55,16 +55,10 @@ export class GalleryCreatorComponent {
     }
   }
   
-  getWorks() {
-    this._artistService.getAllWorks().then(works => this.works=works).then(works=>this.displayedWorks=works);
-  }
-  getArtists() {
-    this._artistService.getArtists().then(Artists => this.Artists=Artists);
-  }
   
   ngOnInit() {
-    this.getWorks();
-    this.getArtists();
+    this._artistService.getArtists().then(Artists => this.Artists=Artists);
+    this._artistService.getAllWorks().then(works => this.works=works).then(works => this.displayedworks = this.works);
   }
 
 
@@ -79,10 +73,11 @@ export class GalleryCreatorComponent {
     this.full_url = 'artlike.io/#/gallery-view/' + url;
 
   }
+  
   //filter artists when selected by first and last name
   //should make this by id at some point.....
   filterArtists(artist){
-        if (artist == 'All'){
+        if (artist == 'All' || artist == null){
           this.displayedWorks = this.works;
         }
         else{
