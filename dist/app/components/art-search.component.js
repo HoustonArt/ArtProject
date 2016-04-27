@@ -58,10 +58,14 @@ System.register(['angular2/core', '../../app/artists.service', 'angular2/router'
                     this.selectedFile = this.works[0].mainFile;
                     this.newRef = this.ref.child('artSearch').push();
                     if (this.isLoggedIn) {
-                        this.newRef.set({ "user": this.user });
+                        this.newRef.set({ "user": this.user,
+                            "time": Date.now()
+                        });
                     }
                     else {
-                        this.newRef.set({ "user": "anonymous" });
+                        this.newRef.set({ "user": "anonymous",
+                            "time": Date.now()
+                        });
                     }
                 };
                 ArtSearchComponent.prototype.hate = function () {
