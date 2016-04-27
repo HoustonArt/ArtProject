@@ -19,13 +19,10 @@ export class ArtistsComponent {
   constructor(private _artistService: ArtistService, router: Router){
     this.router = router;
   }
-  getArtists() {
-    this._artistService.getArtists().then(artists => this.artists = artists);
-  }
 
   ngOnInit() {
-    this.getArtists();
-  }
+        this._artistService.getArtists().then(artists => this.artists = artists);
+   }
 
   onSelect(artist: Artist) {
     this.router.parent.navigate(['/Artist', {id: artist.id}]);

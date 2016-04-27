@@ -28,12 +28,9 @@ System.register(['angular2/core', '../../app/artists.service', 'angular2/router'
                 function AllWorksComponent(_artistService) {
                     this._artistService = _artistService;
                 }
-                AllWorksComponent.prototype.getWorks = function () {
-                    var _this = this;
-                    this._artistService.getAllWorks().then(function (works) { return _this.works = works; });
-                };
                 AllWorksComponent.prototype.ngOnInit = function () {
-                    this.getWorks();
+                    var _this = this;
+                    this._artistService.getSomeWorks(10).then(function (works) { return _this.works = works; });
                 };
                 AllWorksComponent = __decorate([
                     core_1.Component({

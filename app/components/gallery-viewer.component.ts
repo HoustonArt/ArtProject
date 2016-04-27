@@ -3,7 +3,9 @@ import {Artist} from '../../app/artist';
 import {ArtistService} from '../../app/artists.service';
 import {ArtPiece} from '../../app/art-piece';
 import {Gallery} from '../../app/gallery';
-import {ROUTER_DIRECTIVES,Location, RouterLink, Router} from 'angular2/router';
+import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
+import {Location} from 'angular2/platform/common';
+
 
 @Component({
   selector: 'gallery-viewer',
@@ -19,7 +21,7 @@ export class GalleryViewerComponent {
   public containHeight:number = 340;
   public picHeight:number = 250;
   public model: Gallery;
-  public galleryWorks:ArtPiece[] = [];
+  public galleryWorks:ArtPiece[];
   public loading:number = 1;
 
 
@@ -36,10 +38,7 @@ export class GalleryViewerComponent {
    this.containHeight= parseInt(info[2])
    this.picHeight = parseInt(info[3])
    var pics = info.slice(4,info.length);
-   for(var i=0;i<pics.length;i++){
-     this._artistService.getOneWork(pics[i]).then(
-       works => this.galleryWorks.push(works));
+  
+   this._artistService.getWorkList(pics).then(works => this.galleryWorks = works);
    }
-   this.loading=0;
- }
 }

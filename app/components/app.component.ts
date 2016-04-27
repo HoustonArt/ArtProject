@@ -91,6 +91,7 @@ export class AppComponent {
     }
     alert(outstr);
   }
+  
   handleLoginEvent(arg) {
     this.hideModal = true;
     if (arg != "newUser") {

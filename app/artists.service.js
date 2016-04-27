@@ -26,6 +26,18 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         }
         return array;
     }
+    //needs to modify answer
+    function get_elements(id_list, arr, _ans) {
+        for (var i = 0; i < id_list.length; i++) {
+            for (var j = 0; j < arr.length; j++) {
+                if (id_list[i] == arr[j]._id) {
+                    _ans.push(arr[j]);
+                    break;
+                }
+            }
+        }
+        return _ans;
+    }
     return {
         setters:[
             function (core_1_1) {
@@ -36,34 +48,41 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 function ArtistService() {
                     this.ARTISTS = [];
                     this.WORKS = [];
+                    this._Works = [];
                     //private ARTISTS: Artist[];
                     this.firebaseUrl = "https://artlike.firebaseIO.com/users/";
+                    this.base = new Firebase(this.firebaseUrl);
                 }
-                ArtistService.prototype.fromFirebase = function () {
+                ArtistService.prototype.getAllWorks = function () {
                     var _this = this;
-                    this.WORKS = [];
-                    this.ARTISTS = [];
-                    var base = new Firebase(this.firebaseUrl);
-                    base.once("value", function (snapShot) {
+                    var workArr = [];
+                    return this.base.once("value", function (snapShot) {
                         snapShot.forEach(function (snapShotChild) {
                             if (snapShotChild.hasChild('Works')) {
-                                _this.ARTISTS.push(snapShotChild.val());
                                 snapShotChild.child('Works').forEach(function (work) {
                                     _this.work = work.val();
                                     _this.work['_id'] = work.key();
-                                    _this.WORKS.push(_this.work);
+                                    workArr.push(_this.work);
                                 });
                             }
                         });
-                    });
+                    }).then(function () { return Promise.resolve(shuffle(workArr)); });
+                };
+                ArtistService.prototype.getSomeWorks = function (num) {
+                    return this.getAllWorks().then(function (works) { return Promise.resolve(works.slice(0, num)); });
                 };
                 ArtistService.prototype.getArtists = function () {
-                    this.fromFirebase();
-                    return Promise.resolve(this.ARTISTS);
+                    var _this = this;
+                    return this.base.once("value", function (snapShot) {
+                        snapShot.forEach(function (snapShotChild) {
+                            if (snapShotChild.hasChild('Works')) {
+                                _this.ARTISTS.push(snapShotChild.val());
+                            }
+                        });
+                    }).then(function () { return Promise.resolve(shuffle(_this.ARTISTS)); });
                 };
-                ArtistService.prototype.getAllWorks = function () {
-                    this.fromFirebase();
-                    return Promise.resolve(shuffle(this.WORKS));
+                ArtistService.prototype.getWorkList = function (work_id) {
+                    return this.getAllWorks().then(function (works) { return Promise.resolve(get_elements(work_id, works, [])); });
                 };
                 ArtistService = __decorate([
                     core_1.Injectable(), 

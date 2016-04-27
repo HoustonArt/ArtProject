@@ -1,7 +1,8 @@
 import {Component} from 'angular2/core';
 import {Artist} from '../../app/artist';
 import {ArtPiece} from '../../app/art-piece';
-import {RouteParams,Location,RouterLink} from 'angular2/router';
+import {RouteParams,RouterLink} from 'angular2/router';
+import {Location} from 'angular2/platform/common';
 
 @Component({
   selector: 'artist-detail',

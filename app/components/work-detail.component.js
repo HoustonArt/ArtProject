@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../app/artists.service', 'angular2/common'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/platform/common', '../../app/artists.service', 'angular2/common'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, artists_service_1, common_1;
+    var core_1, router_1, common_1, artists_service_1, common_2;
     var WorkDetailComponent;
     return {
         setters:[
@@ -20,11 +20,14 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
             function (router_1_1) {
                 router_1 = router_1_1;
             },
+            function (common_1_1) {
+                common_1 = common_1_1;
+            },
             function (artists_service_1_1) {
                 artists_service_1 = artists_service_1_1;
             },
-            function (common_1_1) {
-                common_1 = common_1_1;
+            function (common_2_1) {
+                common_2 = common_2_1;
             }],
         execute: function() {
             WorkDetailComponent = (function () {
@@ -84,9 +87,9 @@ System.register(['angular2/core', 'angular2/router', '../../app/artists.service'
                         templateUrl: './partials/work.html',
                         inputs: ['work'],
                         providers: [artists_service_1.ArtistService],
-                        directives: [router_1.RouterLink, common_1.NgStyle]
+                        directives: [router_1.RouterLink, common_2.NgStyle]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, router_1.Location, artists_service_1.ArtistService])
+                    __metadata('design:paramtypes', [router_1.RouteParams, common_1.Location, artists_service_1.ArtistService])
                 ], WorkDetailComponent);
                 return WorkDetailComponent;
             }());

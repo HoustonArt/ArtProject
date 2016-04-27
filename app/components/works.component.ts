@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {ArtPiece} from '../../app/art-piece';
 import {ArtistService} from '../../app/artists.service';
-import {ROUTER_DIRECTIVES, RouterLink,Router} from 'angular2/router';
+import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 
 @Component({
   selector:'all-works',
@@ -16,11 +16,9 @@ export class AllWorksComponent {
   constructor(public _artistService: ArtistService){
   }
 
-  getWorks() {
-    this._artistService.getAllWorks().then(works => this.works=works);
-  }
+ 
   ngOnInit() {
-    this.getWorks();
+    this._artistService.getSomeWorks(10).then(works => this.works=works);
   }
 
 }

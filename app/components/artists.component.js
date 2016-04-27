@@ -30,12 +30,9 @@ System.register(['angular2/core', '../../app/artists.service', 'angular2/router'
                     this.title = 'Houston Artists';
                     this.router = router;
                 }
-                ArtistsComponent.prototype.getArtists = function () {
+                ArtistsComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._artistService.getArtists().then(function (artists) { return _this.artists = artists; });
-                };
-                ArtistsComponent.prototype.ngOnInit = function () {
-                    this.getArtists();
                 };
                 ArtistsComponent.prototype.onSelect = function (artist) {
                     this.router.parent.navigate(['/Artist', { id: artist.id }]);

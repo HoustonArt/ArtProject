@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../app/artists.service', '../../app/gallery', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../app/artists.service', '../../app/gallery', 'angular2/router', 'angular2/platform/common'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, artists_service_1, gallery_1, router_1;
+    var core_1, artists_service_1, gallery_1, router_1, common_1;
     var GalleryViewerComponent;
     return {
         setters:[
@@ -25,6 +25,9 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (common_1_1) {
+                common_1 = common_1_1;
             }],
         execute: function() {
             GalleryViewerComponent = (function () {
@@ -32,7 +35,6 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                     this._artistService = _artistService;
                     this.containHeight = 340;
                     this.picHeight = 250;
-                    this.galleryWorks = [];
                     this.loading = 1;
                     this.location = location;
                 }
@@ -46,10 +48,7 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                     this.containHeight = parseInt(info[2]);
                     this.picHeight = parseInt(info[3]);
                     var pics = info.slice(4, info.length);
-                    for (var i = 0; i < pics.length; i++) {
-                        this._artistService.getOneWork(pics[i]).then(function (works) { return _this.galleryWorks.push(works); });
-                    }
-                    this.loading = 0;
+                    this._artistService.getWorkList(pics).then(function (works) { return _this.galleryWorks = works; });
                 };
                 GalleryViewerComponent = __decorate([
                     core_1.Component({
@@ -58,7 +57,7 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink],
                         providers: [artists_service_1.ArtistService],
                     }), 
-                    __metadata('design:paramtypes', [artists_service_1.ArtistService, router_1.Location])
+                    __metadata('design:paramtypes', [artists_service_1.ArtistService, common_1.Location])
                 ], GalleryViewerComponent);
                 return GalleryViewerComponent;
             }());
