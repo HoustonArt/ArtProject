@@ -6,5 +6,7 @@
 6. Package AWS upload as service
 7. Package firebase as service (especially getting artists and works)
 
+* Redo gallery app so it saves galleries, then can call directly instead of parsing links which is a problem right now.
+
 * Maybe don't have users re-visit pieces they already rated if logged in?
 

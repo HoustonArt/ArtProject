@@ -30,7 +30,7 @@ System.register(['angular2/core', '../../app/artists.service', 'angular2/router'
                 }
                 AllWorksComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this._artistService.getSomeWorks(10).then(function (works) { return _this.works = works; });
+                    this._artistService.getSomeWorks(12).then(function (works) { return _this.works = works; });
                 };
                 AllWorksComponent = __decorate([
                     core_1.Component({
