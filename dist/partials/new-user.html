@@ -29,7 +29,7 @@
         <label for="city">Description</label>
         <input type="text" class="form-control" placeholder="Enter description" [(ngModel)]="user.description" ngControl="description" #name="ngForm">
       </div>
-      <button *ngIf ='!_newUser' type="submit" class="btn btn-default btn-block">Edit Information</button>
+      <button *ngIf ='!_newUser' type="submit" class="btn btn-default btn-block">Save Edited Information</button>
   </div>
   <div *ngIf= '_newUser' class="col-md-5">
       <div class="form-group">
