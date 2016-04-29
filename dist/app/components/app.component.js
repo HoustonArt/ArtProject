@@ -112,7 +112,7 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                         selector: 'my-app',
                         templateUrl: './partials/mainpage.html',
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink, login_component_1.Login],
-                        styles: ['[hidden] {display: none;}']
+                        styles: ["[hidden] {display: none;},\n    .navbar ul li{\n    display:inline-block;\n }"]
                     }),
                     router_1.RouteConfig([
                         { path: '/', component: home_component_1.HomeComponent, as: 'Home' },

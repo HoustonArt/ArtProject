@@ -1,7 +1,7 @@
-import {Component} from 'angular2/core';
+import {Component, Pipe, PipeTransform} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 import {User} from '../../app/user';
-import {Artist} from '../../app/artist';
+import {Artist,GalleryArtist} from '../../app/artist';
 import {ArtPiece} from '../../app/art-piece';
 import {ArtistDetailComponent} from './artist-detail.component';
 import {WorkUpLoad} from '../../app/work-piece';
@@ -29,13 +29,13 @@ import {Gallery} from '../../app/gallery';
 
 export class UserPanelComponent {
   public type: string;
-  public works: WorkUpLoad[] = [];
+  public works: ArtPiece[] = [];
   public galleries: Gallery[] = [];
   public base: any;
   firebaseUrl: string = "https://artlike.firebaseIO.com/";
   public isLoggedIn: boolean = false;
   public userPath: string;
-  public user: User;
+  public user: GalleryArtist;
   public artist: Artist;
   public numWorks: number;
   public numGals: number;
@@ -44,7 +44,7 @@ export class UserPanelComponent {
   public editUser: boolean = false;
   public displayGalleries = false;
   public displayWorks = false;
-  private tempPiece: ArtPiece;
+
 
   constructor(private _databaseService: DatabaseService) {
     this.base = new Firebase(this.firebaseUrl);
@@ -59,50 +59,34 @@ export class UserPanelComponent {
       this.userPath = 'users/' + authData.uid;
       this.base.child(this.userPath).once("value", (data) => {
         this.user = data.val();
+        this._initiateObjects(this.user);
       });
     } else {
       this.isLoggedIn = false;
     }
   }
 
-    ngOnInit(){
-        var path = this.userPath + '/Works';
-        this._databaseService.checkChildNumber(path).then((_num)=>{
-           this.numWorks = _num;
-        });
-       
-       this._databaseService.getObject(path).then((works)=>{
-           for (var i in works){
-               this.works.push(works[i]);
-           }
-        }).then(()=>{
-           if (this.works.length > 0){
-                this.displayWorks = true;
-                console.log(this.works);
-           }
-       });
-       
-        var path1 = this.userPath + '/Galleries';
-        
-        this._databaseService.checkChildNumber(path1).then((_num)=>{
-           this.numGals = _num;
-        });
-       
-       //will return key value pairs, only want values
-       this._databaseService.getObject(path1).then((data)=>{
-           for (var i in data){
-               this.galleries.push(data[i]);
-           }
-       }).then(()=>{
-           if (this.galleries.length > 0){
-                this.displayGalleries = true;
-           }else{
-               this.displayGalleries = false;
-           }
-        });
+  _initiateObjects(_user:GalleryArtist){
+    //already have it from getting user before
+    this.numWorks = 0;
+    this.numGals = 0;
+    for (var i in _user.Works) {
+      this.works[this.numWorks] = _user.Works[i];
+      this.numWorks = this.numWorks + 1;
     }
+    for (var i in _user.Galleries) {
+      this.galleries[this.numGals] = _user.Galleries[i];
+      this.numGals = this.numGals + 1;
+    }
+    if (this.numGals > 0){
+         this.displayGalleries = true;
+    }
+    if (this.works.length > 0){
+         this.displayWorks = true;
+    }
+  }
 
-   
+
   // Function to set up editing template
   edit(picture){
     var pic_id = picture['src'].split('/').pop(-1);

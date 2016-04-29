@@ -20,7 +20,10 @@ import {UserPanelComponent} from './user-panel.component';
   selector: 'my-app',
   templateUrl: './partials/mainpage.html',
   directives: [ROUTER_DIRECTIVES, RouterLink, Login],
-  styles: ['[hidden] {display: none;}']
+  styles: [`[hidden] {display: none;},
+    .navbar ul li{
+    display:inline-block;
+ }`]
 })
 
 @RouteConfig([
@@ -72,7 +75,7 @@ export class AppComponent {
   createLogin() {
     this.hideModal = false;
   }
-  
+
   logOut() {
     this.ref.unauth();
     this.isLoggedIn = false;
@@ -90,7 +93,7 @@ export class AppComponent {
     }
     alert(outstr);
   }
-  
+
   handleLoginEvent(arg) {
     this.hideModal = true;
     if (arg != "newUser") {

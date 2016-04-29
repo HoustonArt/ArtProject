@@ -8,9 +8,8 @@
 9. Make gallery creator component reusable for user panel (should be easy)
     When done rewrite old gallery with same id.
 10.  Clean up all services using those from database.service
-11. KEEP ONLY REFERENCES TO GALLERY
-
 * Maybe don't have users re-visit pieces they already rated if logged in?
-
-
-
+* Galleries can be creator or deleted, but not modified!!!
+    This has some problems if works change?  need to keep only references to
+    works because of this maybe?  Possibly okay because price and stuff aren't
+    listed and it links back, we will leave for now...

@@ -38,7 +38,8 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                     this._artistService = _artistService;
                     this._databaseService = _databaseService;
                     this._loginService = _loginService;
-                    this.model = new gallery_1.Gallery('', '', '', '', []);
+                    this._model = new gallery_1.Gallery('', '', '', '', '');
+                    this.model = new gallery_1.GalleryContainer(this._model, []);
                     this.artheight = [200, 120, 340, 250, 500, 450];
                     this.containHeight = 340;
                     this.picHeight = 250;
@@ -64,6 +65,7 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                     this._artistService.getAllWorks().then(function (works) { return _this.works = works; }).then(function (works) { return _this.displayedWorks = _this.works; });
                     this._loginService.getUID().then(function (data) {
                         _this.user = data['uid'];
+                        _this.model.info.user_id = _this.user;
                         _this.isLoggedIn = data['isLoggedIn'];
                     }).then(function () { _this.checkedLogin = true; });
                 };
@@ -85,8 +87,8 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                                 var _id = ref.key().split('/').pop();
                                 _this.url = _id;
                                 _this.full_url = 'artlike.io/#/gallery-view/' + _id;
-                                _this.model.id = _id;
-                                _this._databaseService.pushToDatabase(path, _this.model);
+                                _this.model.info.id = _id;
+                                _this._databaseService.pushToDatabase(path, _this.model.info);
                             });
                         }
                         else {

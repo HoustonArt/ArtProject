@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-lg-12" *ngIf="preview !=1">
       <h1 class="page-header">Gallery Designer <small>Sharing art your way</small></h1>
+      {{message}}
     </div>
   </div>
 
@@ -10,20 +11,20 @@
       <form>
         <div class="form-group">
           <label for="name">Gallery Name</label>
-          <input type="text" class="form-control" placeholder="Enter Gallery name" required [(ngModel)]="model.name" ngControl="name" #name="ngForm">
+          <input type="text" class="form-control" placeholder="Enter Gallery name" required [(ngModel)]="model.info.name" ngControl="name" #name="ngForm">
           <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
             Name is required
           </div>
         </div>
         <div class="form-group">
           <label for="name">Curator</label>
-          <input type="text" class="form-control" placeholder="Enter name of curator" required [(ngModel)]="model.curator" ngControl="curator" #curator="ngForm">
+          <input type="text" class="form-control" placeholder="Enter name of curator" required [(ngModel)]="model.info.curator" ngControl="curator" #curator="ngForm">
         </div>
         <div [hidden]="curator.valid || curator.pristine" class="alert alert-danger">
           Curator is required
         </div>
         <label for="info">Gallery Description</label>
-        <input type="text" class="form-control" placeholder="optional Description" [(ngModel)]="model.info" ngControl="info" #info="ngForm">
+        <input type="text" class="form-control" placeholder="optional Description" [(ngModel)]="model.info.info" ngControl="info" #info="ngForm">
         <label for="size">Size</label>
         <br>
         <button type="button" class="btn btn-primary btn-xs" (click)="setHeights('sm')">Small</button>
@@ -39,30 +40,30 @@
               <label for="artists">Select Art</label>
               <select ngControl="state" #state="ngForm" (click)="filterArtists(state.viewModel)" class="form-control" id="artists">
                 <option>All</option>
-                <option *ngFor="#artist of Artists">{{artist.lastName}}, {{artist.firstName}} </option>
+                <option *ngFor="let artist of Artists">{{artist.lastName}}, {{artist.firstName}} </option>
               </select>
             </div>
           </form>
           <div style="height:250px;overflow-y:scroll">
-            <div style="height:100px" class="col-lg-4 col-sm-6 text-center" (click)="onSelect(work)" *ngFor="#work of displayedWorks">
+            <div style="height:100px" class="col-lg-4 col-sm-6 text-center" (click)="onSelect(work)" *ngFor="let work of displayedWorks">
               <img style="max-height:80px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
             </div>
           </div>
         </div>
       </div>
       <hr>
-      <div [hidden]="curator.errors">
+      <div *ngIf="checkedLogin" [hidden]="curator.errors">
         <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal" (click)="createPage()">Create Page</button>
         <button type="button" class="btn btn-primary btn-lg" (click)="previewPage()">Preview</button>
       </div>
     </div>
     <div class="col-md-8 text-center">
-      <h2>{{model.name}}</h2>
-      <div *ngIf="model.curator != ''">
-        Curated by {{model.curator}}
+      <h2>{{model.info.name}}</h2>
+      <div *ngIf="model.info.curator != ''">
+        Curated by {{model.info.curator}}
         <hr>
       </div>
-      <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of galleryWorks">
+      <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="let work of model.works">
         <img style="max-height:{{picHeight}}px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
         <h4>{{work.name}}<small> {{work.artist_fname}} {{work.artist_lname}}</small></h4>
         <button type="button" class="btn btn-danger btn-xs" (click)="removeWork(work)">Remove</button>
@@ -76,13 +77,18 @@
             <h4 class="modal-title" id="myModalLabel">Link</h4>
           </div>
           <div class="modal-body" style="word-wrap:break-word">
-            <a [routerLink]="['/GalleryView', {id: url}]">
+            <a *ngIf='url' [routerLink]="['/GalleryView', {id: url}]">
               <button type="button" class="btn btn-success btn-lg" data-dismiss="modal">Go to Gallery!</button>
             </a>
-                <hr>
+            <div *ngIf="message">
+            {{message}}
+            </div>
+              <div *ngIf="!message">
+            <hr>
               URL:
               <br>
               {{full_url}}
+              </div>
           </div>
         </div>
       </div>
@@ -91,12 +97,12 @@
   <div *ngIf="preview==1">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h2>{{model.name}}</h2>
+        <h2>{{model.info.name}}</h2>
         <div *ngIf="model.curator != ''">
-          Curated by {{model.curator}}
+          Curated by {{model.info.curator}}
           <hr>
         </div>
-        <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of galleryWorks">
+        <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="let work of model.works">
           <img style="max-height:{{picHeight}}px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
           <h4>{{work.name}}<small> {{work.artist_fname}} {{work.artist_lname}}</small></h4>
         </div>

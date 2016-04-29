@@ -5,7 +5,7 @@
         <h1 class="page-header">Art Search</h1>
     </div>
     <div class="row text-center">
-    <div class="col-sm-10">
+    <div *ngIf="checkedLogin" class="col-sm-10">
       <div *ngIf="notStarted">
         <p>To get some idea of your preferences, please give each of the following pictures thumbs-up or thumbs-down</p>
         <p>Press start, when you are ready!</p>

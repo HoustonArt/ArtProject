@@ -17,7 +17,7 @@
         <span class="caret"></span></a>
             <ul *ngIf="isLoggedIn" class="dropdown-menu">
               <li>
-                  <a [routerLink]="['/User']">My Profile</a>
+                  <a [routerLink]="['/User']">My Panel</a>
               </li>
               <li>
                 <a [routerLink]="['/NewWork']">Add New Art</a>
@@ -64,7 +64,9 @@
 </div>
 <br><br>
 <footer class="footer navbar-fixed-bottom">
-  <div class="container text-center">
-    <a href="http://ourdisclaimer.com/?i=ArtLike">Disclaimer</a>
-  </div>
+    <ul class="nav" style='margin: 0 auto;'>
+    <li class="navbar-text"><a *ngIf="isLoggedIn" [routerLink]="['/User']">My Panel</a></li>
+    <li class="navbar-text"><a *ngIf="isLoggedIn" [routerLink]="['/NewWork']">Add New Art</a></li>
+    <li class="navbar-text"><a href="http://ourdisclaimer.com/?i=ArtLike">Disclaimer</a></li>
+  </ul>
 </footer>

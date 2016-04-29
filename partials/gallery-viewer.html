@@ -4,12 +4,12 @@
   </div>
   <div class="row" *ngIf="model">
     <div class="col-lg-12 text-center">
-      <h2>{{model.name}}</h2>
-      <div *ngIf="model.curator != ''">
-        Curated by {{model.curator}}
+      <h2>{{model.info.name}}</h2>
+      <div *ngIf="model.info.curator != ''">
+        Curated by {{model.info.curator}}
         <hr>
       </div>
-      <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of model.works">
+      <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="let work of model.works">
         <a [routerLink]="['/Work', {id: work.artist_id + '@'+ work._id}]">
           <img style="max-height:{{picHeight}}px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
         </a>

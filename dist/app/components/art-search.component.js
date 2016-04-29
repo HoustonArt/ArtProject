@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../app/artists.service', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../app/services/artists.service', '../../app/services/login.service', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../app/artists.service', 'angular2/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, artists_service_1, router_1;
+    var core_1, artists_service_1, login_service_1, router_1;
     var ArtSearchComponent;
     return {
         setters:[
@@ -20,31 +20,28 @@ System.register(['angular2/core', '../../app/artists.service', 'angular2/router'
             function (artists_service_1_1) {
                 artists_service_1 = artists_service_1_1;
             },
+            function (login_service_1_1) {
+                login_service_1 = login_service_1_1;
+            },
             function (router_1_1) {
                 router_1 = router_1_1;
             }],
         execute: function() {
             ArtSearchComponent = (function () {
-                function ArtSearchComponent(_artistService) {
+                function ArtSearchComponent(_artistService, _loginService) {
                     var _this = this;
                     this._artistService = _artistService;
+                    this._loginService = _loginService;
+                    this.checkedLogin = false;
                     this.ref = new Firebase("https://artlike.firebaseIO.com/");
-                    this.ref.onAuth(function (authdata) {
-                        _this.authDataCallback(authdata);
-                    });
+                    this._loginService.getUID().then(function (data) {
+                        _this.user = data['uid'];
+                        _this.isLoggedIn = data['isLoggedIn'];
+                    }).then(function () { _this.checkedLogin = true; });
                 }
-                ArtSearchComponent.prototype.authDataCallback = function (authData) {
-                    if (authData) {
-                        this.isLoggedIn = true;
-                        this.user = authData.uid;
-                    }
-                    else {
-                        this.isLoggedIn = false;
-                    }
-                };
                 ArtSearchComponent.prototype.getWorks = function () {
                     var _this = this;
-                    this._artistService.getAllWorks().then(function (works) { return _this.works = works; });
+                    this._artistService.getSomeWorks(10).then(function (works) { return _this.works = works; });
                 };
                 ArtSearchComponent.prototype.ngOnInit = function () {
                     this.getWorks();
@@ -102,10 +99,10 @@ System.register(['angular2/core', '../../app/artists.service', 'angular2/router'
                     core_1.Component({
                         selector: 'art-search',
                         templateUrl: './partials/art-search.html',
-                        providers: [artists_service_1.ArtistService],
+                        providers: [artists_service_1.ArtistService, login_service_1.LoginService],
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink]
                     }), 
-                    __metadata('design:paramtypes', [artists_service_1.ArtistService])
+                    __metadata('design:paramtypes', [artists_service_1.ArtistService, login_service_1.LoginService])
                 ], ArtSearchComponent);
                 return ArtSearchComponent;
             }());

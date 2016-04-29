@@ -66,10 +66,14 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                                 });
                             }
                         });
-                    }).then(function () { return Promise.resolve(shuffle(workArr)); });
+                    }).then(function () {
+                        return Promise.resolve(shuffle(workArr));
+                    });
                 };
                 ArtistService.prototype.getSomeWorks = function (num) {
-                    return this.getAllWorks().then(function (works) { return Promise.resolve(works.slice(0, num)); });
+                    return this.getAllWorks().then(function (works) {
+                        return Promise.resolve(works.slice(0, num));
+                    });
                 };
                 ArtistService.prototype.getArtists = function () {
                     var _this = this;
@@ -79,10 +83,14 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                                 _this.ARTISTS.push(snapShotChild.val());
                             }
                         });
-                    }).then(function () { return Promise.resolve(shuffle(_this.ARTISTS)); });
+                    }).then(function () {
+                        return Promise.resolve(shuffle(_this.ARTISTS));
+                    });
                 };
                 ArtistService.prototype.getWorkList = function (work_id) {
-                    return this.getAllWorks().then(function (works) { return Promise.resolve(get_elements(work_id, works, [])); });
+                    return this.getAllWorks().then(function (works) {
+                        return Promise.resolve(get_elements(work_id, works, []));
+                    });
                 };
                 ArtistService = __decorate([
                     core_1.Injectable(), 

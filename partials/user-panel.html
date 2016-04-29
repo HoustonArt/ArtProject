@@ -1,51 +1,60 @@
 <div *ngIf='user' class="container">
   <div class="row">
     <div class="col-sm-6 text-center">
-      <h1>Welcome {{user.firstName}}</h1>
+      <h1>Welcome
+        {{user.firstName}}</h1>
       <br>
-       <div>You have {{numWorks}} works and {{numGals}} Galleries on ArtLike.</div>
+      <div>You have
+        {{numWorks}}
+        works and
+        {{numGals}}
+        Galleries on ArtLike.</div>
       <br>
-       Please click on a work to edit work information and on the profile picture to edit profile information
+      Please click on a work to edit work information and on the profile picture to edit profile information
     </div>
     <div class="col-sm-4 text-center">
-      <img (click) = "editProfile($event.target)" style="max-height:150px" class="img-thumbnail center-block" src={{user.profilePic}} alt={{user.firstName}}>
+      <img (click)="editProfile($event.target)" style="max-height:150px" class="img-thumbnail center-block" src={{user.profilePic}} alt={{user.firstName}}>
     </div>
   </div>
   <hr>
   <div *ngIf="noEdit">
-    <div *ngIf='displayWorks' class="row" *ngFor="#work of works">
+    <div *ngIf='displayWorks' class="row" *ngFor="let work of works">
+      <div *ngIf="work">
         {{work}}
-      <div style="height:300px" class="col-sm-5 text-center">
-        <img (click)="edit($event.target)" style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
-        <h4>{{work.name}}</h4>
-      </div>
-      <div class="col-sm-5 text-center">
-        <table class="table">
-          <tr>
-            <td>Price</td>
-            <td>{{work.price}}</td>
-          </tr>
-          <tr>
-            <td>Media</td>
-            <td>{{work.media}}</td>
-          </tr>
-          <tr>
-            <td>Length</td>
-            <td>{{work.length}}</td>
-          </tr>
-          <tr>
-            <td>Depth</td>
-            <td>{{work.depth}}</td>
-          </tr>
-          <tr>
-            <td>Width</td>
-            <td>{{work.width}}</td>
-          </tr>
-        </table>
+        <div style="height:300px" class="col-sm-5 text-center">
+          <img (click)="edit($event.target)" style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
+          <h4>{{work.name}}</h4>
+        </div>
+        <div class="col-sm-5 text-center">
+          <table class="table">
+            <tr>
+              <td>Price</td>
+              <td>{{work.price}}</td>
+            </tr>
+            <tr>
+              <td>Media</td>
+              <td>{{work.media}}</td>
+            </tr>
+            <tr>
+              <td>Length</td>
+              <td>{{work.length}}</td>
+            </tr>
+            <tr>
+              <td>Depth</td>
+              <td>{{work.depth}}</td>
+            </tr>
+            <tr>
+              <td>Width</td>
+              <td>{{work.width}}</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-    <div *ngIf = "displayGalleries" class= "row" *ngFor="#gal of galleries">
+    <div *ngIf="displayGalleries" class="row" *ngFor="let gal of galleries">
+      <div *ngIf="gal">
         {{gal.name}}
+      </div>
     </div>
   </div>
   <div *ngIf="work">
@@ -53,6 +62,6 @@
     <new-work [work]="work" [user]='user' [_newWork]='false' (doneEvent)="handleDoneEvent($event)"></new-work>
   </div>
   <div *ngIf="editUser">
-    <new-user [user]='user' [_newUser]='false' (doneEvent) = "handleDoneEvent($event)"></new-user>
+    <new-user [user]='user' [_newUser]='false' (doneEvent)="handleDoneEvent($event)"></new-user>
   </div>
 </div>

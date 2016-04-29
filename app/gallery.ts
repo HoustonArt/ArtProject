@@ -1,18 +1,19 @@
-import {ArtPiece} from '../../app/art-piece';
+import {ArtPiece} from './art-piece';
 
+
+export class GalleryContainer {
+  constructor(
+    public info: Gallery,
+    public works: ArtPiece[]
+  ) { }
+
+}
 export class Gallery {
   constructor(
+    public user_id: string,
     public id: string,
     public name: string,
     public curator: string,
-    public info?: string,
-    public works?: ArtPiece[]
+    public info?: string
   ) { }
-
-  stringify(){
-    var outstring;
-    var name = this.name.replace(/\s/g,"%");
-    var curator = this.curator.replace(/\s/g,"%");
-    return name + '@' + curator;
-  }
 }
