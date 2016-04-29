@@ -1,6 +1,8 @@
 import {Component, Output, EventEmitter} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 import {User} from '../../app/user';
+import {LoginService} from '../../app/services/login.service';
+
 
 @Component({
   selector: 'login',
@@ -21,7 +23,8 @@ import {User} from '../../app/user';
    
 }
 `],
-  directives: [ROUTER_DIRECTIVES, RouterLink]
+  directives: [ROUTER_DIRECTIVES, RouterLink],
+  providers: [LoginService]
 })
 
 
@@ -29,16 +32,32 @@ import {User} from '../../app/user';
 export class Login {
   public username: string;
   public password: string;
+  public token: string;
+
   firebaseUrl:string = "https://artlike.firebaseIO.com/";
   public message : string = "";
   router: Router;
   @Output() loginevent: EventEmitter<any> = new EventEmitter();
+  public resetPassword:boolean = false;
+  public onReset:boolean = false;
 
-  constructor(router: Router) {
+  constructor(router: Router,private _loginService: LoginService) {
     this.router = router;
   }
+  
+  loginSubmit(){
+      if (this.resetPassword && this.onReset == false){
+          this._resetPassword();
+      }
+      else if(this.resetPassword && this.onReset){
+          this._changePassword();
+      }
+      else{
+          this._loginUser();
+      }
+  }
 
-  loginUser() {
+  _loginUser() {
     var ref = new Firebase(this.firebaseUrl);
     ref.authWithPassword({
       "email": this.username,
@@ -50,6 +69,54 @@ export class Login {
           this.message = "Logged in, redirecting to ArtLike!";
           this.loginevent.next(authData);
         }
+      });
+  }
+  
+  _changePassword(){
+      this._loginService.changePassword(this.username,this.token,this.password).then((error)=>{
+          if (error) {
+            switch (error.code) {
+              case "INVALID_PASSWORD":
+                this.message = "The specified user token is incorrect.";
+                break;
+              case "INVALID_USER":
+                this.message = "The specified user account does not exist.";
+                break;
+              default:
+                this.message = "Error changing password:" +  error;
+            }
+          } else {
+            this.message = "User password changed successfully, logging in!";
+            this._loginUser();
+          }
+          
+      });
+  }
+  
+  resetPassForm(){
+      this.resetPassword = true;
+  }
+  
+  hasToken(){
+      this.onReset = true;
+  }
+  
+  _resetPassword() {
+      this._loginService.resetPassword(this.username).then((error)=>{
+          if (error) {
+            switch (error.code) {
+              case "INVALID_USER":
+                this.message ="The specified user account does not exist.";
+                break;
+              default:
+                this.message = "Error resetting password:" + error;
+            }
+          } else {
+            this.message = `Password reset email sent successfully!
+            Go to your email and get your temporary password then login above!`;
+            this.onReset = true;
+            }
+          
       });
   }
 

@@ -2,7 +2,7 @@ import {Component} from 'angular2/core';
 import {Artist} from '../../app/artist';
 import {RouteParams,RouterLink} from 'angular2/router';
 import {Location} from 'angular2/platform/common';
-import {ArtistService} from '../../app/artists.service';
+import {ArtistService} from '../../app/services/artists.service';
 import {ArtPiece} from '../../app/art-piece';
 import {NgStyle} from 'angular2/common';
 

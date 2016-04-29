@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {ArtPiece} from '../../app/art-piece';
-import {ArtistService} from '../../app/artists.service';
+import {ArtistService} from '../../app/services/artists.service';
+import {LoginService} from '../../app/services/login.service';
 import {ROUTER_DIRECTIVES, RouterLink,Router} from 'angular2/router';
 import {User} from '../../app/user';
 
@@ -8,7 +9,7 @@ import {User} from '../../app/user';
 @Component({
   selector:'art-search',
   templateUrl: './partials/art-search.html',
-  providers: [ArtistService],
+  providers: [ArtistService, LoginService],
   directives:[ROUTER_DIRECTIVES,RouterLink]
 })
 
@@ -19,28 +20,23 @@ export class ArtSearchComponent {
   public notStarted: boolean;
   public user: User;
   public isLoggedIn: boolean;
-  ref: any;
-  newRef: any;
+  private ref: any;
+  private newRef: any;
+  private checkedLogin: boolean = false;
 
-  constructor(public _artistService: ArtistService){
+  constructor(public _artistService: ArtistService, private _loginService: LoginService){
     this.ref = new Firebase("https://artlike.firebaseIO.com/")
-    this.ref.onAuth((authdata) => {
-      this.authDataCallback(authdata);
-    });
+    this._loginService.getUID().then((data)=>{
+        this.user = data['uid'];
+        this.isLoggedIn = data['isLoggedIn'];
+    }).then(()=>{this.checkedLogin=true});
   }
 
-  authDataCallback(authData) {
-    if (authData) {
-      this.isLoggedIn = true;
-      this.user = authData.uid;
-    } else {
-      this.isLoggedIn = false;
-    }
-  }
 
   getWorks() {
-    this._artistService.getAllWorks().then(works =>this.works=works);
+    this._artistService.getSomeWorks(10).then(works => this.works=works);
   }
+  
   ngOnInit() {
     this.getWorks();
     this.notStarted = true;

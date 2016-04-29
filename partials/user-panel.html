@@ -3,7 +3,7 @@
     <div class="col-sm-6 text-center">
       <h1>Welcome {{user.firstName}}</h1>
       <br>
-      You have {{numWorks}} works on ArtLike.
+       <div>You have {{numWorks}} works and {{numGals}} Galleries on ArtLike.</div>
       <br>
        Please click on a work to edit work information and on the profile picture to edit profile information
     </div>
@@ -13,7 +13,8 @@
   </div>
   <hr>
   <div *ngIf="noEdit">
-    <div [hidden]='workLengthCheck()' class="row" *ngFor="#work of works">
+    <div *ngIf='displayWorks' class="row" *ngFor="#work of works">
+        {{work}}
       <div style="height:300px" class="col-sm-5 text-center">
         <img (click)="edit($event.target)" style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
         <h4>{{work.name}}</h4>
@@ -42,6 +43,9 @@
           </tr>
         </table>
       </div>
+    </div>
+    <div *ngIf = "displayGalleries" class= "row" *ngFor="#gal of galleries">
+        {{gal.name}}
     </div>
   </div>
   <div *ngIf="work">

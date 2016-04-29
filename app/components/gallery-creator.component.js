@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../app/artists.service', '../../app/gallery', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../app/services/artists.service', '../../app/services/database.service', '../../app/services/login.service', '../../app/gallery', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, artists_service_1, gallery_1, router_1;
+    var core_1, artists_service_1, database_service_1, login_service_1, gallery_1, router_1;
     var GalleryCreatorComponent;
     return {
         setters:[
@@ -20,6 +20,12 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
             function (artists_service_1_1) {
                 artists_service_1 = artists_service_1_1;
             },
+            function (database_service_1_1) {
+                database_service_1 = database_service_1_1;
+            },
+            function (login_service_1_1) {
+                login_service_1 = login_service_1_1;
+            },
             function (gallery_1_1) {
                 gallery_1 = gallery_1_1;
             },
@@ -28,10 +34,11 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
             }],
         execute: function() {
             GalleryCreatorComponent = (function () {
-                function GalleryCreatorComponent(_artistService, router) {
+                function GalleryCreatorComponent(_artistService, router, _databaseService, _loginService) {
                     this._artistService = _artistService;
-                    this.galleryWorks = [];
-                    this.model = new gallery_1.Gallery(2, '', '', '');
+                    this._databaseService = _databaseService;
+                    this._loginService = _loginService;
+                    this.model = new gallery_1.Gallery('', '', '', '', []);
                     this.artheight = [200, 120, 340, 250, 500, 450];
                     this.containHeight = 340;
                     this.picHeight = 250;
@@ -54,17 +61,38 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                 GalleryCreatorComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._artistService.getArtists().then(function (Artists) { return _this.Artists = Artists; });
-                    this._artistService.getAllWorks().then(function (works) { return _this.works = works; }).then(function (works) { return _this.displayedworks = _this.works; });
+                    this._artistService.getAllWorks().then(function (works) { return _this.works = works; }).then(function (works) { return _this.displayedWorks = _this.works; });
+                    this._loginService.getUID().then(function (data) {
+                        _this.user = data['uid'];
+                        _this.isLoggedIn = data['isLoggedIn'];
+                    }).then(function () { _this.checkedLogin = true; });
                 };
                 //create link to page by adding firebase url
                 GalleryCreatorComponent.prototype.createPage = function () {
-                    var url = this.model.stringify();
-                    url = url + "@" + this.containHeight + "@" + this.picHeight;
-                    for (var i = 0; i < this.galleryWorks.length; i++) {
-                        url = url + "@" + this.galleryWorks[i]['_id'].replace(/\s/g, "%");
+                    if (this.user) {
+                        this.createGallery();
                     }
-                    this.url = url;
-                    this.full_url = 'artlike.io/#/gallery-view/' + url;
+                    else {
+                        this.message = 'Sorry, you need to be logged in to create Galleries.  Make an account for free by clicking Login and then signing up!';
+                    }
+                };
+                GalleryCreatorComponent.prototype.createGallery = function () {
+                    var _this = this;
+                    var path = 'users/' + this.user + '/Galleries';
+                    this._databaseService.checkChildNumber(path).then(function (num) {
+                        if (num < 5) {
+                            _this._databaseService.pushToDatabase('Galleries', _this.model).then(function (ref) {
+                                var _id = ref.key().split('/').pop();
+                                _this.url = _id;
+                                _this.full_url = 'artlike.io/#/gallery-view/' + _id;
+                                _this.model.id = _id;
+                                _this._databaseService.pushToDatabase(path, _this.model);
+                            });
+                        }
+                        else {
+                            _this.message = 'You have reached your allotment of Galleries';
+                        }
+                    });
                 };
                 //filter artists when selected by first and last name
                 //should make this by id at some point.....
@@ -80,11 +108,11 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                 };
                 //remove work from gallery works if button is clicked
                 GalleryCreatorComponent.prototype.removeWork = function (work) {
-                    this.galleryWorks = this.galleryWorks.filter(function (a) { return a != work; });
+                    this.model.works = this.model.works.filter(function (a) { return a != work; });
                 };
                 //what to do if selected
                 GalleryCreatorComponent.prototype.onSelect = function (work) {
-                    this.galleryWorks.push(work);
+                    this.model.works.push(work);
                 };
                 //setup preview modal
                 GalleryCreatorComponent.prototype.previewPage = function () {
@@ -100,9 +128,9 @@ System.register(['angular2/core', '../../app/artists.service', '../../app/galler
                         templateUrl: './partials/gallery-creator.html',
                         styles: ["\n    .ng-valid[required] {\n  border-left: 5px solid #42A948;\n    }\n\n.ng-invalid {\n  border-left: 5px solid #a94442;\n}"],
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink],
-                        providers: [artists_service_1.ArtistService],
+                        providers: [artists_service_1.ArtistService, database_service_1.DatabaseService, login_service_1.LoginService],
                     }), 
-                    __metadata('design:paramtypes', [artists_service_1.ArtistService, router_1.Router])
+                    __metadata('design:paramtypes', [artists_service_1.ArtistService, router_1.Router, database_service_1.DatabaseService, login_service_1.LoginService])
                 ], GalleryCreatorComponent);
                 return GalleryCreatorComponent;
             }());

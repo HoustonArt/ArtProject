@@ -1,7 +1,7 @@
-import {Artist} from './artist';
-import {ArtPiece} from './art-piece';
-import {Injectable} from 'angular2/core'
-import {Observable} from 'rxjs/Observable'
+import {Artist} from '../../app/artist';
+import {ArtPiece} from '../../app/art-piece';
+import {Injectable} from 'angular2/core';
+import {Observable} from 'rxjs/Observable';
 
 function shuffle(array) {
       var currentIndex = array.length, temporaryValue, randomIndex ;
@@ -41,9 +41,11 @@ export class ArtistService {
   public ARTISTS: Artist[] = [];
   public WORKS = [];
   public _Works = [];
+  public base: any;
 
   //private ARTISTS: Artist[];
   firebaseUrl: string = "https://artlike.firebaseIO.com/users/";
+  
   constructor(){
       this.base = new Firebase(this.firebaseUrl);
   }
@@ -60,11 +62,16 @@ export class ArtistService {
           });
         }
       });
-    }).then(()=> return Promise.resolve(shuffle(workArr)));
+    }).then(()=> {
+        return Promise.resolve(shuffle(workArr));
+        
+    });
   }
   
   getSomeWorks(num:number){
-    return this.getAllWorks().then((works)=> return Promise.resolve(works.slice(0,num)));
+    return this.getAllWorks().then((works)=> {
+        return Promise.resolve(works.slice(0,num));
+    });
   }
 
 
@@ -75,12 +82,16 @@ export class ArtistService {
            this.ARTISTS.push(snapShotChild.val());
         }
       });
-    }).then(() => return Promise.resolve(shuffle(this.ARTISTS)));
+    }).then(() => {
+        return Promise.resolve(shuffle(this.ARTISTS));
+        });
   }
   
 
  getWorkList(work_id){
-    return this.getAllWorks().then((works)=> return Promise.resolve(get_elements(work_id,works,[])));
+    return this.getAllWorks().then((works)=> {
+        return Promise.resolve(get_elements(work_id,works,[]));
+    });
   }
   
  }

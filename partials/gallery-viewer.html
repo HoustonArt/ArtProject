@@ -1,16 +1,16 @@
 <div class="container">
-  <div class="row" *ngIf="loading==1">
+  <div class="row" *ngIf="!model">
     Loading your gallery
   </div>
-  <div class="row" *ngIf="loading==0">
+  <div class="row" *ngIf="model">
     <div class="col-lg-12 text-center">
       <h2>{{model.name}}</h2>
       <div *ngIf="model.curator != ''">
         Curated by {{model.curator}}
         <hr>
       </div>
-      <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of galleryWorks">
-        <a [routerLink]="['/Work', {id: work.artist_id + '-'+ work.name}]">
+      <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of model.works">
+        <a [routerLink]="['/Work', {id: work.artist_id + '@'+ work._id}]">
           <img style="max-height:{{picHeight}}px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
         </a>
         <h4>{{work.name}}<small> {{work.artist_fname}} {{work.artist_lname}}</small></h4>

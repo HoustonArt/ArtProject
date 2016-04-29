@@ -1,12 +1,16 @@
 1. Add profile picture - create image uploading component
 2. contact file (interested in work, pulled from the page
-3. Gallery creator store galleries
 4. Check for duplicate files
 5. Package authentication as service
 6. Package AWS upload as service
 7. Package firebase as service (especially getting artists and works)
-
-* Redo gallery app so it saves galleries, then can call directly instead of parsing links which is a problem right now.
+8. Implement firebase rules for maximum children
+9. Make gallery creator component reusable for user panel (should be easy)
+    When done rewrite old gallery with same id.
+10.  Clean up all services using those from database.service
+11. KEEP ONLY REFERENCES TO GALLERY
 
 * Maybe don't have users re-visit pieces they already rated if logged in?
+
+
 

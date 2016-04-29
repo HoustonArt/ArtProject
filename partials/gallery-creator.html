@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-lg-12" *ngIf="preview !=1">
       <h1 class="page-header">Gallery Designer <small>Sharing art your way</small></h1>
+      {{message}}
     </div>
   </div>
 
@@ -51,7 +52,7 @@
         </div>
       </div>
       <hr>
-      <div [hidden]="curator.errors">
+      <div *ngIf="checkedLogin" [hidden]="curator.errors">
         <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal" (click)="createPage()">Create Page</button>
         <button type="button" class="btn btn-primary btn-lg" (click)="previewPage()">Preview</button>
       </div>
@@ -62,7 +63,7 @@
         Curated by {{model.curator}}
         <hr>
       </div>
-      <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of galleryWorks">
+      <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of model.works">
         <img style="max-height:{{picHeight}}px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
         <h4>{{work.name}}<small> {{work.artist_fname}} {{work.artist_lname}}</small></h4>
         <button type="button" class="btn btn-danger btn-xs" (click)="removeWork(work)">Remove</button>
@@ -76,13 +77,18 @@
             <h4 class="modal-title" id="myModalLabel">Link</h4>
           </div>
           <div class="modal-body" style="word-wrap:break-word">
-            <a [routerLink]="['/GalleryView', {id: url}]">
+            <a *ngIf='url' [routerLink]="['/GalleryView', {id: url}]">
               <button type="button" class="btn btn-success btn-lg" data-dismiss="modal">Go to Gallery!</button>
             </a>
-                <hr>
+            <div *ngIf="message">
+            {{message}}
+            </div>
+              <div *ngIf="!message">
+            <hr>
               URL:
               <br>
               {{full_url}}
+              </div>
           </div>
         </div>
       </div>
@@ -96,7 +102,7 @@
           Curated by {{model.curator}}
           <hr>
         </div>
-        <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of galleryWorks">
+        <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="#work of model.works">
           <img style="max-height:{{picHeight}}px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
           <h4>{{work.name}}<small> {{work.artist_fname}} {{work.artist_lname}}</small></h4>
         </div>

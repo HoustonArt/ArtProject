@@ -6,11 +6,12 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             Gallery = (function () {
-                function Gallery(id, name, curator, info) {
+                function Gallery(id, name, curator, info, works) {
                     this.id = id;
                     this.name = name;
                     this.curator = curator;
                     this.info = info;
+                    this.works = works;
                 }
                 Gallery.prototype.stringify = function () {
                     var outstring;

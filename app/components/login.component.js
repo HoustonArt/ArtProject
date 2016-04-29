@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../../app/services/login.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
+    var core_1, router_1, login_service_1;
     var Login;
     return {
         setters:[
@@ -19,16 +19,33 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (login_service_1_1) {
+                login_service_1 = login_service_1_1;
             }],
         execute: function() {
             Login = (function () {
-                function Login(router) {
+                function Login(router, _loginService) {
+                    this._loginService = _loginService;
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
                     this.message = "";
                     this.loginevent = new core_1.EventEmitter();
+                    this.resetPassword = false;
+                    this.onReset = false;
                     this.router = router;
                 }
-                Login.prototype.loginUser = function () {
+                Login.prototype.loginSubmit = function () {
+                    if (this.resetPassword && this.onReset == false) {
+                        this._resetPassword();
+                    }
+                    else if (this.resetPassword && this.onReset) {
+                        this._changePassword();
+                    }
+                    else {
+                        this._loginUser();
+                    }
+                };
+                Login.prototype._loginUser = function () {
                     var _this = this;
                     var ref = new Firebase(this.firebaseUrl);
                     ref.authWithPassword({
@@ -41,6 +58,51 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                         else {
                             _this.message = "Logged in, redirecting to ArtLike!";
                             _this.loginevent.next(authData);
+                        }
+                    });
+                };
+                Login.prototype._changePassword = function () {
+                    var _this = this;
+                    this._loginService.changePassword(this.username, this.token, this.password).then(function (error) {
+                        if (error) {
+                            switch (error.code) {
+                                case "INVALID_PASSWORD":
+                                    _this.message = "The specified user token is incorrect.";
+                                    break;
+                                case "INVALID_USER":
+                                    _this.message = "The specified user account does not exist.";
+                                    break;
+                                default:
+                                    _this.message = "Error changing password:" + error;
+                            }
+                        }
+                        else {
+                            _this.message = "User password changed successfully, logging in!";
+                            _this._loginUser();
+                        }
+                    });
+                };
+                Login.prototype.resetPassForm = function () {
+                    this.resetPassword = true;
+                };
+                Login.prototype.hasToken = function () {
+                    this.onReset = true;
+                };
+                Login.prototype._resetPassword = function () {
+                    var _this = this;
+                    this._loginService.resetPassword(this.username).then(function (error) {
+                        if (error) {
+                            switch (error.code) {
+                                case "INVALID_USER":
+                                    _this.message = "The specified user account does not exist.";
+                                    break;
+                                default:
+                                    _this.message = "Error resetting password:" + error;
+                            }
+                        }
+                        else {
+                            _this.message = "Password reset email sent successfully!\n            Go to your email and get your temporary password then login above!";
+                            _this.onReset = true;
                         }
                     });
                 };
@@ -57,9 +119,10 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                         selector: 'login',
                         templateUrl: './partials/login.html',
                         styles: ["\n    .ng-valid[required] {\n  border-left: 5px solid #42A948;\n    }\n\n.ng-invalid {\n  border-left: 5px solid #a94442;\n}\n\n @media screen and (max-width: 400px) {\n   .loginrow {\n       padding-top:75px;\n   }\n   \n}\n"],
-                        directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink]
+                        directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink],
+                        providers: [login_service_1.LoginService]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router])
+                    __metadata('design:paramtypes', [router_1.Router, login_service_1.LoginService])
                 ], Login);
                 return Login;
             }());

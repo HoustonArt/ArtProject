@@ -1,9 +1,12 @@
+import {ArtPiece} from '../../app/art-piece';
+
 export class Gallery {
   constructor(
-    public id: number,
+    public id: string,
     public name: string,
     public curator: string,
-    public info?: string
+    public info?: string,
+    public works?: ArtPiece[]
   ) { }
 
   stringify(){
