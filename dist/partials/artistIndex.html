@@ -13,7 +13,7 @@
   <div class="row">
 
     <!--<a [routerLink]="['/Artist', {id: selectedArtist}]">link</a>-->
-    <div class="col-sm-4" *ngFor="#artist of artists" (click)="onSelect(artist)">
+    <div class="col-sm-4" *ngFor="let artist of artists" (click)="onSelect(artist)">
       <img style="height:200px" class="img-circle img-responsive img-center" src="{{artist.profilePic}}" alt="{{artist.lastName}}">
       <h3>{{artist.firstName}} {{artist.lastName}}
         <small>{{artist.locationCity}}</small>
