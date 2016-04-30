@@ -49,7 +49,7 @@ export class AllWorksComponent {
 
 
   ngOnInit() {
-    this._artistService.getSomeWorks(12).then(works => this.works=works);
+    this._artistService.getSomeWorks(8).then(works => this.works=works);
   }
 
   fetchNewWorks(){
@@ -57,7 +57,7 @@ export class AllWorksComponent {
       this.opacity = this.opacity-.1;
       if (this.opacity < .1){
         clearInterval(interval);
-        this._artistService.getSomeWorks(12).then(works => this.works=works).then(()=>{
+        this._artistService.getSomeWorks(8).then(works => this.works=works).then(()=>{
           this.opacity=1;
         });
       }

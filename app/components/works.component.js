@@ -63,7 +63,7 @@ System.register(['angular2/core', '../../app/services/artists.service', 'angular
                 }
                 AllWorksComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this._artistService.getSomeWorks(12).then(function (works) { return _this.works = works; });
+                    this._artistService.getSomeWorks(8).then(function (works) { return _this.works = works; });
                 };
                 AllWorksComponent.prototype.fetchNewWorks = function () {
                     var _this = this;
@@ -71,7 +71,7 @@ System.register(['angular2/core', '../../app/services/artists.service', 'angular
                         _this.opacity = _this.opacity - .1;
                         if (_this.opacity < .1) {
                             clearInterval(interval);
-                            _this._artistService.getSomeWorks(12).then(function (works) { return _this.works = works; }).then(function () {
+                            _this._artistService.getSomeWorks(8).then(function (works) { return _this.works = works; }).then(function () {
                                 _this.opacity = 1;
                             });
                         }
