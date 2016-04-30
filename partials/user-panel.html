@@ -17,46 +17,75 @@
     </div>
   </div>
   <hr>
-  <div *ngIf="noEdit">
-    <div *ngIf='displayWorks' class="row" *ngFor="let work of works">
+  <div *ngIf='displayWorks'>
+  <div *ngIf="noEdit" class = "panel-group" id="artworks">
+      <h2>Works</h2>
+    <div *ngFor="let work of works; let i = index">
       <div *ngIf="work">
-        {{work}}
-        <div style="height:300px" class="col-sm-5 text-center">
-          <img (click)="edit($event.target)" style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
-          <h4>{{work.name}}</h4>
-        </div>
-        <div class="col-sm-5 text-center">
-          <table class="table">
-            <tr>
-              <td>Price</td>
-              <td>{{work.price}}</td>
-            </tr>
-            <tr>
-              <td>Media</td>
-              <td>{{work.media}}</td>
-            </tr>
-            <tr>
-              <td>Length</td>
-              <td>{{work.length}}</td>
-            </tr>
-            <tr>
-              <td>Depth</td>
-              <td>{{work.depth}}</td>
-            </tr>
-            <tr>
-              <td>Width</td>
-              <td>{{work.width}}</td>
-            </tr>
-          </table>
+        <div class ="panel panel-default">
+            <div class="panel-heading">
+                <h4 class ="panel-title">
+                <a data-toggle="collapse" data-parent="#artworks" href="#art{{i}}">{{work.name}}</a>
+                </h4>
+            </div>
+            <div id="art{{i}}" class="panel-collapse collapse">
+                <div class="panel-body">
+                <div style="height:300px" class="col-sm-5 text-center">
+                  <img (click)="edit($event.target)" style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
+                  <h4>{{work.name}}</h4>
+                </div>
+                <div class="col-sm-5 text-center">
+                  <table class="table">
+                    <tr>
+                      <td>Price</td>
+                      <td>{{work.price}}</td>
+                    </tr>
+                    <tr>
+                      <td>Media</td>
+                      <td>{{work.media}}</td>
+                    </tr>
+                    <tr>
+                      <td>Length</td>
+                      <td>{{work.length}}</td>
+                    </tr>
+                    <tr>
+                      <td>Depth</td>
+                      <td>{{work.depth}}</td>
+                    </tr>
+                    <tr>
+                      <td>Width</td>
+                      <td>{{work.width}}</td>
+                    </tr>
+                  </table>
+                </div>
+                </div>
+            </div>
         </div>
       </div>
     </div>
-    <div *ngIf="displayGalleries" class="row" *ngFor="let gal of galleries">
+    </div>
+    
+<div *ngIf='displayGalleries'>
+  <div *ngIf="noEdit" class = "panel-group" id="galleries">
+      <h2>Galleries</h2>
+    <div *ngFor="let gal of galleries; let i = index">
       <div *ngIf="gal">
-        {{gal.name}}
+        <div class ="panel panel-default">
+            <div class="panel-heading">
+                <h4 class ="panel-title">
+                <a data-toggle="collapse" data-parent="#galleries" href="#gal{{i}}">{{gal.name}}</a>
+                </h4>
+            </div>
+            <div id="gal{{i}}" class="panel-collapse collapse">
+            <div class="panel-body">
+                sup
+            </div>
+        </div>
       </div>
     </div>
-  </div>
+    </div>
+  
+  
   <div *ngIf="work">
     {{work.name}}
     <new-work [work]="work" [user]='user' [_newWork]='false' (doneEvent)="handleDoneEvent($event)"></new-work>

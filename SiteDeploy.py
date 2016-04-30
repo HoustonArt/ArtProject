@@ -20,6 +20,12 @@ TEXT = """
         <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.47.min.js"></script>
         <!-- 2. Configure SystemJS -->
+        <style>
+      html{
+         position: relative;
+         min-height:100%;
+         }
+  </style>
     <script>
       System.config({
         packages: {
@@ -32,7 +38,7 @@ TEXT = """
       System.import('app/boot')
             .then(null, console.error.bind(console));
     </script>
-
+    
   </head>
   <base href="/">
   <!-- 3. Display the application -->
