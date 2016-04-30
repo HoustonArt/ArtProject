@@ -38,10 +38,13 @@
     </div>
   </div>
   <hr>
-  <!--<ul *ngIf = 'noEdit' class = "nav nav-tabs">
-    has
-  </ul>-->
-    <div *ngIf="noEdit" class="panel-group" id="artworks">
+  <ul *ngIf = 'noEdit' class = "nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#workstab">Works</a></li>
+    <li><a data-toggle="tab" href="#galtab">Galleries</a></li>
+  </ul>
+  <div *ngIf="noEdit" class="tab-content">
+    <div *ngIf='displayWorks' id='workstab' class = "tab-pane fade in active">
+    <div class="panel-group" id="artworks">
       <h3>Works
         <small>Click on title to expand</small>
       </h3>
@@ -90,9 +93,10 @@
         </div>
       </div>
     </div>
+  </div>
 
-  <div *ngIf='displayGalleries'>
-    <div *ngIf="noEdit" class="panel-group" id="galleries">
+  <div id="galtab" *ngIf='displayGalleries' class = "tab-pane fade">
+    <div class="panel-group" id="galleries">
       <h3>Galleries
         <small>Click on title to expand</small>
       </h3>
@@ -106,7 +110,16 @@
             </div>
             <div id="gal{{i}}" class="panel-collapse collapse">
               <div class="panel-body">
-                sup
+                <table class="table table-hover table-condensed table-striped">
+                  <tr>
+                    <td>Name</td>
+                    <td>{{gal.name}}</td>
+                  </tr>
+                  <tr>
+                    <td>Curator</td>
+                    <td>{{gal.curator}}</td>
+                  </tr>
+                </table>
               </div>
             </div>
           </div>
@@ -114,6 +127,7 @@
       </div>
     </div>
   </div>
+</div>
   <div *ngIf="work">
     <h3>Editing
       {{work.name}}
