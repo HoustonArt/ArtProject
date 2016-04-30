@@ -38,7 +38,11 @@ export class UserPanelComponent {
   public user: GalleryArtist;
   public artist: Artist;
   public numWorks: number;
+  public maxNumWorks:number = 15;
+  public maxNumGals:number = 5;
   public numGals: number;
+  public workPerc: number;
+  public galPerc: number;
   public noEdit: boolean = true;
   public work: WorkUpLoad;
   public editUser: boolean = false;
@@ -79,17 +83,19 @@ export class UserPanelComponent {
       this.numGals = this.numGals + 1;
     }
     if (this.numGals > 0){
-         this.displayGalleries = true;
+        this.galPerc = this.numGals/this.maxNumGals*100;
+        this.displayGalleries = true;
     }
     if (this.works.length > 0){
-         this.displayWorks = true;
+        this.workPerc = this.numWorks/this.maxNumWorks*100;
+        this.displayWorks = true;
     }
   }
 
 
   // Function to set up editing template
   edit(picture){
-    var pic_id = picture['src'].split('/').pop(-1);
+    var pic_id = picture.split('/').pop(-1);
     this.noEdit = false;
     this.base.child(this.userPath).child('Works').child(pic_id).once("value", (data) =>{
         this.work = data.val();
@@ -98,7 +104,7 @@ export class UserPanelComponent {
   }
 
     // Function to set up profile editing
-    editProfile(pic){
+    editProfile(){
       this.noEdit = false;
       this.editUser = true;
     }

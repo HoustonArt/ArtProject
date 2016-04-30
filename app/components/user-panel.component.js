@@ -38,6 +38,8 @@ System.register(['angular2/core', 'angular2/router', './new-work.component', './
                     this.galleries = [];
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
                     this.isLoggedIn = false;
+                    this.maxNumWorks = 15;
+                    this.maxNumGals = 5;
                     this.noEdit = true;
                     this.editUser = false;
                     this.displayGalleries = false;
@@ -74,16 +76,18 @@ System.register(['angular2/core', 'angular2/router', './new-work.component', './
                         this.numGals = this.numGals + 1;
                     }
                     if (this.numGals > 0) {
+                        this.galPerc = this.numGals / this.maxNumGals * 100;
                         this.displayGalleries = true;
                     }
                     if (this.works.length > 0) {
+                        this.workPerc = this.numWorks / this.maxNumWorks * 100;
                         this.displayWorks = true;
                     }
                 };
                 // Function to set up editing template
                 UserPanelComponent.prototype.edit = function (picture) {
                     var _this = this;
-                    var pic_id = picture['src'].split('/').pop(-1);
+                    var pic_id = picture.split('/').pop(-1);
                     this.noEdit = false;
                     this.base.child(this.userPath).child('Works').child(pic_id).once("value", function (data) {
                         _this.work = data.val();
@@ -91,7 +95,7 @@ System.register(['angular2/core', 'angular2/router', './new-work.component', './
                     });
                 };
                 // Function to set up profile editing
-                UserPanelComponent.prototype.editProfile = function (pic) {
+                UserPanelComponent.prototype.editProfile = function () {
                     this.noEdit = false;
                     this.editUser = true;
                 };

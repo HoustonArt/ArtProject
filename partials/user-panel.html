@@ -1,41 +1,66 @@
 <div *ngIf='user' class="container">
   <div class="row">
-    <div class="col-sm-6 text-center">
-      <h1>Welcome
-        {{user.firstName}}</h1>
-      <br>
-      <div>You have
-        {{numWorks}}
-        works and
-        {{numGals}}
-        Galleries on ArtLike.</div>
-      <br>
-      Please click on a work to edit work information and on the profile picture to edit profile information
+    <div class="col-sm-8 text-center">
+      <div class="row">
+        <h3>Welcome
+          {{user.firstName}} <small>{{user.locationCity}},
+          {{user.locationState}}</small>
+          <button *ngIf="noEdit" (click)='editProfile()' class="btn btn-default">Edit Profile</button>
+        </h3>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          Work Usage:
+        </div>
+        <div class="col-sm-9">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{workPerc}}%">
+              {{numWorks}}/{{maxNumWorks}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          Gallery Usage:
+        </div>
+        <div class="col-sm-9">
+          <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{galPerc}}%">
+              {{numGals}}/{{maxNumGals}}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-sm-4 text-center">
-      <img (click)="editProfile($event.target)" style="max-height:150px" class="img-thumbnail center-block" src={{user.profilePic}} alt={{user.firstName}}>
+      <img style="max-height:150px" class="img-rounded center-block" src={{user.profilePic}} alt={{user.firstName}}>
     </div>
   </div>
   <hr>
-  <div *ngIf='displayWorks'>
-  <div *ngIf="noEdit" class = "panel-group" id="artworks">
-      <h2>Works</h2>
-    <div *ngFor="let work of works; let i = index">
-      <div *ngIf="work">
-        <div class ="panel panel-default">
+  <!--<ul *ngIf = 'noEdit' class = "nav nav-tabs">
+    has
+  </ul>-->
+    <div *ngIf="noEdit" class="panel-group" id="artworks">
+      <h3>Works
+        <small>Click on title to expand</small>
+      </h3>
+      <div *ngFor="let work of works; let i = index">
+        <div *ngIf="work">
+          <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class ="panel-title">
+              <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#artworks" href="#art{{i}}">{{work.name}}</a>
-                </h4>
+              </h4>
             </div>
             <div id="art{{i}}" class="panel-collapse collapse">
-                <div class="panel-body">
-                <div style="height:300px" class="col-sm-5 text-center">
-                  <img (click)="edit($event.target)" style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
+              <div class="panel-body">
+                <div style="height:270px" class="col-sm-6 text-center">
+                  <img style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
                   <h4>{{work.name}}</h4>
                 </div>
-                <div class="col-sm-5 text-center">
-                  <table class="table">
+                <div class="col-sm-6 text-center">
+                  <table class="table table-hover table-condensed table-striped">
                     <tr>
                       <td>Price</td>
                       <td>{{work.price}}</td>
@@ -57,37 +82,43 @@
                       <td>{{work.width}}</td>
                     </tr>
                   </table>
+                  <button (click)="edit(work.mainFile)" class="btn btn-default">Edit Infomation</button>
                 </div>
-                </div>
+              </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
-    </div>
-    
-<div *ngIf='displayGalleries'>
-  <div *ngIf="noEdit" class = "panel-group" id="galleries">
-      <h2>Galleries</h2>
-    <div *ngFor="let gal of galleries; let i = index">
-      <div *ngIf="gal">
-        <div class ="panel panel-default">
+
+  <div *ngIf='displayGalleries'>
+    <div *ngIf="noEdit" class="panel-group" id="galleries">
+      <h3>Galleries
+        <small>Click on title to expand</small>
+      </h3>
+      <div *ngFor="let gal of galleries; let i = index">
+        <div *ngIf="gal">
+          <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class ="panel-title">
+              <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#galleries" href="#gal{{i}}">{{gal.name}}</a>
-                </h4>
+              </h4>
             </div>
             <div id="gal{{i}}" class="panel-collapse collapse">
-            <div class="panel-body">
+              <div class="panel-body">
                 sup
+              </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
-    </div>
-  
-  
+  </div>
   <div *ngIf="work">
-    {{work.name}}
+    <h3>Editing
+      {{work.name}}
+      <button (click)="handleDoneEvent()" class="btn btn-default btn-large">Back to Panel</button>
+    </h3>
     <new-work [work]="work" [user]='user' [_newWork]='false' (doneEvent)="handleDoneEvent($event)"></new-work>
   </div>
   <div *ngIf="editUser">
