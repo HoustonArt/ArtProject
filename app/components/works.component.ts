@@ -24,7 +24,6 @@ export class WorkDisplay{
   isHover(){
     this.showInfo = true;
     this.size = '275px';
-    console.log(this.opacity);
   }
 
   notHover(){

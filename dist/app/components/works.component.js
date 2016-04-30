@@ -32,7 +32,6 @@ System.register(['angular2/core', '../../app/services/artists.service', 'angular
                 WorkDisplay.prototype.isHover = function () {
                     this.showInfo = true;
                     this.size = '275px';
-                    console.log(this.opacity);
                 };
                 WorkDisplay.prototype.notHover = function () {
                     this.showInfo = false;

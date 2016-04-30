@@ -15,3 +15,8 @@
     This has some problems if works change?  need to keep only references to
     works because of this maybe?  Possibly okay because price and stuff aren't
     listed and it links back, we will leave for now...
+
+* NEED TO DO TESTING
+* NEED TO BUILD BETTER WORKFLOW POSSIBLY? (Maybe gulp)?
+
+* FIRECHAT would be great for a live chat system, not really what we want for messages?

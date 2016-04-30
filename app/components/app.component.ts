@@ -23,7 +23,41 @@ import {UserPanelComponent} from './user-panel.component';
   styles: [`[hidden] {display: none;},
     .navbar ul li{
     display:inline-block;
- }`]
+    }
+ 
+ body{
+  margin-bottm:60px;
+ }
+ 
+ footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;
+     }
+     
+     
+ footerList {
+     width: 100%;
+     margin:0;
+     padding:0;
+ }
+ .footerLink{
+     display:inline;
+ }
+ 
+ .footerLink a {
+     color: #115;
+     padding: 8px 8px 8px 8px;
+     text-decoration:none;
+     
+ }
+ 
+ .footerLink a:hover{
+     background-color: #555;
+     color:white;
+ }
+     `]
 })
 
 @RouteConfig([

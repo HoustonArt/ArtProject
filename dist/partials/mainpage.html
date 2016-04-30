@@ -62,11 +62,12 @@
     </div>
 
 </div>
-<br><br>
-<footer class="footer navbar-fixed-bottom">
-    <ul class="nav" style='margin: 0 auto;'>
-    <li class="navbar-text"><a *ngIf="isLoggedIn" [routerLink]="['/User']">My Panel</a></li>
-    <li class="navbar-text"><a *ngIf="isLoggedIn" [routerLink]="['/NewWork']">Add New Art</a></li>
-    <li class="navbar-text"><a href="http://ourdisclaimer.com/?i=ArtLike">Disclaimer</a></li>
+<footer>
+    <div class="container">
+    <ul class = "footerList">
+        <li class='footerLink'><a *ngIf="isLoggedIn" [routerLink]="['/User']">My Panel</a></li>
+        <li class='footerLink'><a *ngIf="isLoggedIn" [routerLink]="['/NewWork']">Add New Art</a></li>
+        <li class='footerLink'><a href="http://ourdisclaimer.com/?i=ArtLike">Disclaimer</a></li>
   </ul>
+  </div>
 </footer>

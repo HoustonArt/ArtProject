@@ -37,7 +37,7 @@ export class LoginService {
     resetPassword(email:string){
         return Promise.resolve(this.ref.resetPassword({'email':email},()=>{}).catch((err)=>{
             return Promise.resolve(err);
-            });
+            }));
     }
     
     changePassword(email:string,oldPassword:string,newPassword:string){
@@ -47,6 +47,6 @@ export class LoginService {
             'newPassword':newPassword
         },()=>{}).catch((error)=>{
             return Promise.resolve(error);
-        });
+        }));
     }
 }
