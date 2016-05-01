@@ -3,17 +3,14 @@
 
   <!-- Introduction Row -->
   <div class="row">
-    <div class="col-lg-10">
       <h1 class="page-header">Artists
       </h1>
-    </div>
   </div>
 
   <!-- Team Members Row -->
   <div class="row">
 
-    <!--<a [routerLink]="['/Artist', {id: selectedArtist}]">link</a>-->
-    <div class="col-sm-4" *ngFor="let artist of artists" (click)="onSelect(artist)">
+    <div class="col-sm-3 col-xs-6" *ngFor="let artist of artists" (click)="onSelect(artist)">
       <img style="height:200px" class="img-circle img-responsive img-center" src="{{artist.profilePic}}" alt="{{artist.lastName}}">
       <h3>{{artist.firstName}} {{artist.lastName}}
         <small>{{artist.locationCity}}</small>
