@@ -1,36 +1,52 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {DatePipe} from 'angular2/common';
-import {Message} from './app/message';
+import {Message} from '../../app/message';
 import {DatabaseService} from '../../app/services/database.service';
 import {LoginService} from '../../app/services/login.service';
 
 @Component({
     selector:'message-write',
-    template:``
-    directives:[],
-    styles:[],
-    providers:[]
+    templateUrl:'./partials/message-write.html',
+    styles:[ `.ng-valid[required] {
+    border-left: 5px solid #42A948;
+      }
+
+  .ng-invalid {
+    border-left: 5px solid #a94442;
+  }`]
 })
 export class MessageWriter {
-    @Input() oldMessage: Message;
-    
+    @Input() oldmessage: Message;
+    @Output() myevent: EventEmitter<any> = new EventEmitter();
+    public newMessage: Message = new Message('','','','','','','');
+
+    constructor(){
+      console.log(this.oldmessage);
+      //this.newMessage.sender_id = this.oldmessage.receiver_id;
+      //this.newMessage.receiver_id = this.oldmessage.sender_id;
+      //this.newMessage.subject = 'Re' + this.oldmessage.subject;
+    }
+
+    onSubit(){
+      console.log(this.newMessage);
+    }
+
 }
 
 
 @Component({
   selector:'messages',
   templateUrl: './partials/messages.html',
-  directives:[MessageWriter],
   styles:[`
    li:hover{background-color:#d3d3d3;}
   `],
-  providers:[DatabaseService,LoginService, DatePipe]
+  providers:[DatabaseService,LoginService, DatePipe],
+  directives:[MessageWriter]
 })
-
 export class MessagesComponent{
     private uid: string;
-    private messages: Messages[];
-    private currentMessage:Message;
+    private messages: Message[];
+    public currentMessage:Message;
     private writeReply:boolean = false;
 
     constructor(private _databaseService: DatabaseService,
@@ -44,13 +60,11 @@ export class MessagesComponent{
             });
         });
     }
-    
+
     changeMessage(mes){
         this.currentMessage.style = '';
         mes.style = 'active';
         this.currentMessage = mes;
     }
-    
-    
-    
+
 }

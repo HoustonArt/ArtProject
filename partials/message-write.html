@@ -1,0 +1,6 @@
+<form (ngSubmit) = "onSubmit()" #messageForm='ngForm'>
+  <div class="form-group">
+    <label for="Name">Name</label>
+    <input type="text" class="form-control" placeholder="Enter name you wish reciever to see" required [(ngModel)]="newMessage.sender_name" ngControl="fName" #name="ngForm">
+  </div>
+</form>

@@ -34,5 +34,5 @@ export class GalleryViewerComponent {
        this.model = data;
    });
  }
-   
+
 }

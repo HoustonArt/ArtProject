@@ -6,6 +6,7 @@ export class Message {
     public subject: string,
     public content:string,
     public date: string,
-    public _id: string
+    public _id: string,
+    public style?:string
   ) { }
 }
