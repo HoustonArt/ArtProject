@@ -40,5 +40,20 @@ export class DatabaseService {
             })
         );
     }
+    
+    getAllChildren(path: string){
+        var _data = [];
+        var _retData;
+        return Promise.resolve(this.ref.child(path).once('value',(snap)=>{
+            snap.forEach((childSnap)=>{
+                var _snap = childSnap.val();
+                _snap['_id']= childSnap.key();
+                _data.push(_snap);
+            });
+        }).then(()=>{
+            _retData = _data;
+            return Promise.resolve(_retData);
+        })))
+    }
 
 }

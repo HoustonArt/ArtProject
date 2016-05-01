@@ -1,0 +1,17 @@
+<h1 class="page-header">Messages</h1>
+<div *ngIf='currentMessage' class="row">
+    <div class = "col-xs-6 col-sm-4">
+        <ul class="list-group">
+            <li *ngFor='let mes of messages' class='list-group-item {{mes.style}}' (click)='changeMessage(mes)'>
+                {{mes.sender_name}} {{mes.date | date: 'short'}}</li>
+        </ul>
+    </div>
+    <div class ="col-xs-6 col-sm-8">
+        <h3>{{currentMessage.subject}} <button (click)="writeReply = true" class="btn btn-default">Reply</button></h3>
+        <hr>
+        <p>{{currentMessage.content}}</p>
+        
+        <message-write *ngIf='writeReply'></message-write>
+    </div>
+</div>
+

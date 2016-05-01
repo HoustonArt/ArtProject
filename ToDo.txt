@@ -20,3 +20,17 @@
 * NEED TO BUILD BETTER WORKFLOW POSSIBLY? (Maybe gulp)?
 
 * FIRECHAT would be great for a live chat system, not really what we want for messages?
+
+Structure of database
+-Galleries
+-S3auth
+-artSearch
+-users
+-works
+-messages
+ -- keys are user ids, can write anywhere, on read your own
+
+
+goal of database, keep everything as flat as possible and store references around. (or maybe dont store references, rely on queries from database when speed doesn't matter maybe?)  Also, it is okay to have rendundancy, for example in the works, but just make sure to keep everything updated together.
+
+for (var i in mes){var newone = ref.push(mes[i]);var newone2 = newone.toString(); ref1.push({'reciver':mes[i]['reciever_id'], 'id':newone2.split('/').pop(-1)})}

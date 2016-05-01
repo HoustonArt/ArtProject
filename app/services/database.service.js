@@ -43,6 +43,20 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         return Promise.resolve(_data);
                     }));
                 };
+                DatabaseService.prototype.getAllChildren = function (path) {
+                    var _data = [];
+                    var _retData;
+                    return Promise.resolve(this.ref.child(path).once('value', function (snap) {
+                        snap.forEach(function (childSnap) {
+                            var _snap = childSnap.val();
+                            _snap['_id'] = childSnap.key();
+                            _data.push(_snap);
+                        });
+                    }).then(function () {
+                        _retData = _data;
+                        return Promise.resolve(_retData);
+                    }));
+                };
                 DatabaseService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])
