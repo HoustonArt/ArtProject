@@ -31,16 +31,20 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
             }],
         execute: function() {
             MessageWriter = (function () {
-                function MessageWriter() {
+                function MessageWriter(_databaseService) {
+                    this._databaseService = _databaseService;
                     this.myevent = new core_1.EventEmitter();
-                    this.newMessage = new message_1.Message('', '', '', '', '', '', '');
-                    console.log(this.oldmessage);
-                    //this.newMessage.sender_id = this.oldmessage.receiver_id;
-                    //this.newMessage.receiver_id = this.oldmessage.sender_id;
-                    //this.newMessage.subject = 'Re' + this.oldmessage.subject;
+                    this.newMessage = new message_1.Message('', '', '', '', '', '', '', '');
                 }
-                MessageWriter.prototype.onSubit = function () {
-                    console.log(this.newMessage);
+                MessageWriter.prototype.ngOnInit = function () {
+                    this.newMessage.sender_id = this.oldmessage.receiver_id;
+                    this.newMessage.receiver_id = this.oldmessage.sender_id;
+                    this.newMessage.subject = 'Re: ' + this.oldmessage.subject;
+                };
+                MessageWriter.prototype.onSubmit = function () {
+                    var _this = this;
+                    this.newMessage.date = Date.now().toString();
+                    this._databaseService.pushToDatabase('messages/' + this.newMessage.receiver_id, this.newMessage).then(function (err) { _this.myevent.emit(null); });
                 };
                 __decorate([
                     core_1.Input(), 
@@ -54,9 +58,10 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                     core_1.Component({
                         selector: 'message-write',
                         templateUrl: './partials/message-write.html',
+                        providers: [database_service_1.DatabaseService],
                         styles: [".ng-valid[required] {\n    border-left: 5px solid #42A948;\n      }\n\n  .ng-invalid {\n    border-left: 5px solid #a94442;\n  }"]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [database_service_1.DatabaseService])
                 ], MessageWriter);
                 return MessageWriter;
             }());
@@ -69,7 +74,7 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                     this.writeReply = false;
                     this._loginService.getUID().then(function (snap) {
                         _this.uid = snap['uid'];
-                        _this._databaseService.getAllChildren('messages/' + _this.uid).then(function (mes) {
+                        _this._databaseService.getAllChildren('messages/' + _this.uid + '/received/').then(function (mes) {
                             _this.messages = mes;
                             _this.currentMessage = _this.messages[0];
                             _this.messages[0].style = 'active';
@@ -80,6 +85,10 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                     this.currentMessage.style = '';
                     mes.style = 'active';
                     this.currentMessage = mes;
+                };
+                MessagesComponent.prototype.messageSent = function () {
+                    this.writeReply = false;
+                    alert('Message Sent');
                 };
                 MessagesComponent = __decorate([
                     core_1.Component({

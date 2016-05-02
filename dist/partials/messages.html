@@ -11,7 +11,7 @@
         <hr>
         <p>{{currentMessage.content}}</p>
         <div *ngIf='writeReply'>
-        <message-write [oldmessage]='currentMessage'></message-write>
+        <message-write [oldmessage]='currentMessage' (myevent) = 'messageSent()'></message-write>
       </div>
     </div>
 </div>

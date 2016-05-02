@@ -7,6 +7,7 @@ import {LoginService} from '../../app/services/login.service';
 @Component({
     selector:'message-write',
     templateUrl:'./partials/message-write.html',
+    providers:[DatabaseService],
     styles:[ `.ng-valid[required] {
     border-left: 5px solid #42A948;
       }
@@ -18,21 +19,22 @@ import {LoginService} from '../../app/services/login.service';
 export class MessageWriter {
     @Input() oldmessage: Message;
     @Output() myevent: EventEmitter<any> = new EventEmitter();
-    public newMessage: Message = new Message('','','','','','','');
+    public newMessage: Message = new Message('','','','','','','','');
 
-    constructor(){
-      console.log(this.oldmessage);
-      //this.newMessage.sender_id = this.oldmessage.receiver_id;
-      //this.newMessage.receiver_id = this.oldmessage.sender_id;
-      //this.newMessage.subject = 'Re' + this.oldmessage.subject;
+    constructor(private _databaseService: DatabaseService){}
+
+    ngOnInit(){
+      this.newMessage.sender_id = this.oldmessage.receiver_id;
+      this.newMessage.receiver_id = this.oldmessage.sender_id;
+      this.newMessage.subject = 'Re: ' + this.oldmessage.subject;
     }
 
-    onSubit(){
-      console.log(this.newMessage);
+    onSubmit(){
+      this.newMessage.date = Date.now().toString();
+      this._databaseService.pushToDatabase('messages/' + this.newMessage.receiver_id,
+        this.newMessage).then((err)=>{this.myevent.emit(null)});
     }
-
 }
-
 
 @Component({
   selector:'messages',
@@ -53,7 +55,7 @@ export class MessagesComponent{
                 private _loginService: LoginService) {
         this._loginService.getUID().then((snap)=>{
             this.uid = snap['uid'];
-            this._databaseService.getAllChildren('messages/' + this.uid).then((mes)=>{
+            this._databaseService.getAllChildren('messages/' + this.uid +'/received/').then((mes)=>{
                 this.messages = mes;
                 this.currentMessage = this.messages[0];
                 this.messages[0].style = 'active';
@@ -65,6 +67,11 @@ export class MessagesComponent{
         this.currentMessage.style = '';
         mes.style = 'active';
         this.currentMessage = mes;
+    }
+
+    messageSent(){
+      this.writeReply = false;
+      alert('Message Sent');
     }
 
 }

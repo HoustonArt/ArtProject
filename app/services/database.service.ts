@@ -40,7 +40,7 @@ export class DatabaseService {
             })
         );
     }
-    
+
     getAllChildren(path: string){
         var _data = [];
         var _retData;
@@ -53,7 +53,7 @@ export class DatabaseService {
         }).then(()=>{
             _retData = _data;
             return Promise.resolve(_retData);
-        })))
+        }));
     }
 
 }

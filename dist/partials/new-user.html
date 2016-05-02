@@ -26,8 +26,8 @@
         <input type="text" class="form-control" placeholder="Enter home state" required [(ngModel)]="user.locationState" ngControl="state" #name="ngForm">
       </div>
       <div class="form-group">
-        <label for="city">Description</label>
-        <input type="text" class="form-control" placeholder="Enter description" [(ngModel)]="user.description" ngControl="description" #name="ngForm">
+        <label for="desc">Description</label>
+        <textarea class="form-control" rows="5" id="desc" placeholder="Enter description" [(ngModel)]="user.description" ngControl="desc" #name="ngForm"></textarea>
       </div>
       <button *ngIf ='!_newUser' type="submit" class="btn btn-default btn-block">Save Edited Information</button>
   </div>
