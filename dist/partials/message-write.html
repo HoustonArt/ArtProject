@@ -1,4 +1,4 @@
-<form *ngIf='notSubmitted' (ngSubmit) = "onSubmit()" #messageForm='ngForm'>
+<form *ngIf='notSubmitted' (ngSubmit)="onSubmit()" #messageForm='ngForm'>
   <div class="form-group">
     <label for="Name">Name</label>
     <input type="text" class="form-control" placeholder="Enter name you wish reciever to see" required [(ngModel)]="newMessage.sender_name" ngControl="Name" #name="ngForm">
@@ -8,11 +8,13 @@
     <input type="text" class="form-control" placeholder="Enter subject" required [(ngModel)]="newMessage.subject" ngControl="sub" #name="ngForm">
   </div>
   <div class="form-group">
-  <label for="content">Content</label>
-  <textarea class="form-control" rows="5" id="content" placeholder="Enter message" required [(ngModel)]="newMessage.content" ngControl="cont" #name="ngForm"></textarea>
-</div>
-<button type="submit" class="btn btn-default">Send</button>
+    <label for="content">Content</label>
+    <textarea class="form-control" rows="5" id="content" placeholder="Enter message" required [(ngModel)]="newMessage.content" ngControl="cont" #name="ngForm"></textarea>
+  </div>
+  <button type="submit" class="btn btn-default">Send</button>
+  <p style="font-size:10px">Remember: ArtLike does not guarentee security of your messages.  Do not send passwords, credit cards or any private information over these channels.
+   We will do the best we can to secure your data, by pressing send you acknowledge this risk.</p>
 </form>
-<div *ngIf= '!notSubmitted'>
-    Message Sent
+<div *ngIf='!notSubmitted'>
+  Message Sent
 </div>
