@@ -87,37 +87,40 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                     var _this = this;
                     this._databaseService = _databaseService;
                     this._loginService = _loginService;
-                    this.noMessage = false;
-                    this.noSentMessage = false;
                     this._loginService.getUID().then(function (snap) {
                         _this.uid = snap['uid'];
                         _this._databaseService.getAllChildren('messages/' + _this.uid + '/received/').then(function (mes) {
-                            if (mes != null && mes != []) {
+                            if (mes[0]) {
                                 _this.messages = mes;
                                 _this.currentMessage = _this.messages[0];
                                 _this.messages[0].style = 'active';
+                                _this.noMessage = false;
                             }
                             else {
                                 _this.noMessage = true;
                             }
                         });
                         _this._databaseService.getAllChildren('messages/' + _this.uid + '/sent/').then(function (mes) {
-                            if (mes != null && mes.length > 0) {
+                            if (mes[0]) {
                                 _this.sentMessages = mes;
+                                _this.noSentMessage = false;
+                                _this.sentMessages[0].style = 'active';
+                                _this.currentMessage = _this.sentMessages[0];
                             }
                             else {
                                 _this.noSentMessage = true;
                             }
                         });
-                    }).then(function () {
-                        if (_this.noMessage) {
-                            if (!_this.noSentMessage) {
-                                _this.sentMessages[0].style = 'active';
-                                _this.currentMessage = _this.sentMessages[0];
-                            }
-                        }
                     });
                 }
+                MessagesComponent.prototype.ngOnInit = function () {
+                    if (this.messages) {
+                        this.changeMessage(this.messages[0]);
+                    }
+                    else {
+                        this.currentMessage = null;
+                    }
+                };
                 MessagesComponent.prototype.changeMessage = function (mes) {
                     this.currentMessage.style = '';
                     mes.style = 'active';

@@ -62,37 +62,42 @@ export class MessagesComponent{
     private sentMessages: Message[];
     public currentMessage:Message;
     public currentSentMessage: Message;
-    public noMessage:boolean = false;
-    public noSentMessage:boolean = false;
+    public noMessage:boolean;
+    public noSentMessage:boolean;
 
     constructor(private _databaseService: DatabaseService,
                 private _loginService: LoginService) {
         this._loginService.getUID().then((snap)=>{
             this.uid = snap['uid'];
             this._databaseService.getAllChildren('messages/' + this.uid +'/received/').then((mes)=>{
-                if (mes != null && mes != []){
+                if (mes[0]){
                     this.messages = mes;
                     this.currentMessage = this.messages[0];
                     this.messages[0].style = 'active';
+                    this.noMessage = false;
                 }else{
                     this.noMessage = true;
                 }
             });
             this._databaseService.getAllChildren('messages/' + this.uid +'/sent/').then((mes)=>{
-                if (mes != null && mes.length > 0){
+                if (mes[0]){
                     this.sentMessages = mes;
+                    this.noSentMessage = false
+                    this.sentMessages[0].style = 'active';
+                    this.currentMessage = this.sentMessages[0];
                 }else{
                     this.noSentMessage = true;
                 }
             });
-        }).then(()=>{
-          if(this.noMessage){
-            if(!this.noSentMessage){
-                this.sentMessages[0].style = 'active';
-                this.currentMessage = this.sentMessages[0];
-            }
-          }
         });
+    }
+
+    ngOnInit(){
+      if (this.messages){
+        this.changeMessage(this.messages[0]);
+      }else{
+        this.currentMessage = null;
+      }
     }
 
 
