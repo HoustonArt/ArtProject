@@ -5,13 +5,17 @@ import {Location} from 'angular2/platform/common';
 import {ArtistService} from '../../app/services/artists.service';
 import {ArtPiece} from '../../app/art-piece';
 import {NgStyle} from 'angular2/common';
+import {LoginService} from '../../app/services/login.service';
+import {MessageWriter} from './messages.component';
+
+
 
 @Component({
   selector: 'work-detail',
   templateUrl : './partials/work.html',
   inputs: ['work'],
-  providers: [ArtistService],
-  directives: [RouterLink, NgStyle]
+  providers: [ArtistService, LoginService],
+  directives: [RouterLink, NgStyle, MessageWriter]
 })
 
 export class WorkDetailComponent {
@@ -24,10 +28,18 @@ export class WorkDetailComponent {
   public selectedFile: string;
   public selectedIndex: number;
   firebaseUrl: string = "https://artlike.firebaseIO.com/users/";
+  public isLoggedIn:boolean;
+  public uid: string;
 
 
-  constructor(params:RouteParams,location:Location, public _artistService: ArtistService){
+  constructor(params:RouteParams,location:Location,
+              private _artistService: ArtistService,
+              private _loginService: LoginService){
     this.location = location;
+    this._loginService.getUID().then((snap)=>{
+        this.isLoggedIn = snap['isLoggedIn'];
+        this.uid = snap['uid'];
+    });
   }
 
   getWork(path1, path2) {
@@ -68,6 +80,7 @@ export class WorkDetailComponent {
     }
     this.selectedFile = this.work.files[this.selectedIndex];
   }
+  
   ngOnInit() {
     var path = this.location.path().split('/').slice(-1).pop()
     this.path1 = path.split('@')[0];

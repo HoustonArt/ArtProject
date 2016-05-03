@@ -17,22 +17,33 @@ import {LoginService} from '../../app/services/login.service';
   }`]
 })
 export class MessageWriter {
-    @Input() oldmessage: Message;
+    @Input() rec_id: string;
+    @Input() sender_id: string;
+    @Input() subject: string = '';
     @Output() myevent: EventEmitter<any> = new EventEmitter();
     public newMessage: Message = new Message('','','','','','','','');
+    public notSubmitted:boolean = true;
 
     constructor(private _databaseService: DatabaseService){}
 
     ngOnInit(){
-      this.newMessage.sender_id = this.oldmessage.receiver_id;
-      this.newMessage.receiver_id = this.oldmessage.sender_id;
-      this.newMessage.subject = 'Re: ' + this.oldmessage.subject;
+      this.newMessage.sender_id = this.sender_id;
+      this.newMessage.receiver_id = this.rec_id;
+      if(this.subject != ''){
+        this.newMessage.subject = 'Re: ' + this.subject;
+      }
     }
 
     onSubmit(){
       this.newMessage.date = Date.now().toString();
-      this._databaseService.pushToDatabase('messages/' + this.newMessage.receiver_id,
-        this.newMessage).then((err)=>{this.myevent.emit(null)});
+      this._databaseService.pushToDatabase('messages/' + this.newMessage.receiver_id + '/received/',
+        this.newMessage)
+      
+      this._databaseService.pushToDatabase('messages/' + this.newMessage.sender_id + '/sent/',
+        this.newMessage).then((err)=>{
+            this.myevent.emit(null)
+            this.notSubmitted = false;
+        });
     }
 }
 
@@ -56,9 +67,13 @@ export class MessagesComponent{
         this._loginService.getUID().then((snap)=>{
             this.uid = snap['uid'];
             this._databaseService.getAllChildren('messages/' + this.uid +'/received/').then((mes)=>{
-                this.messages = mes;
-                this.currentMessage = this.messages[0];
-                this.messages[0].style = 'active';
+                if (mes != null && mes.length > 0){
+                    this.messages = mes;
+                    this.currentMessage = this.messages[0];
+                    this.messages[0].style = 'active';
+                }else{
+                    this.noMessage = true;
+                }
             });
         });
     }

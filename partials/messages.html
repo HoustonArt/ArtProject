@@ -11,7 +11,10 @@
         <hr>
         <p>{{currentMessage.content}}</p>
         <div *ngIf='writeReply'>
-        <message-write [oldmessage]='currentMessage' (myevent) = 'messageSent()'></message-write>
+        <message-write [rec_id]='currentMessage.sender_id' [sender_id]='uid' [subject]='currentMessage.subject' (myevent) = 'messageSent()'></message-write>
       </div>
     </div>
+</div>
+<div *ngIf='noMessage'>
+    You have no messages!  Please enjoy ArtLike!
 </div>

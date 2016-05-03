@@ -55,7 +55,10 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     }).then(function () {
                         _retData = _data;
                         return Promise.resolve(_retData);
-                    }));
+                    })).catch(function () {
+                        _retData = null;
+                        Promise.resolve(_retData);
+                    });
                 };
                 DatabaseService = __decorate([
                     core_1.Injectable(), 

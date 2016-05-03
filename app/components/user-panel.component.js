@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './new-work.component', './new-user.component', '../../app/services/database.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './messages.component', './new-work.component', './new-user.component', '../../app/services/database.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './new-work.component', './
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, new_work_component_1, new_user_component_1, database_service_1;
+    var core_1, router_1, messages_component_1, new_work_component_1, new_user_component_1, database_service_1;
     var UserPanelComponent;
     return {
         setters:[
@@ -19,6 +19,9 @@ System.register(['angular2/core', 'angular2/router', './new-work.component', './
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (messages_component_1_1) {
+                messages_component_1 = messages_component_1_1;
             },
             function (new_work_component_1_1) {
                 new_work_component_1 = new_work_component_1_1;
@@ -58,6 +61,8 @@ System.register(['angular2/core', 'angular2/router', './new-work.component', './
                             _this.user = data.val();
                             _this._initiateObjects(_this.user);
                         });
+                        this._databaseService.checkChildNumber('messages/' + authData.uid + '/received').then(function (data) { _this.numMesRec = data; });
+                        this._databaseService.checkChildNumber('messages/' + authData.uid + '/sent').then(function (data) { _this.numMesSent = data; });
                     }
                     else {
                         this.isLoggedIn = false;
@@ -110,7 +115,7 @@ System.register(['angular2/core', 'angular2/router', './new-work.component', './
                         selector: 'user-panel',
                         templateUrl: './partials/user-panel.html',
                         styles: ["\n    .ng-valid[required] {\n    border-left: 5px solid #42A948;\n      }\n\n    .ng-invalid {\n      border-left: 5px solid #a94442;\n    }\n      "],
-                        directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink, new_work_component_1.NewWork, new_user_component_1.NewUser],
+                        directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink, new_work_component_1.NewWork, new_user_component_1.NewUser, messages_component_1.MessagesComponent],
                         providers: [database_service_1.DatabaseService]
                     }), 
                     __metadata('design:paramtypes', [database_service_1.DatabaseService])

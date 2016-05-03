@@ -4,6 +4,7 @@ import {User} from '../../app/user';
 import {Artist,GalleryArtist} from '../../app/artist';
 import {ArtPiece} from '../../app/art-piece';
 import {ArtistDetailComponent} from './artist-detail.component';
+import {MessagesComponent} from './messages.component';
 import {WorkUpLoad} from '../../app/work-piece';
 import {NewWork} from './new-work.component';
 import {NewUser} from './new-user.component';
@@ -23,7 +24,7 @@ import {Gallery} from '../../app/gallery';
       border-left: 5px solid #a94442;
     }
       `],
-  directives: [ROUTER_DIRECTIVES, RouterLink, NewWork, NewUser],
+  directives: [ROUTER_DIRECTIVES, RouterLink, NewWork, NewUser,MessagesComponent],
   providers:[DatabaseService]
 })
 
@@ -48,6 +49,8 @@ export class UserPanelComponent {
   public editUser: boolean = false;
   public displayGalleries = false;
   public displayWorks = false;
+  public numMesRec: number;
+  public numMesSent: number;
 
 
   constructor(private _databaseService: DatabaseService) {
@@ -65,6 +68,9 @@ export class UserPanelComponent {
         this.user = data.val();
         this._initiateObjects(this.user);
       });
+      this._databaseService.checkChildNumber('messages/' + authData.uid + '/received').then((data)=>{this.numMesRec = data});
+      this._databaseService.checkChildNumber('messages/' + authData.uid + '/sent').then((data)=>{this.numMesSent = data});
+      
     } else {
       this.isLoggedIn = false;
     }

@@ -53,7 +53,10 @@ export class DatabaseService {
         }).then(()=>{
             _retData = _data;
             return Promise.resolve(_retData);
-        }));
+        })).catch(()=>{
+            _retData = null;
+            Promise.resolve(_retData);
+        });
     }
 
 }
