@@ -81,11 +81,17 @@ export class MessagesComponent{
             this._databaseService.getAllChildren('messages/' + this.uid +'/sent/').then((mes)=>{
                 if (mes != null && mes.length > 0){
                     this.sentMessages = mes;
-                    this.sentMessages[0].style = 'active';
                 }else{
                     this.noSentMessage = true;
                 }
             });
+        }).then(()=>{
+          if(this.noMessage){
+            if(!this.noSentMessage){
+                this.sentMessages[0].style = 'active';
+                this.currentMessage = this.sentMessages[0];
+            }
+          }
         });
     }
 

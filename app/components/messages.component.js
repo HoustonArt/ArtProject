@@ -104,12 +104,18 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                         _this._databaseService.getAllChildren('messages/' + _this.uid + '/sent/').then(function (mes) {
                             if (mes != null && mes.length > 0) {
                                 _this.sentMessages = mes;
-                                _this.sentMessages[0].style = 'active';
                             }
                             else {
                                 _this.noSentMessage = true;
                             }
                         });
+                    }).then(function () {
+                        if (_this.noMessage) {
+                            if (!_this.noSentMessage) {
+                                _this.sentMessages[0].style = 'active';
+                                _this.currentMessage = _this.sentMessages[0];
+                            }
+                        }
                     });
                 }
                 MessagesComponent.prototype.changeMessage = function (mes) {
