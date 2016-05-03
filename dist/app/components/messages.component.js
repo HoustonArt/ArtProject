@@ -33,23 +33,39 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
             MessageWriter = (function () {
                 function MessageWriter(_databaseService) {
                     this._databaseService = _databaseService;
+                    this.subject = '';
                     this.myevent = new core_1.EventEmitter();
-                    this.newMessage = new message_1.Message('', '', '', '', '', '', '', '');
+                    this.newMessage = new message_1.Message('', '', '', '', '', 0, '', '');
+                    this.notSubmitted = true;
                 }
                 MessageWriter.prototype.ngOnInit = function () {
-                    this.newMessage.sender_id = this.oldmessage.receiver_id;
-                    this.newMessage.receiver_id = this.oldmessage.sender_id;
-                    this.newMessage.subject = 'Re: ' + this.oldmessage.subject;
+                    this.newMessage.sender_id = this.sender_id;
+                    this.newMessage.receiver_id = this.rec_id;
+                    if (this.subject != '') {
+                        this.newMessage.subject = 'Re: ' + this.subject;
+                    }
                 };
                 MessageWriter.prototype.onSubmit = function () {
                     var _this = this;
-                    this.newMessage.date = Date.now().toString();
-                    this._databaseService.pushToDatabase('messages/' + this.newMessage.receiver_id, this.newMessage).then(function (err) { _this.myevent.emit(null); });
+                    this.newMessage.date = Date.now();
+                    this._databaseService.pushToDatabase('messages/' + this.newMessage.receiver_id + '/received/', this.newMessage);
+                    this._databaseService.pushToDatabase('messages/' + this.newMessage.sender_id + '/sent/', this.newMessage).then(function (err) {
+                        _this.myevent.emit(null);
+                        _this.notSubmitted = false;
+                    });
                 };
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', message_1.Message)
-                ], MessageWriter.prototype, "oldmessage", void 0);
+                    __metadata('design:type', String)
+                ], MessageWriter.prototype, "rec_id", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], MessageWriter.prototype, "sender_id", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], MessageWriter.prototype, "subject", void 0);
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)
@@ -71,13 +87,28 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                     var _this = this;
                     this._databaseService = _databaseService;
                     this._loginService = _loginService;
-                    this.writeReply = false;
+                    this.noMessage = false;
+                    this.noSentMessage = false;
                     this._loginService.getUID().then(function (snap) {
                         _this.uid = snap['uid'];
                         _this._databaseService.getAllChildren('messages/' + _this.uid + '/received/').then(function (mes) {
-                            _this.messages = mes;
-                            _this.currentMessage = _this.messages[0];
-                            _this.messages[0].style = 'active';
+                            if (mes != null && mes != []) {
+                                _this.messages = mes;
+                                _this.currentMessage = _this.messages[0];
+                                _this.messages[0].style = 'active';
+                            }
+                            else {
+                                _this.noMessage = true;
+                            }
+                        });
+                        _this._databaseService.getAllChildren('messages/' + _this.uid + '/sent/').then(function (mes) {
+                            if (mes != null && mes.length > 0) {
+                                _this.sentMessages = mes;
+                                _this.sentMessages[0].style = 'active';
+                            }
+                            else {
+                                _this.noSentMessage = true;
+                            }
                         });
                     });
                 }
@@ -85,10 +116,6 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                     this.currentMessage.style = '';
                     mes.style = 'active';
                     this.currentMessage = mes;
-                };
-                MessagesComponent.prototype.messageSent = function () {
-                    this.writeReply = false;
-                    alert('Message Sent');
                 };
                 MessagesComponent = __decorate([
                     core_1.Component({

@@ -5,7 +5,7 @@ export class Message {
     public sender_name: string,
     public subject: string,
     public content:string,
-    public date: string,
+    public date: number,
     public _id: string,
     public style?:string
   ) { }

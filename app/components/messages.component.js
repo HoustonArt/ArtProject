@@ -35,7 +35,7 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                     this._databaseService = _databaseService;
                     this.subject = '';
                     this.myevent = new core_1.EventEmitter();
-                    this.newMessage = new message_1.Message('', '', '', '', '', '', '', '');
+                    this.newMessage = new message_1.Message('', '', '', '', '', 0, '', '');
                     this.notSubmitted = true;
                 }
                 MessageWriter.prototype.ngOnInit = function () {
@@ -47,7 +47,7 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                 };
                 MessageWriter.prototype.onSubmit = function () {
                     var _this = this;
-                    this.newMessage.date = Date.now().toString();
+                    this.newMessage.date = Date.now();
                     this._databaseService.pushToDatabase('messages/' + this.newMessage.receiver_id + '/received/', this.newMessage);
                     this._databaseService.pushToDatabase('messages/' + this.newMessage.sender_id + '/sent/', this.newMessage).then(function (err) {
                         _this.myevent.emit(null);
@@ -87,11 +87,12 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                     var _this = this;
                     this._databaseService = _databaseService;
                     this._loginService = _loginService;
-                    this.writeReply = false;
+                    this.noMessage = false;
+                    this.noSentMessage = false;
                     this._loginService.getUID().then(function (snap) {
                         _this.uid = snap['uid'];
                         _this._databaseService.getAllChildren('messages/' + _this.uid + '/received/').then(function (mes) {
-                            if (mes != null && mes.length > 0) {
+                            if (mes != null && mes != []) {
                                 _this.messages = mes;
                                 _this.currentMessage = _this.messages[0];
                                 _this.messages[0].style = 'active';
@@ -100,16 +101,21 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                                 _this.noMessage = true;
                             }
                         });
+                        _this._databaseService.getAllChildren('messages/' + _this.uid + '/sent/').then(function (mes) {
+                            if (mes != null && mes.length > 0) {
+                                _this.sentMessages = mes;
+                                _this.sentMessages[0].style = 'active';
+                            }
+                            else {
+                                _this.noSentMessage = true;
+                            }
+                        });
                     });
                 }
                 MessagesComponent.prototype.changeMessage = function (mes) {
                     this.currentMessage.style = '';
                     mes.style = 'active';
                     this.currentMessage = mes;
-                };
-                MessagesComponent.prototype.messageSent = function () {
-                    this.writeReply = false;
-                    alert('Message Sent');
                 };
                 MessagesComponent = __decorate([
                     core_1.Component({

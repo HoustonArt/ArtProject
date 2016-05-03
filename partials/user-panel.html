@@ -41,9 +41,9 @@
   <ul *ngIf = 'noEdit' class = "nav nav-tabs">
     <li *ngIf='displayWorks' class="active"><a data-toggle="tab" href="#workstab">Works</a></li>
     <li *ngIf='displayGalleries'><a data-toggle="tab" href="#galtab">Galleries</a></li>
-    <li><a data-toggle='tab' href ='messagestab'>Messages</a></li>
+    <li><a data-toggle ='tab' href ='#messagestab'>Messages</a></li>
   </ul>
-  
+
   <div *ngIf="noEdit" class="tab-content">
     <div *ngIf='displayWorks' id='workstab' class = "tab-pane fade in active">
     <div class="panel-group" id="artworks">
@@ -135,7 +135,7 @@
   </div>
 
 <div id="messagestab" class = "tab-pane fade">
-      <h3>messages</h3>
+      <messages></messages>
   </div>
 </div>
 

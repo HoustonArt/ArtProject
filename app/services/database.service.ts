@@ -31,7 +31,7 @@ export class DatabaseService {
 
 
 
-    getObject(path:string){
+    getObject(path:string):any{
         var _data;
         return Promise.resolve(this.ref.child(path).once("value", (data)=>{
             _data = data.val();
@@ -41,7 +41,7 @@ export class DatabaseService {
         );
     }
 
-    getAllChildren(path: string){
+    getAllChildren(path: string):any{
         var _data = [];
         var _retData;
         return Promise.resolve(this.ref.child(path).once('value',(snap)=>{

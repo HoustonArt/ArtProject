@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'angular2/platform/common', '../../app/services/artists.service', 'angular2/common'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/platform/common', '../../app/services/artists.service', 'angular2/common', '../../app/services/login.service', './messages.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/platform/common',
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, common_1, artists_service_1, common_2;
+    var core_1, router_1, common_1, artists_service_1, common_2, login_service_1, messages_component_1;
     var WorkDetailComponent;
     return {
         setters:[
@@ -28,13 +28,25 @@ System.register(['angular2/core', 'angular2/router', 'angular2/platform/common',
             },
             function (common_2_1) {
                 common_2 = common_2_1;
+            },
+            function (login_service_1_1) {
+                login_service_1 = login_service_1_1;
+            },
+            function (messages_component_1_1) {
+                messages_component_1 = messages_component_1_1;
             }],
         execute: function() {
             WorkDetailComponent = (function () {
-                function WorkDetailComponent(params, location, _artistService) {
+                function WorkDetailComponent(params, location, _artistService, _loginService) {
+                    var _this = this;
                     this._artistService = _artistService;
+                    this._loginService = _loginService;
                     this.firebaseUrl = "https://artlike.firebaseIO.com/users/";
                     this.location = location;
+                    this._loginService.getUID().then(function (snap) {
+                        _this.isLoggedIn = snap['isLoggedIn'];
+                        _this.uid = snap['uid'];
+                    });
                 }
                 WorkDetailComponent.prototype.getWork = function (path1, path2) {
                     var _this = this;
@@ -86,10 +98,10 @@ System.register(['angular2/core', 'angular2/router', 'angular2/platform/common',
                         selector: 'work-detail',
                         templateUrl: './partials/work.html',
                         inputs: ['work'],
-                        providers: [artists_service_1.ArtistService],
-                        directives: [router_1.RouterLink, common_2.NgStyle]
+                        providers: [artists_service_1.ArtistService, login_service_1.LoginService],
+                        directives: [router_1.RouterLink, common_2.NgStyle, messages_component_1.MessageWriter]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, common_1.Location, artists_service_1.ArtistService])
+                    __metadata('design:paramtypes', [router_1.RouteParams, common_1.Location, artists_service_1.ArtistService, login_service_1.LoginService])
                 ], WorkDetailComponent);
                 return WorkDetailComponent;
             }());

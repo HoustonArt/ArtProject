@@ -1,15 +1,18 @@
-<form (ngSubmit) = "onSubmit()" #messageForm='ngForm'>
+<form *ngIf='notSubmitted' (ngSubmit) = "onSubmit()" #messageForm='ngForm'>
   <div class="form-group">
     <label for="Name">Name</label>
     <input type="text" class="form-control" placeholder="Enter name you wish reciever to see" required [(ngModel)]="newMessage.sender_name" ngControl="Name" #name="ngForm">
   </div>
   <div class="form-group">
     <label for="Subject">Subject</label>
-    <input type="text" class="form-control" placeholder="Enter name you wish reciever to see" required [(ngModel)]="newMessage.subject" ngControl="sub" #name="ngForm">
+    <input type="text" class="form-control" placeholder="Enter subject" required [(ngModel)]="newMessage.subject" ngControl="sub" #name="ngForm">
   </div>
   <div class="form-group">
   <label for="content">Content</label>
-  <textarea class="form-control" rows="5" id="content" placeholder="Enter name you wish reciever to see" required [(ngModel)]="newMessage.content" ngControl="cont" #name="ngForm"></textarea>
+  <textarea class="form-control" rows="5" id="content" placeholder="Enter message" required [(ngModel)]="newMessage.content" ngControl="cont" #name="ngForm"></textarea>
 </div>
-<button type="submit" class="btn btn-default">Send</button> 
+<button type="submit" class="btn btn-default">Send</button>
 </form>
+<div *ngIf= '!notSubmitted'>
+    Message Sent
+</div>

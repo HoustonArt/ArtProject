@@ -21,7 +21,7 @@ export class MessageWriter {
     @Input() sender_id: string;
     @Input() subject: string = '';
     @Output() myevent: EventEmitter<any> = new EventEmitter();
-    public newMessage: Message = new Message('','','','','','','','');
+    public newMessage: Message = new Message('','','','','',0,'','');
     public notSubmitted:boolean = true;
 
     constructor(private _databaseService: DatabaseService){}
@@ -35,10 +35,10 @@ export class MessageWriter {
     }
 
     onSubmit(){
-      this.newMessage.date = Date.now().toString();
+      this.newMessage.date = Date.now();
       this._databaseService.pushToDatabase('messages/' + this.newMessage.receiver_id + '/received/',
         this.newMessage)
-      
+
       this._databaseService.pushToDatabase('messages/' + this.newMessage.sender_id + '/sent/',
         this.newMessage).then((err)=>{
             this.myevent.emit(null)
@@ -59,15 +59,18 @@ export class MessageWriter {
 export class MessagesComponent{
     private uid: string;
     private messages: Message[];
+    private sentMessages: Message[];
     public currentMessage:Message;
-    private writeReply:boolean = false;
+    public currentSentMessage: Message;
+    public noMessage:boolean = false;
+    public noSentMessage:boolean = false;
 
     constructor(private _databaseService: DatabaseService,
                 private _loginService: LoginService) {
         this._loginService.getUID().then((snap)=>{
             this.uid = snap['uid'];
             this._databaseService.getAllChildren('messages/' + this.uid +'/received/').then((mes)=>{
-                if (mes != null && mes.length > 0){
+                if (mes != null && mes != []){
                     this.messages = mes;
                     this.currentMessage = this.messages[0];
                     this.messages[0].style = 'active';
@@ -75,18 +78,22 @@ export class MessagesComponent{
                     this.noMessage = true;
                 }
             });
+            this._databaseService.getAllChildren('messages/' + this.uid +'/sent/').then((mes)=>{
+                if (mes != null && mes.length > 0){
+                    this.sentMessages = mes;
+                    this.sentMessages[0].style = 'active';
+                }else{
+                    this.noSentMessage = true;
+                }
+            });
         });
     }
+
 
     changeMessage(mes){
         this.currentMessage.style = '';
         mes.style = 'active';
         this.currentMessage = mes;
-    }
-
-    messageSent(){
-      this.writeReply = false;
-      alert('Message Sent');
     }
 
 }

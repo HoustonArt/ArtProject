@@ -1,17 +1,56 @@
-<h1 class="page-header">Messages</h1>
-<div *ngIf='currentMessage' class="row">
-    <div class = "col-xs-6 col-sm-4">
+<h3>Messages</h3>
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#rec">Received</a></li>
+  <li><a data-toggle="tab" href="#sent">Sent</a></li>
+</ul>
+<div class="row">
+  <div *ngIf='currentMessage' class="col-xs-6 col-sm-4">
+    <div id='rec' class="tab-pane fade in active">
+      <div *ngIf="!noMessage">
         <ul class="list-group">
-            <li *ngFor='let mes of messages' class='list-group-item {{mes.style}}' (click)='changeMessage(mes)'>
-                {{mes.sender_name}} {{mes.date | date: 'short'}}</li>
+          <li *ngFor='let mes of messages' class='list-group-item {{mes.style}}' (click)='changeMessage(mes)'>
+            {{mes.sender_name}} {{mes.date | date: 'short'}}</li>
         </ul>
-    </div>
-    <div class ="col-xs-6 col-sm-8">
-        <h3>{{currentMessage.subject}} <button (click)="writeReply = true" class="btn btn-default">Reply</button></h3>
-        <hr>
-        <p>{{currentMessage.content}}</p>
-        <div *ngIf='writeReply'>
-        <message-write [oldmessage]='currentMessage' (myevent) = 'messageSent()'></message-write>
       </div>
     </div>
+    <div id='sent' class='tab-pane fade'>
+      <div *ngIf="!noSentMessage">
+        <ul class="list-group">
+          <li *ngFor='let mes of sentMessages' class='list-group-item {{mes.style}}' (click)='changeMessage(mes)'>
+            {{mes.sender_name}} {{mes.date | date: 'short'}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div *ngIf='currentMessage' class="col-xs-6 col-sm-8">
+    <h3>{{currentMessage.subject}}
+</h3>
+    <hr>
+    <p>{{currentMessage.content}}</p>
+
+  </div>
+
+  <div *ngIf='currentMessage' id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Contact</h4>
+        </div>
+        <div class="modal-body">
+          <message-write [rec_id]='currentMessage.sender_id' [sender_id]='uid' [subject]='currentMessage.subject'></message-write>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf='noMessage'>
+    You have no messages! Please enjoy ArtLike!
+  </div>
+  <div *ngIf="noSentMessage">
+    <p>No sent messages</p>
+  </div>
 </div>
