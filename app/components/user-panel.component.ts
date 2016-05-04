@@ -120,5 +120,6 @@ export class UserPanelComponent {
     this.noEdit = true;
     this.work = null;
     this.editUser = false;
+    alert('work edited');
   }
 }

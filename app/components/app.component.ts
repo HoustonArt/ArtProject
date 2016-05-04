@@ -69,8 +69,7 @@ import {MessagesComponent} from './messages.component';
   { path: '/gallery-view/:id', component: GalleryViewerComponent, as: 'GalleryView' },
   { path: '/new-user/', component: NewUser, as: 'NewUser' },
   { path: '/new-work/', component: NewWork, as: 'NewWork' },
-  { path: '/user-panel/', component: UserPanelComponent, as: 'User'},
-  { path: '/messages/', component: MessagesComponent, as: 'Messages'}
+  { path: '/user-panel/', component: UserPanelComponent, as: 'User'}
 ])
 
 export class AppComponent {

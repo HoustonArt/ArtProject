@@ -109,6 +109,7 @@ System.register(['angular2/core', 'angular2/router', './messages.component', './
                     this.noEdit = true;
                     this.work = null;
                     this.editUser = false;
+                    alert('work edited');
                 };
                 UserPanelComponent = __decorate([
                     core_1.Component({

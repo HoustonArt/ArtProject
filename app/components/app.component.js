@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './artist-detail.component', './work-detail.component', './artists.component', './about.component', './home.component', './works.component', './art-search.component', './gallery-creator.component', './gallery-viewer.component', './new-user.component', './login.component', './new-work.component', './user-panel.component', './messages.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './artist-detail.component', './work-detail.component', './artists.component', './about.component', './home.component', './works.component', './art-search.component', './gallery-creator.component', './gallery-viewer.component', './new-user.component', './login.component', './new-work.component', './user-panel.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, artist_detail_component_1, work_detail_component_1, artists_component_1, about_component_1, home_component_1, works_component_1, art_search_component_1, gallery_creator_component_1, gallery_viewer_component_1, new_user_component_1, login_component_1, new_work_component_1, user_panel_component_1, messages_component_1;
+    var core_1, router_1, artist_detail_component_1, work_detail_component_1, artists_component_1, about_component_1, home_component_1, works_component_1, art_search_component_1, gallery_creator_component_1, gallery_viewer_component_1, new_user_component_1, login_component_1, new_work_component_1, user_panel_component_1;
     var AppComponent;
     return {
         setters:[
@@ -58,9 +58,6 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
             },
             function (user_panel_component_1_1) {
                 user_panel_component_1 = user_panel_component_1_1;
-            },
-            function (messages_component_1_1) {
-                messages_component_1 = messages_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -129,8 +126,7 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                         { path: '/gallery-view/:id', component: gallery_viewer_component_1.GalleryViewerComponent, as: 'GalleryView' },
                         { path: '/new-user/', component: new_user_component_1.NewUser, as: 'NewUser' },
                         { path: '/new-work/', component: new_work_component_1.NewWork, as: 'NewWork' },
-                        { path: '/user-panel/', component: user_panel_component_1.UserPanelComponent, as: 'User' },
-                        { path: '/messages/', component: messages_component_1.MessagesComponent, as: 'Messages' }
+                        { path: '/user-panel/', component: user_panel_component_1.UserPanelComponent, as: 'User' }
                     ]), 
                     __metadata('design:paramtypes', [router_1.Router])
                 ], AppComponent);
