@@ -1,0 +1,1 @@
+To loging to ArtLike, one must first create an account.  This is accomplished by

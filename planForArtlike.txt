@@ -1,0 +1,21 @@
+This document describes the overall plan, as currently envisioned for ArtLike. It is divided into sections which enumerate near term goals and long term goals.  Near term goals are to be completed within a month and are fixed aspiriations.  Long term goals have no set timetable and are both subject to and expected to change as ArtLike progresses.  Each short term goal will also include the expected technical challenges with possible solutions where they exists.
+
+Short Term Goals
+
+- Define multiple types of users aside from just artists or makers.  This will allow people to have a presence on ArtLike who are not artists, but create in different ways such as making galleries.  Any art submitted will be automatically displayed on the site, however, galleries and other works created using site services will have an option to be displayed that will default to false.  Technically this involves altering the view of an artist to include galleries and to change the model of a gallery to have a public boolean value which designates its display.  All galleries will be visible to users who know the correct url path of the gallery, but only public galleries will be searchable and navigable.
+
+- Create Node.js backend which can intercept calls to the S3 instance and provide further authentication services beyond what currently exists.  This will protect against malicious intrusions as well as possibly integrate the machine learning code service into the site.  Superceded now by switch to firebase 3 which should integrate authentication into frontend and switch service to google cloud.
+
+- Train and condition machine learning algorithm using inputs from gallery creation and art search.  The idea is to use the gallery creation to define a metric on the space of art works to figure out broad classes of works.  The art search will be then be used to figure out which class a specific user likes.  We will refer to these as a clustering step and a search step.  We will at first use the scikit-learn package for python.
+
+- Reconfigure site such that all database queries are through a separate service.  This will allow testing and modularity.  This process has started to be implemented.
+
+- Figure out method for subscription services to allow people to pay and then automatically update server information.
+
+
+Long Term Goals
+- Create live gallery experience.
+- Mobile app
+- Better UI design
+- Custom branding
+- Trading platform for art

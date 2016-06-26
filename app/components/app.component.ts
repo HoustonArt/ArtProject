@@ -16,6 +16,7 @@ import {User} from '../../app/user';
 import {NewWork} from './new-work.component';
 import {UserPanelComponent} from './user-panel.component';
 import {MessagesComponent} from './messages.component';
+import {DocumentationComponent} from './documentation.component';
 
 @Component({
   selector: 'my-app',
@@ -69,7 +70,8 @@ import {MessagesComponent} from './messages.component';
   { path: '/gallery-view/:id', component: GalleryViewerComponent, as: 'GalleryView' },
   { path: '/new-user/', component: NewUser, as: 'NewUser' },
   { path: '/new-work/', component: NewWork, as: 'NewWork' },
-  { path: '/user-panel/', component: UserPanelComponent, as: 'User'}
+  { path: '/user-panel/', component: UserPanelComponent, as: 'User'},
+  {path: '/docs/', component: DocumentationComponent, as: 'Docs'}
 ])
 
 export class AppComponent {
