@@ -30,7 +30,7 @@ export class DocumentationComponent{
 
     //create the docs from the page
     constructor(private _docsService: DocsService){
-        this._docsService.getDocs().then((_d){
+        this._docsService.getDocs().then((_d)=>{
             for(var i in _d){
                 this._headers.push(i);
                 this._contents.push(_d[i]);
