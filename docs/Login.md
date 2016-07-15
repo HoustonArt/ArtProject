@@ -1,4 +1,4 @@
-#### Sign Up
+## Sign Up
 
 To log to ArtLike, one must first create an account.  To do this:
 
@@ -6,4 +6,3 @@ To log to ArtLike, one must first create an account.  To do this:
 2. Click the "Sign Up" button at the bottom.
 
 After this you are ready to log into your account and you can use all of the ArtLike functionality.
-
