@@ -20,7 +20,7 @@ class DocsService{
 })
 export class DocumentationComponent{
     
-    public menu:boolean=true;
+    public menu:boolean = true;
     public header:string;
     public content:string;
     
