@@ -34,6 +34,8 @@ System.register(['angular2/core', 'angular2/router', './messages.component', './
             }],
         execute: function() {
             UserPanelComponent = (function () {
+                // construct widget.
+                // authenticate firebase user
                 function UserPanelComponent(_databaseService) {
                     var _this = this;
                     this._databaseService = _databaseService;
@@ -52,6 +54,9 @@ System.register(['angular2/core', 'angular2/router', './messages.component', './
                         _this.authDataCallback(authdata);
                     });
                 }
+                // if user is logged in, set isLogggedIn boolean to true
+                // get number of messages both send and recieved
+                // TODO: move messsages into service
                 UserPanelComponent.prototype.authDataCallback = function (authData) {
                     var _this = this;
                     if (authData) {

@@ -28,7 +28,8 @@ export class DocumentationComponent{
     private _contents:string[] = [];
     
 
-    //create the docs from the page
+    // create the docs from the page
+    // currently assume they are local
     constructor(private _docsService: DocsService){
         this._docsService.getDocs().then((_d)=>{
             for(var i in _d){
@@ -38,12 +39,15 @@ export class DocumentationComponent{
         })
     }
     
+    // click a link and have proper header and contents appear
+    // get rid of top menu and go to side menu
     onClick(i:number){
         this.menu = false;
         this.header = this._headers[i];
         this.content = this._contents[i];
     }
     
+    // go back to the main menu, get rid of side menu
     backToMenu(){
         this.menu = true;
     }

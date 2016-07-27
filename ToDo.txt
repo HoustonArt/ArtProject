@@ -7,8 +7,9 @@
 8. Implement firebase rules for maximum children
 9. Make gallery creator component reusable for user panel (should be easy)
     When done rewrite old gallery with same id.
-10.  Clean up all services using those from database.service
+10. Clean up all services using those from database.service
 11. messages sent and recieve
+12. Alert ideas
 
 
 * Maybe don't have users re-visit pieces they already rated if logged in?

@@ -1,0 +1,1 @@
+Messages are a great way to communicate with other ArtLike users.  On any work page or artist page, click on the button to

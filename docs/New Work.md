@@ -1,0 +1,1 @@
+To submit a work to ArtLike, one must first have a user account created (see Login documentation for help on how to do this).  Then one

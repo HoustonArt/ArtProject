@@ -52,14 +52,18 @@ export class UserPanelComponent {
   public numMesRec: number;
   public numMesSent: number;
 
-
+  // construct widget.
+  // authenticate firebase user
   constructor(private _databaseService: DatabaseService) {
     this.base = new Firebase(this.firebaseUrl);
     this.base.onAuth((authdata) => {
       this.authDataCallback(authdata);
     });
   }
-
+  
+  // if user is logged in, set isLogggedIn boolean to true
+  // get number of messages both send and recieved
+  // TODO: move messsages into service
   authDataCallback(authData) {
     if (authData) {
       this.isLoggedIn = true;
