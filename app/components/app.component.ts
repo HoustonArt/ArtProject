@@ -26,15 +26,15 @@ import {DocumentationComponent} from './documentation.component';
     .navbar ul li{
     display:inline-block;
     }
- 
+
  footer {
    position:absolute;
    bottom:0;
    width:100%;
    height:30px;
      }
-     
-     
+
+
  footerList {
      width: 100%;
      margin:0;
@@ -43,14 +43,14 @@ import {DocumentationComponent} from './documentation.component';
  .footerLink{
      display:inline;
  }
- 
+
  .footerLink a {
      color: #115;
      padding: 8px 8px 8px 8px;
      text-decoration:none;
-     
+
  }
- 
+
  .footerLink a:hover{
      background-color: #555;
      color:white;
@@ -76,7 +76,6 @@ import {DocumentationComponent} from './documentation.component';
 
 export class AppComponent {
   public selectedArtist: string;
-  firebaseUrl: string = "https://artlike.firebaseIO.com/";
   public isLoggedIn: boolean = false;
   doLogin: boolean = false;
   uid: string;
@@ -89,20 +88,24 @@ export class AppComponent {
 
   constructor(router: Router) {
     this.router = router;
-    this.ref = new Firebase(this.firebaseUrl);
+    this.ref = firebase.database().ref();
     this.authLogin();
   }
 
+
+
   authLogin() {
-    this.authData = this.ref.getAuth();
-    if (this.authData != null) {
-        this.isLoggedIn = true;
-        var userBase = new Firebase(this.firebaseUrl + 'users/' + this.authData.uid);
-        userBase.once("value", (data) => {
+    var user = firebase.auth().currentUser;
+    if (user){
+      this.isLoggedIn = true;
+      this.user = user;
+      var userBase = this.ref.child('users').child(user.uid);
+      userBase.once("value", (data) => {
         this.user = data.val();
         this.numWorks = data.child('Works').numChildren();
       });
     }
+
   }
 
   createLogin() {
@@ -110,7 +113,7 @@ export class AppComponent {
   }
 
   logOut() {
-    this.ref.unauth();
+    firebase.auth().signOut();
     this.isLoggedIn = false;
     this.user = null;
   }

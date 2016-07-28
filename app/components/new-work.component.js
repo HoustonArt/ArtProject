@@ -208,53 +208,26 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                                 var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
                                 fileBase.child('Works').child(this.work._id).set(this.work);
                                 var uploadFile = this.dataURItoBlob(this.getDataURL());
-                                var params = {
-                                    Key: this.work._id,
-                                    ContentType: uploadFile.type,
-                                    Body: uploadFile,
-                                    ServerSideEncryption: 'AES256'
-                                };
                             }
                             else {
                                 var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
                                 var newRef = fileBase.child("Works").push();
                                 var errRef = fileBase.child("Errors").push();
-                                this.work.mainFile = "https://s3.amazonaws.com/artlike/" + this.user.id + '/' + newRef.key();
                                 newRef.set(this.work);
                                 var uploadFile = this.dataURItoBlob(this.getDataURL());
-                                var params = {
-                                    Key: newRef.key(),
-                                    ContentType: uploadFile.type,
-                                    Body: uploadFile,
-                                    ServerSideEncryption: 'AES256'
-                                };
                             }
-                            AWS.config.update({
-                                accessKeyId: this.access_id,
-                                secretAccessKey: this.access_key
-                            });
-                            AWS.config.region = 'us-east-1';
-                            //create new file since they are immutable
-                            var AWSbucket = new AWS.S3({
-                                params: { Bucket: 'artlike/' + this.user.id }
-                            });
-                            AWSbucket.putObject(params, function (err, data) {
-                                if (err) {
-                                    errRef.set(err);
-                                    _this.message = "there was an error" + err;
-                                }
-                                else {
-                                    _this.message = "upload complete!, Resetting form!";
-                                    //kluge fix this
-                                    if (!_this._newWork) {
-                                        _this.doneEvent.next();
-                                    }
-                                    else {
-                                        _this.router.parent.navigate(['/User']);
-                                    }
-                                }
-                            }).on('httpUploadProgress', function (progress) {
-                                _this.progressNum = Math.round(progress.loaded / progress.total * 100);
+                            var storage = firebase.storage();
+                            // Create a storage reference from our storage service
+                            var storageRef = storage.ref().child(this.user.id);
+                            var uploadTask = storageRef.child(newRef.key()).put(uploadFile);
+                            uploadTask.on('state_changed', function (snapshot) {
+                                _this.progressNum = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                            }, function (error) {
+                                // Handle unsuccessful uploads
+                            }, function () {
+                                // Handle successful uploads on complete
+                                _this.work.mainFile = uploadTask.snapshot.downloadURL;
+                                newRef.set(_this.work);
                             });
                         }
                         else {

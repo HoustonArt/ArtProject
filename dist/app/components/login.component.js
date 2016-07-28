@@ -47,17 +47,10 @@ System.register(['angular2/core', 'angular2/router', '../../app/services/login.s
                 };
                 Login.prototype._loginUser = function () {
                     var _this = this;
-                    var ref = new Firebase(this.firebaseUrl);
-                    ref.authWithPassword({
-                        "email": this.username,
-                        "password": this.password
-                    }, function (error, authData) {
-                        if (error) {
-                            _this.message = error;
-                        }
-                        else {
+                    firebase.auth().signInWithEmailAndPassword(this.username, this.password).catch(function (error) { _this.message = error; }).then(function (user) {
+                        if (user) {
                             _this.message = "Logged in, redirecting to ArtLike!";
-                            _this.loginevent.next(authData);
+                            _this.loginevent.next(firebase.auth().currentUser);
                         }
                     });
                 };
@@ -118,7 +111,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/services/login.s
                     core_1.Component({
                         selector: 'login',
                         templateUrl: './partials/login.html',
-                        styles: ["\n    .ng-valid[required] {\n  border-left: 5px solid #42A948;\n    }\n\n.ng-invalid {\n  border-left: 5px solid #a94442;\n}\n\n @media screen and (max-width: 400px) {\n   .loginrow {\n       padding-top:75px;\n   }\n   \n}\n"],
+                        styles: ["\n    .ng-valid[required] {\n  border-left: 5px solid #42A948;\n    }\n\n.ng-invalid {\n  border-left: 5px solid #a94442;\n}\n\n @media screen and (max-width: 400px) {\n   .loginrow {\n       padding-top:75px;\n   }\n\n}\n"],
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink],
                         providers: [login_service_1.LoginService]
                     }), 

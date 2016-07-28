@@ -20,7 +20,7 @@ import {LoginService} from '../../app/services/login.service';
    .loginrow {
        padding-top:75px;
    }
-   
+
 }
 `],
   directives: [ROUTER_DIRECTIVES, RouterLink],
@@ -44,7 +44,7 @@ export class Login {
   constructor(router: Router,private _loginService: LoginService) {
     this.router = router;
   }
-  
+
   loginSubmit(){
       if (this.resetPassword && this.onReset == false){
           this._resetPassword();
@@ -57,21 +57,17 @@ export class Login {
       }
   }
 
+
   _loginUser() {
-    var ref = new Firebase(this.firebaseUrl);
-    ref.authWithPassword({
-      "email": this.username,
-      "password": this.password
-    }, (error, authData) => {
-        if (error) {
-          this.message = error;
-        } else {
+    firebase.auth().signInWithEmailAndPassword(this.username,this.password).catch((error) => {this.message = error;}).then((user)=>{
+          if (user){
           this.message = "Logged in, redirecting to ArtLike!";
-          this.loginevent.next(authData);
+          this.loginevent.next(firebase.auth().currentUser);
         }
-      });
-  }
-  
+      }
+  );
+}
+
   _changePassword(){
       this._loginService.changePassword(this.username,this.token,this.password).then((error)=>{
           if (error) {
@@ -89,18 +85,18 @@ export class Login {
             this.message = "User password changed successfully, logging in!";
             this._loginUser();
           }
-          
+
       });
   }
-  
+
   resetPassForm(){
       this.resetPassword = true;
   }
-  
+
   hasToken(){
       this.onReset = true;
   }
-  
+
   _resetPassword() {
       this._loginService.resetPassword(this.username).then((error)=>{
           if (error) {
@@ -116,7 +112,7 @@ export class Login {
             Go to your email and get your temporary password then login above!`;
             this.onReset = true;
             }
-          
+
       });
   }
 

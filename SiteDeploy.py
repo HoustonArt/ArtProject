@@ -18,7 +18,11 @@ TEXT = """
         <script src="./assets/jquery.min.js"></script>
         <script src="./assets/bootstrap.min.js"></script>
         <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
-        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.47.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase-database.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase-storage.js"></script>
         <!-- 2. Configure SystemJS -->
         <style>
       html{
@@ -27,6 +31,13 @@ TEXT = """
          }
   </style>
     <script>
+    var config = {
+    apiKey: "AIzaSyAZ35SfNAcOJV7Jc6jbsofyJLhigV8R52c",
+    authDomain: "artlike.firebaseapp.com",
+    databaseURL: "https://artlike.firebaseio.com",
+    storageBucket: "firebase-artlike.appspot.com",
+  };
+    firebase.initializeApp(config);
       System.config({
         packages: {
           app: {
@@ -38,7 +49,7 @@ TEXT = """
       System.import('app/boot')
             .then(null, console.error.bind(console));
     </script>
-    
+
   </head>
   <base href="/">
   <!-- 3. Display the application -->

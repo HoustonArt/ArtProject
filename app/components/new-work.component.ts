@@ -19,7 +19,7 @@ import {WorkUpLoad} from '../../app/work-piece';
   directives: [ROUTER_DIRECTIVES, RouterLink],
 })
 
-export class NewWork implements AfterViewInit{
+export class NewWork implements AfterViewInit {
   public router: Router;
   @Input() user: User;
   @Input() work = new WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0, '', '', '');
@@ -52,7 +52,7 @@ export class NewWork implements AfterViewInit{
   public angle: number = 0;
   public oldWork: boolean = false;
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.canvas = this.imageCanvas.nativeElement;
     this.ctx = this.canvas.getContext("2d");
   }
@@ -73,8 +73,8 @@ export class NewWork implements AfterViewInit{
     });
   }
 
-  ngOnInit(){
-    if (!this._newWork){
+  ngOnInit() {
+    if (!this._newWork) {
       this.oldWork = true;
       this.file = this.work.mainFile;
       this.img.src = this.work.mainFile;
@@ -86,9 +86,9 @@ export class NewWork implements AfterViewInit{
     }
   }
 
-getImageFromS3(data){
+  getImageFromS3(data) {
     console.log('sup br')
-}
+  }
 
   authDataCallback(authData) {
     if (authData) {
@@ -119,20 +119,20 @@ getImageFromS3(data){
     this.displayFile();
   }
 
-  displayFile(){
+  displayFile() {
     this.display = true;
-    this.uploadImage.onload = () =>{
+    this.uploadImage.onload = () => {
       this.imageWidth = this.uploadImage.width;
       this.imageHeight = this.uploadImage.height;
-      while(this.imageWidth > 400 || this.imageHeight > 400){
-        this.imageHeight = this.imageHeight *0.9;
-        this.imageWidth = this.imageWidth *0.9;
+      while (this.imageWidth > 400 || this.imageHeight > 400) {
+        this.imageHeight = this.imageHeight * 0.9;
+        this.imageWidth = this.imageWidth * 0.9;
       }
       this.size = Math.max(this.imageHeight, this.imageWidth);
       this.ctx.canvas.width = this.size;
       this.ctx.canvas.height = this.size;
       //rescale image so it fits in canvas
-      this.ctx.drawImage(this.uploadImage,0,0,this.imageWidth, this.imageHeight);
+      this.ctx.drawImage(this.uploadImage, 0, 0, this.imageWidth, this.imageHeight);
     }
   }
 
@@ -162,135 +162,105 @@ getImageFromS3(data){
     this.inputFile = '';
   }
 
-  clearForm(){
+  clearForm() {
     this.resetWork();
   }
 
-  dataURItoBlob(dataURI:string): Blob {
-      // convert base64/URLEncoded data component to raw binary data held in a string
-      var byteString;
-      if (dataURI.split(',')[0].indexOf('base64') >= 0)
-          byteString = atob(dataURI.split(',')[1]);
-      else
-          byteString = unescape(dataURI.split(',')[1]);
+  dataURItoBlob(dataURI: string): Blob {
+    // convert base64/URLEncoded data component to raw binary data held in a string
+    var byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+      byteString = atob(dataURI.split(',')[1]);
+    else
+      byteString = unescape(dataURI.split(',')[1]);
 
-      // separate out the mime component
-      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
-      // write the bytes of the string to a typed array
-      var ia = new Uint8Array(byteString.length);
-      for (var i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
-      }
+    // write the bytes of the string to a typed array
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
 
-      return new Blob([ia], {type:mimeString});
+    return new Blob([ia], { type: mimeString });
   }
 
 
-  rotate(){
+  rotate() {
     //rotate an image
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.save();
     //translate to center of image
-    this.ctx.translate(this.canvas.width/2, this.canvas.height/2);
-    this.angle = (this.angle +Math.PI/2) % (2*Math.PI);
+    this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
+    this.angle = (this.angle + Math.PI / 2) % (2 * Math.PI);
     this.ctx.rotate(this.angle);
-    this.ctx.drawImage(this.uploadImage,-this.imageWidth/2,-this.imageHeight/2, this.imageWidth, this.imageHeight);
+    this.ctx.drawImage(this.uploadImage, -this.imageWidth / 2, -this.imageHeight / 2, this.imageWidth, this.imageHeight);
     this.ctx.restore();
   }
 
-//function to get dataurl from canvas
-//Note that the dimension which is not dominant will be in the center
-getDataURL() {
-  var newCanvas = document.createElement('canvas');
-  //check if right side up
-  if (Math.abs(this.angle) < .1 || Math.abs(this.angle - Math.PI) < .1){
-    newCanvas.width = this.imageWidth;
-    newCanvas.height = this.imageHeight;
+  //function to get dataurl from canvas
+  //Note that the dimension which is not dominant will be in the center
+  getDataURL() {
+    var newCanvas = document.createElement('canvas');
+    //check if right side up
+    if (Math.abs(this.angle) < .1 || Math.abs(this.angle - Math.PI) < .1) {
+      newCanvas.width = this.imageWidth;
+      newCanvas.height = this.imageHeight;
 
-  }//else we are sideways
-  else{
-    newCanvas.width = this.imageHeight;
-    newCanvas.height = this.imageWidth;
+    }//else we are sideways
+    else {
+      newCanvas.width = this.imageHeight;
+      newCanvas.height = this.imageWidth;
 
+    }
+    var newContext = newCanvas.getContext('2d');
+    var widthDif = this.canvas.width - newCanvas.width;
+    var heightDif = this.canvas.height - newCanvas.height;
+
+    newContext.drawImage(this.canvas, widthDif / 2, heightDif / 2, newCanvas.width, newCanvas.height, 0, 0, newCanvas.width, newCanvas.height);
+
+    return newCanvas.toDataURL();
   }
-  var newContext = newCanvas.getContext('2d');
-  var widthDif = this.canvas.width - newCanvas.width;
-  var heightDif = this.canvas.height - newCanvas.height;
-
-  newContext.drawImage(this.canvas, widthDif/2, heightDif/2, newCanvas.width, newCanvas.height, 0, 0, newCanvas.width, newCanvas.height);
-
-  return newCanvas.toDataURL();
-}
 
 
 
   uploadNewWork() {
     if (this.display) {
-      if (this.file.size < 3000000 || this.work.mainFile != ''){
-        for (var i =0; i < 4; i++){
+      if (this.file.size < 3000000 || this.work.mainFile != '') {
+        for (var i = 0; i < 4; i++) {
           this.rotate();
         }
         //first we will log it to Firebase, then to S3
         //if work already there, will have a mainFile
-        if (!this._newWork){
-            var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
-            fileBase.child('Works').child(this.work._id).set(this.work);
-            var uploadFile = this.dataURItoBlob(this.getDataURL());
-            var params = {
-              Key: this.work._id,
-              ContentType: uploadFile.type,
-              Body: uploadFile,
-              ServerSideEncryption: 'AES256'
-            };
+        if (!this._newWork) {
+          var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+          fileBase.child('Works').child(this.work._id).set(this.work);
+          var uploadFile = this.dataURItoBlob(this.getDataURL());
         }
-        else{
-            var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
-            var newRef = fileBase.child("Works").push();
-            var errRef = fileBase.child("Errors").push();
-            this.work.mainFile = "https://s3.amazonaws.com/artlike/" + this.user.id + '/' + newRef.key();
+        else {
+          var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+          var newRef = fileBase.child("Works").push();
+          var errRef = fileBase.child("Errors").push();
+          newRef.set(this.work);
+          var uploadFile = this.dataURItoBlob(this.getDataURL());
+        }
+
+        var storage = firebase.storage();
+        // Create a storage reference from our storage service
+        var storageRef = storage.ref().child(this.user.id);
+        var uploadTask = storageRef.child(newRef.key()).put(uploadFile);
+        uploadTask.on('state_changed', (snapshot)=> {
+          this.progressNum = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        }, (error) => {
+            // Handle unsuccessful uploads
+          }, ()=> {
+            // Handle successful uploads on complete
+            this.work.mainFile = uploadTask.snapshot.downloadURL;
             newRef.set(this.work);
-            var uploadFile = this.dataURItoBlob(this.getDataURL());
-            var params = {
-              Key: newRef.key(),
-              ContentType: uploadFile.type,
-              Body: uploadFile,
-              ServerSideEncryption: 'AES256'
-            };
-        }
-
-
-        AWS.config.update({
-          accessKeyId: this.access_id,
-          secretAccessKey: this.access_key
-        });
-        AWS.config.region = 'us-east-1';
-        //create new file since they are immutable
-
-        var AWSbucket = new AWS.S3({
-          params: { Bucket: 'artlike/' + this.user.id }
-        });
-
-        AWSbucket.putObject(params, (err, data) => {
-          if (err) {
-            errRef.set(err);
-            this.message = "there was an error" + err;
-          }
-          else {
-            this.message = "upload complete!, Resetting form!";
-            //kluge fix this
-            if (!this._newWork){
-              this.doneEvent.next();
-            }
-            else{
-            this.router.parent.navigate(['/User']);
-          }
-          }
-        }).on('httpUploadProgress', (progress)=>{
-          this.progressNum = Math.round(progress.loaded/progress.total*100);
-        });
+          });
       }
-      else{
+      else {
         alert("file size too large")
       }
     }

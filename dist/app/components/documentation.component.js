@@ -34,7 +34,8 @@ System.register(['angular2/core', '../../app/docs'], function(exports_1, context
                 return DocsService;
             }());
             DocumentationComponent = (function () {
-                //create the docs from the page
+                // create the docs from the page
+                // currently assume they are local
                 function DocumentationComponent(_docsService) {
                     var _this = this;
                     this._docsService = _docsService;
@@ -48,11 +49,14 @@ System.register(['angular2/core', '../../app/docs'], function(exports_1, context
                         }
                     });
                 }
+                // click a link and have proper header and contents appear
+                // get rid of top menu and go to side menu
                 DocumentationComponent.prototype.onClick = function (i) {
                     this.menu = false;
                     this.header = this._headers[i];
                     this.content = this._contents[i];
                 };
+                // go back to the main menu, get rid of side menu
                 DocumentationComponent.prototype.backToMenu = function () {
                     this.menu = true;
                 };

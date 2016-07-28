@@ -65,20 +65,20 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
         execute: function() {
             AppComponent = (function () {
                 function AppComponent(router) {
-                    this.firebaseUrl = "https://artlike.firebaseIO.com/";
                     this.isLoggedIn = false;
                     this.doLogin = false;
                     this.hideModal = true;
                     this.router = router;
-                    this.ref = new Firebase(this.firebaseUrl);
+                    this.ref = firebase.database().ref();
                     this.authLogin();
                 }
                 AppComponent.prototype.authLogin = function () {
                     var _this = this;
-                    this.authData = this.ref.getAuth();
-                    if (this.authData != null) {
+                    var user = firebase.auth().currentUser;
+                    if (user) {
                         this.isLoggedIn = true;
-                        var userBase = new Firebase(this.firebaseUrl + 'users/' + this.authData.uid);
+                        this.user = user;
+                        var userBase = this.ref.child('users').child(user.uid);
                         userBase.once("value", function (data) {
                             _this.user = data.val();
                             _this.numWorks = data.child('Works').numChildren();
@@ -89,7 +89,7 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                     this.hideModal = false;
                 };
                 AppComponent.prototype.logOut = function () {
-                    this.ref.unauth();
+                    firebase.auth().signOut();
                     this.isLoggedIn = false;
                     this.user = null;
                 };
@@ -115,7 +115,7 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                         selector: 'my-app',
                         templateUrl: './partials/mainpage.html',
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink, login_component_1.Login],
-                        styles: ["[hidden] {display: none;},\n    .navbar ul li{\n    display:inline-block;\n    }\n \n footer {\n   position:absolute;\n   bottom:0;\n   width:100%;\n   height:30px;\n     }\n     \n     \n footerList {\n     width: 100%;\n     margin:0;\n     padding:0;\n }\n .footerLink{\n     display:inline;\n }\n \n .footerLink a {\n     color: #115;\n     padding: 8px 8px 8px 8px;\n     text-decoration:none;\n     \n }\n \n .footerLink a:hover{\n     background-color: #555;\n     color:white;\n }\n     "]
+                        styles: ["[hidden] {display: none;},\n    .navbar ul li{\n    display:inline-block;\n    }\n\n footer {\n   position:absolute;\n   bottom:0;\n   width:100%;\n   height:30px;\n     }\n\n\n footerList {\n     width: 100%;\n     margin:0;\n     padding:0;\n }\n .footerLink{\n     display:inline;\n }\n\n .footerLink a {\n     color: #115;\n     padding: 8px 8px 8px 8px;\n     text-decoration:none;\n\n }\n\n .footerLink a:hover{\n     background-color: #555;\n     color:white;\n }\n     "]
                     }),
                     router_1.RouteConfig([
                         { path: '/', component: home_component_1.HomeComponent, as: 'Home' },
