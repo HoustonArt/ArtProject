@@ -45,21 +45,27 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                     this.angle = 0;
                     this.oldWork = false;
                     this.router = router;
-                    this.ref = new Firebase(this.firebaseUrl);
-                    this.ref.onAuth(function (authdata) {
-                        _this.authDataCallback(authdata);
-                    });
-                    var credsBase = new Firebase(this.firebaseUrl + 'S3auth');
-                    credsBase.once("value", function (data) {
-                        var stuff = data.val();
-                        _this.access_key = stuff.access_key;
-                        _this.access_id = stuff.access_ID;
-                        _this.bucket = stuff.bucket;
-                    });
+                    var user = firebase.auth().currentUser;
+                    if (user) {
+                        this.isLoggedIn = true;
+                        this.user = user;
+                        var userBase = firebase.database().ref().child('users').child(user.uid);
+                        userBase.once("value", function (data) {
+                            _this.user = data.val;
+                            _this.work.artist_fname = _this.user.firstName;
+                            _this.work.artist_lname = _this.user.lastName;
+                            _this.work.artist_id = user.uid;
+                            _this.work.numFiles = 1;
+                            //get number of works
+                            _this.numWorks = data.child('Works').numChildren();
+                        });
+                    }
                 }
                 NewWork.prototype.ngAfterViewInit = function () {
-                    this.canvas = this.imageCanvas.nativeElement;
-                    this.ctx = this.canvas.getContext("2d");
+                    if (this.isLoggedIn) {
+                        this.canvas = this.imageCanvas.nativeElement;
+                        this.ctx = this.canvas.getContext("2d");
+                    }
                 };
                 NewWork.prototype.ngOnInit = function () {
                     if (!this._newWork) {
@@ -70,28 +76,6 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                         this.uploadImage.crossOrigin = 'anonymous';
                         this.uploadImage.src = this.work.mainFile + '?crossorigin';
                         this.displayFile();
-                    }
-                };
-                NewWork.prototype.getImageFromS3 = function (data) {
-                    console.log('sup br');
-                };
-                NewWork.prototype.authDataCallback = function (authData) {
-                    var _this = this;
-                    if (authData) {
-                        this.isLoggedIn = true;
-                        var userBase = new Firebase(this.firebaseUrl + 'users/' + authData.uid);
-                        userBase.once("value", function (data) {
-                            _this.user = data.val();
-                            _this.work.artist_fname = _this.user.firstName;
-                            _this.work.artist_lname = _this.user.lastName;
-                            _this.work.artist_id = authData.uid;
-                            _this.work.numFiles = 1;
-                            //get number of works
-                            _this.numWorks = data.child('Works').numChildren();
-                        });
-                    }
-                    else {
-                        this.isLoggedIn = false;
                     }
                 };
                 NewWork.prototype.changeListener = function ($event) {

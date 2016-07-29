@@ -53,24 +53,29 @@ export class NewWork implements AfterViewInit {
   public oldWork: boolean = false;
 
   ngAfterViewInit() {
-    this.canvas = this.imageCanvas.nativeElement;
-    this.ctx = this.canvas.getContext("2d");
+    if(this.isLoggedIn){
+      this.canvas = this.imageCanvas.nativeElement;
+      this.ctx = this.canvas.getContext("2d");
+  }
   }
 
   constructor(router: Router) {
     this.router = router;
-    this.ref = new Firebase(this.firebaseUrl);
-    this.ref.onAuth((authdata) => {
-      this.authDataCallback(authdata);
-    });
-
-    var credsBase = new Firebase(this.firebaseUrl + 'S3auth');
-    credsBase.once("value", (data) => {
-      var stuff = data.val();
-      this.access_key = stuff.access_key;
-      this.access_id = stuff.access_ID;
-      this.bucket = stuff.bucket;
-    });
+    var user = firebase.auth().currentUser;
+    if (user){
+      this.isLoggedIn = true;
+      this.user = user;
+      var userBase = firebase.database().ref().child('users').child(user.uid);
+      userBase.once("value", (data) => {
+        this.user = data.val;
+        this.work.artist_fname = this.user.firstName;
+        this.work.artist_lname = this.user.lastName;
+        this.work.artist_id = user.uid;
+        this.work.numFiles = 1;
+        //get number of works
+        this.numWorks = data.child('Works').numChildren();
+      });
+    }
   }
 
   ngOnInit() {
@@ -86,27 +91,6 @@ export class NewWork implements AfterViewInit {
     }
   }
 
-  getImageFromS3(data) {
-    console.log('sup br')
-  }
-
-  authDataCallback(authData) {
-    if (authData) {
-      this.isLoggedIn = true;
-      var userBase = new Firebase(this.firebaseUrl + 'users/' + authData.uid);
-      userBase.once("value", (data) => {
-        this.user = data.val();
-        this.work.artist_fname = this.user.firstName;
-        this.work.artist_lname = this.user.lastName;
-        this.work.artist_id = authData.uid;
-        this.work.numFiles = 1;
-        //get number of works
-        this.numWorks = data.child('Works').numChildren();
-      });
-    } else {
-      this.isLoggedIn = false;
-    }
-  }
 
   changeListener($event): void {
     this.file = $event.target.files[0];
