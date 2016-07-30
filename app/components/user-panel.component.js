@@ -49,30 +49,22 @@ System.register(['angular2/core', 'angular2/router', './messages.component', './
                     this.editUser = false;
                     this.displayGalleries = false;
                     this.displayWorks = false;
-                    this.base = new Firebase(this.firebaseUrl);
-                    this.base.onAuth(function (authdata) {
-                        _this.authDataCallback(authdata);
-                    });
-                }
-                // if user is logged in, set isLogggedIn boolean to true
-                // get number of messages both send and recieved
-                // TODO: move messsages into service
-                UserPanelComponent.prototype.authDataCallback = function (authData) {
-                    var _this = this;
-                    if (authData) {
+                    var user = firebase.auth().currentUser;
+                    this.base = firebase.database().ref();
+                    if (user) {
                         this.isLoggedIn = true;
-                        this.userPath = 'users/' + authData.uid;
+                        this.userPath = 'users/' + user.uid;
                         this.base.child(this.userPath).once("value", function (data) {
                             _this.user = data.val();
                             _this._initiateObjects(_this.user);
                         });
-                        this._databaseService.checkChildNumber('messages/' + authData.uid + '/received').then(function (data) { _this.numMesRec = data; });
-                        this._databaseService.checkChildNumber('messages/' + authData.uid + '/sent').then(function (data) { _this.numMesSent = data; });
+                        this._databaseService.checkChildNumber('messages/' + user.uid + '/received').then(function (data) { _this.numMesRec = data; });
+                        this._databaseService.checkChildNumber('messages/' + user.uid + '/sent').then(function (data) { _this.numMesSent = data; });
                     }
                     else {
                         this.isLoggedIn = false;
                     }
-                };
+                }
                 UserPanelComponent.prototype._initiateObjects = function (_user) {
                     //already have it from getting user before
                     this.numWorks = 0;

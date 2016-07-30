@@ -55,30 +55,22 @@ export class UserPanelComponent {
   // construct widget.
   // authenticate firebase user
   constructor(private _databaseService: DatabaseService) {
-    this.base = new Firebase(this.firebaseUrl);
-    this.base.onAuth((authdata) => {
-      this.authDataCallback(authdata);
-    });
-  }
-  
-  // if user is logged in, set isLogggedIn boolean to true
-  // get number of messages both send and recieved
-  // TODO: move messsages into service
-  authDataCallback(authData) {
-    if (authData) {
+    var user = firebase.auth().currentUser;
+    this.base = firebase.database().ref();
+    if (user){
       this.isLoggedIn = true;
-      this.userPath = 'users/' + authData.uid;
+      this.userPath = 'users/' + user.uid;
       this.base.child(this.userPath).once("value", (data) => {
         this.user = data.val();
         this._initiateObjects(this.user);
       });
-      this._databaseService.checkChildNumber('messages/' + authData.uid + '/received').then((data)=>{this.numMesRec = data});
-      this._databaseService.checkChildNumber('messages/' + authData.uid + '/sent').then((data)=>{this.numMesSent = data});
-      
+      this._databaseService.checkChildNumber('messages/' + user.uid + '/received').then((data)=>{this.numMesRec = data});
+      this._databaseService.checkChildNumber('messages/' + user.uid + '/sent').then((data)=>{this.numMesSent = data});
     } else {
       this.isLoggedIn = false;
     }
   }
+
 
   _initiateObjects(_user:GalleryArtist){
     //already have it from getting user before

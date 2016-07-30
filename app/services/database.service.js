@@ -20,7 +20,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         execute: function() {
             DatabaseService = (function () {
                 function DatabaseService() {
-                    this.ref = new Firebase("https://artlike.firebaseIO.com/");
+                    this.ref = firebase.database().ref();
                 }
                 DatabaseService.prototype.pushToDatabase = function (path, data) {
                     return Promise.resolve(this.ref.child(path).push(data, function () { }).then(function (_ref) {
@@ -49,7 +49,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     return Promise.resolve(this.ref.child(path).once('value', function (snap) {
                         snap.forEach(function (childSnap) {
                             var _snap = childSnap.val();
-                            _snap['_id'] = childSnap.key();
+                            _snap['_id'] = childSnap.key;
                             _data.push(_snap);
                         });
                     }).then(function () {

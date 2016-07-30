@@ -8,7 +8,7 @@ export class DatabaseService {
     private _data: any;
 
     constructor(){
-        this.ref = new Firebase("https://artlike.firebaseIO.com/");
+        this.ref = firebase.database().ref();
     }
 
 
@@ -47,7 +47,7 @@ export class DatabaseService {
         return Promise.resolve(this.ref.child(path).once('value',(snap)=>{
             snap.forEach((childSnap)=>{
                 var _snap = childSnap.val();
-                _snap['_id']= childSnap.key();
+                _snap['_id']= childSnap.key;
                 _data.push(_snap);
             });
         }).then(()=>{

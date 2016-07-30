@@ -20,17 +20,14 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         execute: function() {
             LoginService = (function () {
                 function LoginService() {
-                    this.ref = new Firebase("https://artlike.firebaseIO.com/");
+                    this.user = firebase.auth().currentUser;
                 }
                 LoginService.prototype.getLogin = function () {
                     //need to do later
                     var i = 2;
                 };
                 LoginService.prototype.getUID = function () {
-                    var _this = this;
-                    return Promise.resolve(this.ref.onAuth(function (authData) { _this.authData = authData; })).then(function () {
-                        return Promise.resolve(_this.authDataCallBack(_this.authData));
-                    });
+                    return Promise.resolve(this.authDataCallBack(this.user));
                 };
                 LoginService.prototype.authDataCallBack = function (authData) {
                     if (authData) {
