@@ -43,6 +43,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         return Promise.resolve(_data);
                     }));
                 };
+                //return promise for all children for path from base reference
                 DatabaseService.prototype.getAllChildren = function (path) {
                     var _data = [];
                     var _retData;

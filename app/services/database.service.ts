@@ -29,8 +29,6 @@ export class DatabaseService {
         );
     }
 
-
-
     getObject(path:string):any{
         var _data;
         return Promise.resolve(this.ref.child(path).once("value", (data)=>{
@@ -41,6 +39,7 @@ export class DatabaseService {
         );
     }
 
+    //return promise for all children for path from base reference
     getAllChildren(path: string):any{
         var _data = [];
         var _retData;
