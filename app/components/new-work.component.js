@@ -214,6 +214,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                                 // Handle successful uploads on complete
                                 _this.work.mainFile = uploadTask.snapshot.downloadURL;
                                 newRef.set(_this.work);
+                                _this.router.parent.navigate(['/User']);
                             });
                         }
                         else {

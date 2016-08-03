@@ -58,14 +58,16 @@ System.register(['angular2/core', 'angular2/router', 'angular2/platform/common',
                     var path = this.location.path().split('/').slice(-1).pop();
                     var path1 = path.split('@')[0];
                     var path2 = path.split('@').slice(-1).pop();
-                    this._databaseService.removeObject('users/' + path1 + '/Works/' + path2).then(function (error) {
-                        if (error) {
-                            console.log(error);
-                        }
-                        else {
-                            _this.router.parent.navigate(['/Artist', { id: _this.artist.id }]);
-                        }
-                    });
+                    if (this.uid == this.work.artist_id) {
+                        this._databaseService.removeObject('users/' + path1 + '/Works/' + path2).then(function (error) {
+                            if (error) {
+                                console.log(error);
+                            }
+                            else {
+                                _this.router.parent.navigate(['/Artist', { id: _this.artist.id }]);
+                            }
+                        });
+                    }
                 };
                 WorkDetailComponent.prototype.getInformation = function (path1, path2) {
                     var _this = this;

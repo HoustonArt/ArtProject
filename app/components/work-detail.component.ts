@@ -51,13 +51,15 @@ export class WorkDetailComponent {
     var path = this.location.path().split('/').slice(-1).pop()
     var path1 = path.split('@')[0];
     var path2 = path.split('@').slice(-1).pop();
-    this._databaseService.removeObject('users/' + path1 + '/Works/' + path2).then((error)=>{
-      if (error){
-        console.log(error)
-      }else{
-       this.router.parent.navigate(['/Artist', {id: this.artist.id}]);
-      }
-    });
+    if (this.uid == this.work.artist_id){
+      this._databaseService.removeObject('users/' + path1 + '/Works/' + path2).then((error)=>{
+        if (error){
+          console.log(error)
+        }else{
+         this.router.parent.navigate(['/Artist', {id: this.artist.id}]);
+        }
+      });
+    }
   }
 
   getInformation(path1,path2) {

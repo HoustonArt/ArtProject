@@ -244,6 +244,7 @@ export class NewWork implements AfterViewInit {
             // Handle successful uploads on complete
             this.work.mainFile = uploadTask.snapshot.downloadURL;
             newRef.set(this.work);
+            this.router.parent.navigate(['/User']);
           });
       } else {
         alert("file size too large")

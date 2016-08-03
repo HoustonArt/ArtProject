@@ -37,10 +37,10 @@ System.register(['angular2/core', 'angular2/router', './messages.component', './
                 // construct widget.
                 // authenticate firebase user
                 function UserPanelComponent(_databaseService) {
-                    var _this = this;
                     this._databaseService = _databaseService;
                     this.works = [];
                     this.galleries = [];
+                    this.gallery_id = [];
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
                     this.isLoggedIn = false;
                     this.maxNumWorks = 15;
@@ -49,6 +49,10 @@ System.register(['angular2/core', 'angular2/router', './messages.component', './
                     this.editUser = false;
                     this.displayGalleries = false;
                     this.displayWorks = false;
+                    this._updateData();
+                }
+                UserPanelComponent.prototype._updateData = function () {
+                    var _this = this;
                     var user = firebase.auth().currentUser;
                     this.base = firebase.database().ref();
                     if (user) {
@@ -64,17 +68,22 @@ System.register(['angular2/core', 'angular2/router', './messages.component', './
                     else {
                         this.isLoggedIn = false;
                     }
-                }
+                };
                 UserPanelComponent.prototype._initiateObjects = function (_user) {
                     //already have it from getting user before
                     this.numWorks = 0;
                     this.numGals = 0;
+                    this.works = [];
+                    this.galleries = [];
+                    this.gallery_id = [];
                     for (var i in _user.Works) {
                         this.works[this.numWorks] = _user.Works[i];
+                        this.works[this.numWorks]['_id'] = i;
                         this.numWorks = this.numWorks + 1;
                     }
                     for (var i in _user.Galleries) {
                         this.galleries[this.numGals] = _user.Galleries[i];
+                        this.gallery_id[this.numGals] = i;
                         this.numGals = this.numGals + 1;
                     }
                     if (this.numGals > 0) {
@@ -95,6 +104,49 @@ System.register(['angular2/core', 'angular2/router', './messages.component', './
                         _this.work = data.val();
                         _this.work._id = pic_id;
                     });
+                };
+                UserPanelComponent.prototype.selectWork = function (work) {
+                    this.workToDelete = work;
+                };
+                UserPanelComponent.prototype.selectGallery = function (gallery, index) {
+                    this.galIndex = index;
+                    this.galleryToDelete = gallery;
+                };
+                UserPanelComponent.prototype.deleteGallery = function () {
+                    var _this = this;
+                    //need to remove from both places it is contained
+                    if (this.user.id == this.galleryToDelete.user_id) {
+                        var path = 'Galleries/' + this.galleryToDelete.id;
+                        this._databaseService.removeObject(path).then(function (error) {
+                            if (error) {
+                                console.log(error);
+                            }
+                        });
+                        var path = 'users/' + this.galleryToDelete.user_id + '/Galleries/' + this.gallery_id[this.galIndex];
+                        this._databaseService.removeObject(path).then(function (error) {
+                            if (error) {
+                                console.log(error);
+                            }
+                            else {
+                                _this._updateData();
+                            }
+                        });
+                    }
+                };
+                //assumes that this.workToDelete has been called
+                UserPanelComponent.prototype.deleteWork = function () {
+                    var _this = this;
+                    if (this.user.id == this.workToDelete.artist_id) {
+                        var path = 'users/' + this.workToDelete.artist_id + '/Works/' + this.workToDelete._id;
+                        this._databaseService.removeObject(path).then(function (error) {
+                            if (error) {
+                                console.log(error);
+                            }
+                            else {
+                                _this._updateData();
+                            }
+                        });
+                    }
                 };
                 // Function to set up profile editing
                 UserPanelComponent.prototype.editProfile = function () {
