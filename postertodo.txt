@@ -1,5 +1,0 @@
-* Bold plot labels
-* Fix arrows in plot on bottom left
-* figure out local minima for sensitivity!!!!!!!!
-* Add funding Physics Fronter Center and NSF
-* Clean up references.

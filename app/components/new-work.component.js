@@ -51,7 +51,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                         this.user = user;
                         var userBase = firebase.database().ref().child('users').child(user.uid);
                         userBase.once("value", function (data) {
-                            _this.user = data.val;
+                            _this.user = data.val();
                             _this.work.artist_fname = _this.user.firstName;
                             _this.work.artist_lname = _this.user.lastName;
                             _this.work.artist_id = user.uid;
@@ -186,15 +186,15 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                             for (var i = 0; i < 4; i++) {
                                 this.rotate();
                             }
-                            //first we will log it to Firebase, then to S3
+                            //first we will log it to Firebase, then to the storage
                             //if work already there, will have a mainFile
                             if (!this._newWork) {
-                                var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+                                var fileBase = firebase.database().ref().child('users').child(this.user.id);
                                 fileBase.child('Works').child(this.work._id).set(this.work);
                                 var uploadFile = this.dataURItoBlob(this.getDataURL());
                             }
                             else {
-                                var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+                                var fileBase = firebase.database().ref().child('users').child(this.user.id);
                                 var newRef = fileBase.child("Works").push();
                                 var errRef = fileBase.child("Errors").push();
                                 newRef.set(this.work);
@@ -203,10 +203,12 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                             var storage = firebase.storage();
                             // Create a storage reference from our storage service
                             var storageRef = storage.ref().child(this.user.id);
-                            var uploadTask = storageRef.child(newRef.key()).put(uploadFile);
+                            var uploadTask = storageRef.child(newRef.key).put(uploadFile);
                             uploadTask.on('state_changed', function (snapshot) {
                                 _this.progressNum = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
                             }, function (error) {
+                                console.log(error);
+                                console.log(_this.user.id);
                                 // Handle unsuccessful uploads
                             }, function () {
                                 // Handle successful uploads on complete

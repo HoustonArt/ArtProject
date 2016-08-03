@@ -39,6 +39,12 @@ export class DatabaseService {
         );
     }
 
+    removeObject(path:string):any{
+      return Promise.resolve(this.ref.child(path).remove().then((error)=>{
+        return Promise.resolve(error);
+      }));
+    }
+
     //return promise for all children for path from base reference
     getAllChildren(path: string):any{
         var _data = [];

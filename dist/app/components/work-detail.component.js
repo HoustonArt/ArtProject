@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'angular2/platform/common', '../../app/services/artists.service', 'angular2/common', '../../app/services/login.service', './messages.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/platform/common', '../../app/services/artists.service', '../../app/services/database.service', 'angular2/common', '../../app/services/login.service', './messages.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/platform/common',
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, common_1, artists_service_1, common_2, login_service_1, messages_component_1;
+    var core_1, router_1, common_1, artists_service_1, database_service_1, common_2, login_service_1, messages_component_1;
     var WorkDetailComponent;
     return {
         setters:[
@@ -26,6 +26,9 @@ System.register(['angular2/core', 'angular2/router', 'angular2/platform/common',
             function (artists_service_1_1) {
                 artists_service_1 = artists_service_1_1;
             },
+            function (database_service_1_1) {
+                database_service_1 = database_service_1_1;
+            },
             function (common_2_1) {
                 common_2 = common_2_1;
             },
@@ -37,31 +40,42 @@ System.register(['angular2/core', 'angular2/router', 'angular2/platform/common',
             }],
         execute: function() {
             WorkDetailComponent = (function () {
-                function WorkDetailComponent(params, location, _artistService, _loginService) {
+                function WorkDetailComponent(params, location, router, _artistService, _loginService, _databaseService) {
                     var _this = this;
                     this._artistService = _artistService;
                     this._loginService = _loginService;
-                    this.firebaseUrl = "https://artlike.firebaseIO.com/users/";
+                    this._databaseService = _databaseService;
+                    this.ownsWork = false;
+                    this.router = router;
                     this.location = location;
                     this._loginService.getUID().then(function (snap) {
                         _this.isLoggedIn = snap['isLoggedIn'];
                         _this.uid = snap['uid'];
                     });
                 }
-                WorkDetailComponent.prototype.getWork = function (path1, path2) {
+                WorkDetailComponent.prototype.deleteWork = function () {
                     var _this = this;
-                    var path = path1 + '/Works/' + path2;
-                    var base = new Firebase(this.firebaseUrl + path);
-                    base.once("value", function (data) {
-                        _this.work = data.val();
+                    var path = this.location.path().split('/').slice(-1).pop();
+                    var path1 = path.split('@')[0];
+                    var path2 = path.split('@').slice(-1).pop();
+                    this._databaseService.removeObject('users/' + path1 + '/Works/' + path2).then(function (error) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            _this.router.parent.navigate(['/Artist', { id: _this.artist.id }]);
+                        }
                     });
                 };
-                WorkDetailComponent.prototype.getArtist = function () {
+                WorkDetailComponent.prototype.getInformation = function (path1, path2) {
                     var _this = this;
-                    var path = this.firebaseUrl + this.path1;
-                    var base = new Firebase(path);
-                    base.once("value", function (data) {
-                        _this.artist = data.val();
+                    var path = 'users/' + path1;
+                    this._databaseService.getObject(path).then(function (data) {
+                        _this.artist = data;
+                        _this.work = data['Works'][path2];
+                        if (_this.uid == data['id']) {
+                            _this.ownsWork = true;
+                        }
                     });
                 };
                 WorkDetailComponent.prototype.initGal = function () {
@@ -88,20 +102,20 @@ System.register(['angular2/core', 'angular2/router', 'angular2/platform/common',
                 };
                 WorkDetailComponent.prototype.ngOnInit = function () {
                     var path = this.location.path().split('/').slice(-1).pop();
-                    this.path1 = path.split('@')[0];
-                    this.path2 = path.split('@').slice(-1).pop();
-                    this.getWork(this.path1, this.path2);
-                    this.getArtist();
+                    var path1 = path.split('@')[0];
+                    var path2 = path.split('@').slice(-1).pop();
+                    //this.getWork(path1, path2);
+                    this.getInformation(path1, path2);
                 };
                 WorkDetailComponent = __decorate([
                     core_1.Component({
                         selector: 'work-detail',
                         templateUrl: './partials/work.html',
                         inputs: ['work'],
-                        providers: [artists_service_1.ArtistService, login_service_1.LoginService],
-                        directives: [router_1.RouterLink, common_2.NgStyle, messages_component_1.MessageWriter]
+                        providers: [artists_service_1.ArtistService, login_service_1.LoginService, database_service_1.DatabaseService],
+                        directives: [router_1.RouterLink, common_2.NgStyle, messages_component_1.MessageWriter, router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, common_1.Location, artists_service_1.ArtistService, login_service_1.LoginService])
+                    __metadata('design:paramtypes', [router_1.RouteParams, common_1.Location, router_1.Router, artists_service_1.ArtistService, login_service_1.LoginService, database_service_1.DatabaseService])
                 ], WorkDetailComponent);
                 return WorkDetailComponent;
             }());

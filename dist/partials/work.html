@@ -28,11 +28,11 @@
           <p>Length: {{work.length}}</p>
           <p>Width: {{work.width}}</p>
           <p>Depth: {{work.depth}}</p>
-          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Contact Artist about Work</button>
+          <button *ngIf="!ownsWork" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Contact Artist about Work</button>
+          <button *ngIf="ownsWork" type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal1">Delete Work</button>
 
           <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
-
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -49,35 +49,22 @@
                 </div>
               </div>
             </div>
+          </div>
 
-            <button *ngIf="numFiles>1" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" (click)="initGal()">
-              Gallery
-            </button>
-            <!-- Modal -->
-            <div *ngIf="selectedFile">
-              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Gallery</h4>
-                    </div>
-                    <div class="modal-body">
-                      <img style="max-height:400px" class="img-responsive center-block" src={{selectedFile}} alt="">
-                    </div>
-
-                    <div class="modal-footer">
-                      <div class="row text-center">
-                        <button type="button" class="btn btn-lg btn-info" (click)="previous()"><span class="glyphicon glyphicon-arrow-left"></span> Previous</button>
-                        <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-lg btn-info" (click)="next()">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
-                      </div>
-                    </div>
-                  </div>
+          <div id="myModal1" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Delete Work</h4>
                 </div>
+                Are you sure you want to delete {{work.name}}?<br>
+                  <button type="button" class="btn btn-success btn-lg" data-dismiss="modal" (click)="deleteWork()">Yes</button>
+                  <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">No</button>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>

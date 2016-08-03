@@ -67,7 +67,7 @@ export class NewWork implements AfterViewInit {
       this.user = user;
       var userBase = firebase.database().ref().child('users').child(user.uid);
       userBase.once("value", (data) => {
-        this.user = data.val;
+        this.user = data.val();
         this.work.artist_fname = this.user.firstName;
         this.work.artist_lname = this.user.lastName;
         this.work.artist_id = user.uid;
@@ -215,15 +215,15 @@ export class NewWork implements AfterViewInit {
         for (var i = 0; i < 4; i++) {
           this.rotate();
         }
-        //first we will log it to Firebase, then to S3
+        //first we will log it to Firebase, then to the storage
         //if work already there, will have a mainFile
         if (!this._newWork) {
-          var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+          var fileBase = firebase.database().ref().child('users').child(this.user.id);
           fileBase.child('Works').child(this.work._id).set(this.work);
           var uploadFile = this.dataURItoBlob(this.getDataURL());
         }
         else {
-          var fileBase = new Firebase(this.firebaseUrl + '/users/' + this.user.id);
+          var fileBase = firebase.database().ref().child('users').child(this.user.id);
           var newRef = fileBase.child("Works").push();
           var errRef = fileBase.child("Errors").push();
           newRef.set(this.work);
@@ -233,22 +233,22 @@ export class NewWork implements AfterViewInit {
         var storage = firebase.storage();
         // Create a storage reference from our storage service
         var storageRef = storage.ref().child(this.user.id);
-        var uploadTask = storageRef.child(newRef.key()).put(uploadFile);
+        var uploadTask = storageRef.child(newRef.key).put(uploadFile);
         uploadTask.on('state_changed', (snapshot)=> {
           this.progressNum = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         }, (error) => {
+          console.log(error);
+          console.log(this.user.id);
             // Handle unsuccessful uploads
           }, ()=> {
             // Handle successful uploads on complete
             this.work.mainFile = uploadTask.snapshot.downloadURL;
             newRef.set(this.work);
           });
-      }
-      else {
+      } else {
         alert("file size too large")
       }
-    }
-    else {
+    } else {
       alert("no file selected");
     }
   }

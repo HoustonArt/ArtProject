@@ -1,8 +1,9 @@
 import {Component} from 'angular2/core';
 import {Artist} from '../../app/artist';
-import {RouteParams,RouterLink} from 'angular2/router';
+import {RouteParams,ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 import {Location} from 'angular2/platform/common';
 import {ArtistService} from '../../app/services/artists.service';
+import {DatabaseService} from '../../app/services/database.service';
 import {ArtPiece} from '../../app/art-piece';
 import {NgStyle} from 'angular2/common';
 import {LoginService} from '../../app/services/login.service';
@@ -14,48 +15,61 @@ import {MessageWriter} from './messages.component';
   selector: 'work-detail',
   templateUrl : './partials/work.html',
   inputs: ['work'],
-  providers: [ArtistService, LoginService],
-  directives: [RouterLink, NgStyle, MessageWriter]
+  providers: [ArtistService, LoginService, DatabaseService],
+  directives: [RouterLink, NgStyle, MessageWriter, ROUTER_DIRECTIVES]
 })
 
 export class WorkDetailComponent {
   public work: ArtPiece;
   public artist: Artist;
   id: string;
-  path1: string;
-  path2: string;
   public location: Location;
   public selectedFile: string;
   public selectedIndex: number;
-  firebaseUrl: string = "https://artlike.firebaseIO.com/users/";
   public isLoggedIn:boolean;
   public uid: string;
+  public ownsWork: boolean = false;
+  public router: Router;
 
 
-  constructor(params:RouteParams,location:Location,
+  constructor(params:RouteParams,
+              location:Location,
+              router: Router,
               private _artistService: ArtistService,
-              private _loginService: LoginService){
+              private _loginService: LoginService,
+              private _databaseService: DatabaseService){
+    this.router = router;
     this.location = location;
     this._loginService.getUID().then((snap)=>{
         this.isLoggedIn = snap['isLoggedIn'];
         this.uid = snap['uid'];
     });
+
   }
 
-  getWork(path1, path2) {
-    var path = path1 + '/Works/' + path2;
-    var base = new Firebase(this.firebaseUrl + path);
-    base.once("value", (data) =>{
-        this.work = data.val();
+  deleteWork(){
+    var path = this.location.path().split('/').slice(-1).pop()
+    var path1 = path.split('@')[0];
+    var path2 = path.split('@').slice(-1).pop();
+    this._databaseService.removeObject('users/' + path1 + '/Works/' + path2).then((error)=>{
+      if (error){
+        console.log(error)
+      }else{
+       this.router.parent.navigate(['/Artist', {id: this.artist.id}]);
+      }
+    });
+  }
+
+  getInformation(path1,path2) {
+    var path = 'users/' + path1;
+    this._databaseService.getObject(path).then((data) =>{
+        this.artist = data;
+        this.work = data['Works'][path2];
+        if (this.uid == data['id']){
+          this.ownsWork = true;
+        }
       }
     );
-  }
-  getArtist() {
-    var path = this.firebaseUrl + this.path1;
-    var base = new Firebase(path);
-    base.once("value", (data)=>{
-      this.artist = data.val();
-    })
   }
 
   initGal(){
@@ -80,12 +94,12 @@ export class WorkDetailComponent {
     }
     this.selectedFile = this.work.files[this.selectedIndex];
   }
-  
+
   ngOnInit() {
     var path = this.location.path().split('/').slice(-1).pop()
-    this.path1 = path.split('@')[0];
-    this.path2 = path.split('@').slice(-1).pop();
-    this.getWork(this.path1, this.path2);
-    this.getArtist();
+    var path1 = path.split('@')[0];
+    var path2 = path.split('@').slice(-1).pop();
+    //this.getWork(path1, path2);
+    this.getInformation(path1, path2);
   }
 }
