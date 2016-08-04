@@ -13,7 +13,7 @@
         <span class="glyphicon glyphicon-edit"></span>ArtLike</a>
           <button *ngIf="!isLoggedIn" class="btn btn-success navbar-btn" (click)="createLogin()">Login</button>
           <a *ngIf="!isLoggedIn" [routerLink]="['/NewUser']">New User</a>
-                
+
             <div *ngIf ="user" class="navbar-brand"><img style="max-height:30px" class="img-circle img-responsive" src="{{user.profilePic}}"></div>
             <a class="navbar-brand dropdown-toggle" *ngIf="user" data-toggle="dropdown">{{user.firstName}}
         <span class="caret"></span></a>
@@ -71,6 +71,7 @@
         <li class='footerLink'><a *ngIf="isLoggedIn" [routerLink]="['/User']">My Panel</a></li>
         <li class='footerLink'><a *ngIf="isLoggedIn" [routerLink]="['/NewWork']">Add New Art</a></li>
         <li class='footerLink'><a href="http://ourdisclaimer.com/?i=ArtLike">Disclaimer</a></li>
+        <li class='footerLink'><a [routerLink]="['/Docs']">Documentation</a></li>
   </ul>
   </div>
 </footer>
