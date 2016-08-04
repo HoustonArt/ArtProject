@@ -88,7 +88,7 @@ export class GalleryCreatorComponent {
       this._databaseService.checkChildNumber(path).then((num)=>{
           if (num < 5){
               this._databaseService.pushToDatabase('Galleries', this.model).then((ref)=>{
-                  var _id = ref.key().split('/').pop()
+                  var _id = ref.key.split('/').pop()
                   this.url = _id;
                   this.full_url = 'artlike.io/#/gallery-view/' + _id;
                   this.model.info.id = _id;

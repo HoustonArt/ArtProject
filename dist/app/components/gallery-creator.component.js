@@ -84,7 +84,7 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                     this._databaseService.checkChildNumber(path).then(function (num) {
                         if (num < 5) {
                             _this._databaseService.pushToDatabase('Galleries', _this.model).then(function (ref) {
-                                var _id = ref.key().split('/').pop();
+                                var _id = ref.key.split('/').pop();
                                 _this.url = _id;
                                 _this.full_url = 'artlike.io/#/gallery-view/' + _id;
                                 _this.model.info.id = _id;
