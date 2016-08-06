@@ -123,7 +123,6 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                 };
                 MessagesComponent.prototype.changeMessage = function (mes) {
                     this.currentMessage.style = '';
-                    this.currentMessage.date = new Date(this.currentMessage.date);
                     mes.style = 'active';
                     this.currentMessage = mes;
                 };
