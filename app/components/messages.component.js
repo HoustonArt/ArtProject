@@ -92,6 +92,7 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                         _this._databaseService.getAllChildren('messages/' + _this.uid + '/received/').then(function (mes) {
                             if (mes[0]) {
                                 _this.messages = mes;
+                                _this.cleanMessageDates(_this.messages);
                                 _this.currentMessage = _this.messages[0];
                                 _this.messages[0].style = 'active';
                                 _this.noMessage = false;
@@ -103,6 +104,7 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                         _this._databaseService.getAllChildren('messages/' + _this.uid + '/sent/').then(function (mes) {
                             if (mes[0]) {
                                 _this.sentMessages = mes;
+                                _this.cleanMessageDates(_this.sentMessages);
                                 _this.noSentMessage = false;
                                 _this.sentMessages[0].style = 'active';
                                 _this.currentMessage = _this.sentMessages[0];
@@ -113,6 +115,11 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                         });
                     });
                 }
+                MessagesComponent.prototype.cleanMessageDates = function (mes) {
+                    for (var i in mes) {
+                        mes[i].date = new Date(mes[i].date);
+                    }
+                };
                 MessagesComponent.prototype.ngOnInit = function () {
                     if (this.messages) {
                         this.changeMessage(this.messages[0]);
@@ -124,7 +131,6 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                 MessagesComponent.prototype.changeMessage = function (mes) {
                     this.currentMessage.style = '';
                     mes.style = 'active';
-                    mes.date = new Date(mes.date);
                     this.currentMessage = mes;
                 };
                 MessagesComponent = __decorate([

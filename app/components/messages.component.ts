@@ -71,6 +71,7 @@ export class MessagesComponent{
             this._databaseService.getAllChildren('messages/' + this.uid +'/received/').then((mes)=>{
                 if (mes[0]){
                     this.messages = mes;
+                    this.cleanMessageDates(this.messages);
                     this.currentMessage = this.messages[0];
                     this.messages[0].style = 'active';
                     this.noMessage = false;
@@ -81,6 +82,7 @@ export class MessagesComponent{
             this._databaseService.getAllChildren('messages/' + this.uid +'/sent/').then((mes)=>{
                 if (mes[0]){
                     this.sentMessages = mes;
+                    this.cleanMessageDates(this.sentMessages);
                     this.noSentMessage = false
                     this.sentMessages[0].style = 'active';
                     this.currentMessage = this.sentMessages[0];
@@ -89,6 +91,12 @@ export class MessagesComponent{
                 }
             });
         });
+    }
+
+    cleanMessageDates(mes){
+      for(var i in mes){
+        mes[i].date = new Date(mes[i].date);
+      }
     }
 
     ngOnInit(){
@@ -102,7 +110,6 @@ export class MessagesComponent{
     changeMessage(mes){
         this.currentMessage.style = '';
         mes.style = 'active';
-        mes.date = new Date(mes.date);
         this.currentMessage = mes;
     }
 
