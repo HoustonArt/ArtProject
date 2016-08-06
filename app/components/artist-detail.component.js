@@ -44,6 +44,9 @@ System.register(['angular2/core', './messages.component', 'angular2/router', 'an
                         _this.uid = snap['uid'];
                     });
                 }
+                // return a promise to try to get it to not throw a bug
+                // I think angular thinks these lists are really longer than they should be
+                // fixed the bug by basically just checking in HTML if each loop is proper.
                 ArtistDetailComponent.prototype.getArtist = function () {
                     var _this = this;
                     var base = firebase.database().ref().child('users').child(this.path);

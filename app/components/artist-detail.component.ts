@@ -39,7 +39,9 @@ export class ArtistDetailComponent {
     });
   }
 
-
+// return a promise to try to get it to not throw a bug
+// I think angular thinks these lists are really longer than they should be
+// fixed the bug by basically just checking in HTML if each loop is proper.
   getArtist():any {
     var base = firebase.database().ref().child('users').child(this.path);
     return Promise.resolve(base.once("value", (data) => {
