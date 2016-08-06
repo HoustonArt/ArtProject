@@ -24,6 +24,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/user'], function
                 user_1 = user_1_1;
             }],
         execute: function() {
+            //import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
             NewUser = (function () {
                 function NewUser(router) {
                     this.user = new user_1.User('', '', '', '', '', '', '', '');
@@ -47,6 +48,12 @@ System.register(['angular2/core', 'angular2/router', '../../app/user'], function
                         else {
                             this.message = "authorization error";
                         }
+                    }
+                };
+                NewUser.prototype.handleUpload = function (data) {
+                    if (data && data.response) {
+                        data = JSON.parse(data.response);
+                        this.uploadFile = data;
                     }
                 };
                 NewUser.prototype.createNewUser = function () {

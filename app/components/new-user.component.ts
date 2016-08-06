@@ -1,6 +1,8 @@
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 import {User} from '../../app/user';
+//import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
+
 
 @Component({
   selector: 'new-user',
@@ -28,6 +30,7 @@ export class NewUser {
   public password;
   firebaseUrl: string;
   authData: any;
+  uploadFile: any;
 
   constructor(router: Router) {
     this.router = router;
@@ -51,6 +54,12 @@ updateUser(){
   }
 }
 
+handleUpload(data): void {
+    if (data && data.response) {
+      data = JSON.parse(data.response);
+      this.uploadFile = data;
+    }
+  }
 
   createNewUser() {
     var ref = firebase.database().ref();
