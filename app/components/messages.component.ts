@@ -103,6 +103,7 @@ export class MessagesComponent{
     changeMessage(mes){
         this.currentMessage.style = '';
         mes.style = 'active';
+        mes.date = new Date(mes.date);
         this.currentMessage = mes;
     }
 
