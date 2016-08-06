@@ -9,7 +9,7 @@
       <div *ngIf="!noMessage">
         <ul class="list-group">
           <li *ngFor='let mes of messages' class='list-group-item {{mes.style}}' (click)='changeMessage(mes)'>
-            {{mes.sender_name}} {{mes.date | date: 'short'}}</li>
+            {{mes.sender_name}} {{mes.date | zachdate}}</li>
         </ul>
       </div>
       <div *ngIf='noMessage'>
@@ -20,7 +20,7 @@
       <div *ngIf="!noSentMessage">
         <ul class="list-group">
           <li *ngFor='let mes of sentMessages' class='list-group-item {{mes.style}}' (click)='changeMessage(mes)'>
-            {{mes.sender_name}} {{mes.date | date:'short'}}</li>
+            {{mes.sender_name}} {{mes.date | zachdate}}</li>
         </ul>
       </div>
       <div *ngIf="noSentMessage">

@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, common_1, message_1, database_service_1, login_service_1;
-    var MessageWriter, MessagesComponent;
+    var MessageWriter, ZachDate, MessagesComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -82,6 +82,23 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                 return MessageWriter;
             }());
             exports_1("MessageWriter", MessageWriter);
+            ZachDate = (function () {
+                function ZachDate() {
+                }
+                ZachDate.prototype.transform = function (val, args) {
+                    var date = new Date(val);
+                    var ds = date.toISOString().split('T');
+                    return ds[0] + ' ' + ds[1].slice(0, 8);
+                };
+                ZachDate = __decorate([
+                    core_1.Pipe({
+                        name: 'zachdate'
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], ZachDate);
+                return ZachDate;
+            }());
+            exports_1("ZachDate", ZachDate);
             MessagesComponent = (function () {
                 function MessagesComponent(_databaseService, _loginService) {
                     var _this = this;
@@ -92,7 +109,6 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                         _this._databaseService.getAllChildren('messages/' + _this.uid + '/received/').then(function (mes) {
                             if (mes[0]) {
                                 _this.messages = mes;
-                                _this.cleanMessageDates(_this.messages);
                                 _this.currentMessage = _this.messages[0];
                                 _this.messages[0].style = 'active';
                                 _this.noMessage = false;
@@ -104,7 +120,6 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                         _this._databaseService.getAllChildren('messages/' + _this.uid + '/sent/').then(function (mes) {
                             if (mes[0]) {
                                 _this.sentMessages = mes;
-                                _this.cleanMessageDates(_this.sentMessages);
                                 _this.noSentMessage = false;
                                 _this.sentMessages[0].style = 'active';
                                 _this.currentMessage = _this.sentMessages[0];
@@ -115,11 +130,6 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                         });
                     });
                 }
-                MessagesComponent.prototype.cleanMessageDates = function (mes) {
-                    for (var i in mes) {
-                        mes[i].date = new Date(mes[i].date);
-                    }
-                };
                 MessagesComponent.prototype.ngOnInit = function () {
                     if (this.messages) {
                         this.changeMessage(this.messages[0]);
@@ -138,7 +148,8 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                         selector: 'messages',
                         templateUrl: './partials/messages.html',
                         styles: ["\n   li:hover{background-color:#d3d3d3;}\n  "],
-                        providers: [database_service_1.DatabaseService, login_service_1.LoginService, common_1.DatePipe],
+                        providers: [database_service_1.DatabaseService, login_service_1.LoginService],
+                        pipes: [common_1.DatePipe, ZachDate],
                         directives: [MessageWriter]
                     }), 
                     __metadata('design:paramtypes', [database_service_1.DatabaseService, login_service_1.LoginService])

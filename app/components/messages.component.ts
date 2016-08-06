@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from 'angular2/core';
+import {Component, Input, Output, EventEmitter, Pipe} from 'angular2/core';
 import {DatePipe} from 'angular2/common';
 import {Message} from '../../app/message';
 import {DatabaseService} from '../../app/services/database.service';
@@ -46,13 +46,25 @@ export class MessageWriter {
     }
 }
 
+@Pipe({
+  name:'zachdate'
+})
+export class ZachDate{
+  transform(val, args){
+    var date = new Date(val);
+    var ds = date.toISOString().split('T')
+    return ds[0] + ' ' + ds[1].slice(0,8);
+  }
+}
+
 @Component({
   selector:'messages',
   templateUrl: './partials/messages.html',
   styles:[`
    li:hover{background-color:#d3d3d3;}
   `],
-  providers:[DatabaseService,LoginService, DatePipe],
+  providers:[DatabaseService,LoginService],
+  pipes:[DatePipe, ZachDate],
   directives:[MessageWriter]
 })
 export class MessagesComponent{
@@ -71,7 +83,6 @@ export class MessagesComponent{
             this._databaseService.getAllChildren('messages/' + this.uid +'/received/').then((mes)=>{
                 if (mes[0]){
                     this.messages = mes;
-                    this.cleanMessageDates(this.messages);
                     this.currentMessage = this.messages[0];
                     this.messages[0].style = 'active';
                     this.noMessage = false;
@@ -82,7 +93,6 @@ export class MessagesComponent{
             this._databaseService.getAllChildren('messages/' + this.uid +'/sent/').then((mes)=>{
                 if (mes[0]){
                     this.sentMessages = mes;
-                    this.cleanMessageDates(this.sentMessages);
                     this.noSentMessage = false
                     this.sentMessages[0].style = 'active';
                     this.currentMessage = this.sentMessages[0];
@@ -93,11 +103,6 @@ export class MessagesComponent{
         });
     }
 
-    cleanMessageDates(mes){
-      for(var i in mes){
-        mes[i].date = new Date(mes[i].date);
-      }
-    }
 
     ngOnInit(){
       if (this.messages){
