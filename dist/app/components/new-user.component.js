@@ -34,61 +34,36 @@ System.register(['angular2/core', 'angular2/router', '../../app/user'], function
                     this.firebaseUrl = "https://artlike.firebaseIO.com/";
                 }
                 NewUser.prototype.updateUser = function () {
-                    var _this = this;
                     if (this._newUser == true) {
                         this.createNewUser();
                     }
                     else {
-                        var ref = new Firebase(this.firebaseUrl);
-                        ref.onAuth(function (authData) {
-                            if (authData) {
-                                ref.child('users/' + authData.uid).set(_this.user);
-                                _this.doneEvent.next();
-                            }
-                            else {
-                                _this.message = "authorization error";
-                            }
-                        });
+                        var ref = firebase.database().ref();
+                        var authData = firebase.auth().currentUser;
+                        if (authData) {
+                            ref.child('users/' + authData.uid).set(this.user);
+                            this.doneEvent.next();
+                        }
+                        else {
+                            this.message = "authorization error";
+                        }
                     }
                 };
                 NewUser.prototype.createNewUser = function () {
                     var _this = this;
-                    var ref = new Firebase(this.firebaseUrl);
-                    ref.createUser({
-                        email: this.email,
-                        password: this.password
-                    }, function (error, userData) {
-                        if (error) {
-                            switch (error.code) {
-                                case "EMAIL_TAKEN":
-                                    _this.message = "The new user account cannot be created because the email is already in use.";
-                                    break;
-                                case "INVALID_EMAIL":
-                                    _this.message = "The specified email is not a valid email.";
-                                    break;
-                                default:
-                                    console.log("Error creating user:", error);
-                            }
-                        }
-                        else {
+                    var ref = firebase.database().ref();
+                    firebase.auth().createUserWithEmailAndPassword(this.email, this.password).catch(function (error) {
+                        _this.message = error.message;
+                    }).then(function () {
+                        var authData = firebase.auth().currentUser;
+                        if (authData) {
                             _this.message = "Successfully created user account";
                             //now login and set user data
-                            ref.authWithPassword({
-                                email: _this.email,
-                                password: _this.password
-                            }, function (error, authData) {
-                                if (error) {
-                                    console.log("Login Failed!", error);
-                                }
-                                else {
-                                    console.log("Authenticated successfully with payload:", authData);
-                                    var userBase = new Firebase(_this.firebaseUrl + 'users/' + authData.uid);
-                                    _this.user.id = authData.uid;
-                                    _this.user.profilePic = "https://s3.amazonaws.com/artlike/assets/noperson.jpg";
-                                    userBase.set(_this.user);
-                                }
-                            });
-                            ref.unauth();
+                            console.log("Authenticated successfully with payload:", authData);
+                            var userBase = ref.child('users/' + authData.uid);
+                            _this.user.id = authData.uid;
+                            _this.user.profilePic = "https://s3.amazonaws.com/artlike/assets/noperson.jpg";
+                            userBase.set(_this.user);
                             _this.router.parent.navigate(['Home']);
                         }
                     });

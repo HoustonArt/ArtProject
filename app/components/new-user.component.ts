@@ -39,58 +39,35 @@ updateUser(){
     this.createNewUser();
   }
   else{
-    var ref = new Firebase(this.firebaseUrl);
-    ref.onAuth((authData) => {
-      if(authData){
-        ref.child('users/' + authData.uid).set(this.user);
-        this.doneEvent.next();
-      }
-      else{
+    var ref = firebase.database().ref();
+    var authData = firebase.auth().currentUser;
+    if(authData){
+      ref.child('users/' + authData.uid).set(this.user);
+      this.doneEvent.next();
+    }
+    else{
         this.message = "authorization error";
       }
-    });
   }
 }
 
 
   createNewUser() {
-    var ref = new Firebase(this.firebaseUrl);
-    ref.createUser({
-      email: this.email,
-      password: this.password
-    }, (error, userData) => {
-        if (error) {
-          switch (error.code) {
-            case "EMAIL_TAKEN":
-              this.message = "The new user account cannot be created because the email is already in use.";
-              break;
-            case "INVALID_EMAIL":
-              this.message = "The specified email is not a valid email.";
-              break;
-            default:
-              console.log("Error creating user:", error);
-          }
-        } else {
-          this.message = "Successfully created user account";
-          //now login and set user data
-          ref.authWithPassword({
-            email: this.email,
-            password: this.password
-          }, (error, authData) => {
-              if (error) {
-                console.log("Login Failed!", error);
-              } else {
-                console.log("Authenticated successfully with payload:", authData);
-                var userBase = new Firebase(this.firebaseUrl + 'users/' + authData.uid);
-                this.user.id = authData.uid;
-                this.user.profilePic ="https://s3.amazonaws.com/artlike/assets/noperson.jpg";
-                userBase.set(this.user);
-              }
-            });
-            ref.unauth();
+    var ref = firebase.database().ref();
+    firebase.auth().createUserWithEmailAndPassword(
+      this.email,this.password).catch((error) => {
+        this.message = error.message;
+      }).then(()=>{
+          var authData = firebase.auth().currentUser;
+          if (authData){
+            this.message = "Successfully created user account";
+            //now login and set user data
+            console.log("Authenticated successfully with payload:", authData);
+            var userBase = ref.child('users/' + authData.uid);
+            this.user.id = authData.uid;
+            this.user.profilePic ="https://s3.amazonaws.com/artlike/assets/noperson.jpg";
+            userBase.set(this.user);
             this.router.parent.navigate(['Home']);
-        }
-      });
-
-  }
+        }});
+      }
 }

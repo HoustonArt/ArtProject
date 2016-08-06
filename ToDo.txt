@@ -26,4 +26,4 @@ Structure of database
 -messages
 
 
-goal of database, keep everything as flat as possible and store references around. (or maybe dont store references, rely on queries from database when speed doesn't matter maybe?)  Also, it is okay to have rendundancy, for example in the works, but just make sure to keep everything updated together.
+goal of database, keep everything as flat as possible and store references around. (or maybe don't store references, rely on queries from database when speed doesn't matter maybe?)  Also, it is okay to have rendundancy, for example in the works, but just make sure to keep everything updated together.
