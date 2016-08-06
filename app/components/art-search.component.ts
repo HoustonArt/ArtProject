@@ -23,9 +23,11 @@ export class ArtSearchComponent {
   private ref: any;
   private newRef: any;
   private checkedLogin: boolean = false;
+  public router: Router;
 
-  constructor(public _artistService: ArtistService, private _loginService: LoginService){
-    this.ref = new Firebase("https://artlike.firebaseIO.com/")
+  constructor(public _artistService: ArtistService, private _loginService: LoginService,router: Router){
+    this.router = router;
+    this.ref = firebase.database().ref();
     this._loginService.getUID().then((data)=>{
         this.user = data['uid'];
         this.isLoggedIn = data['isLoggedIn'];
@@ -36,7 +38,7 @@ export class ArtSearchComponent {
   getWorks() {
     this._artistService.getSomeWorks(10).then(works => this.works=works);
   }
-  
+
   ngOnInit() {
     this.getWorks();
     this.notStarted = true;
@@ -85,11 +87,11 @@ export class ArtSearchComponent {
   }
 
   next(){
-    if(this.selectedIndex < 10){
+    if(this.selectedIndex < 9){
       this.selectedIndex = this.selectedIndex + 1;
     }
     else{
-      this.selectedIndex = 0;
+      this.router.parent.navigate(['/Works']);
     }
     this.selectedFile = this.works[this.selectedIndex].mainFile;
   }

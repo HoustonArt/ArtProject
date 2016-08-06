@@ -20,7 +20,7 @@ function shuffle(array) {
       }
       return array;
     }
-    
+
 //needs to modify answer
 function get_elements(id_list,arr,_ans){
      for(var i =0; i < id_list.length;i++){
@@ -33,7 +33,7 @@ function get_elements(id_list,arr,_ans){
      }
      return _ans;
  }
-    
+
 @Injectable()
 export class ArtistService {
   public artist: Artist;
@@ -43,13 +43,11 @@ export class ArtistService {
   public _Works = [];
   public base: any;
 
-  //private ARTISTS: Artist[];
-  firebaseUrl: string = "https://artlike.firebaseIO.com/users/";
-  
+
   constructor(){
-      this.base = new Firebase(this.firebaseUrl);
+      this.base = firebase.database().ref().child('users');
   }
-  
+
   getAllWorks(): any{
     var workArr = [];
     return this.base.once("value", (snapShot)=>{
@@ -57,17 +55,17 @@ export class ArtistService {
         if(snapShotChild.hasChild('Works')){
           snapShotChild.child('Works').forEach((work) => {
             this.work = work.val();
-            this.work['_id'] = work.key();
+            this.work['_id'] = work.key;
             workArr.push(this.work);
           });
         }
       });
     }).then(()=> {
         return Promise.resolve(shuffle(workArr));
-        
+
     });
   }
-  
+
   getSomeWorks(num:number){
     return this.getAllWorks().then((works)=> {
         return Promise.resolve(works.slice(0,num));
@@ -86,16 +84,12 @@ export class ArtistService {
         return Promise.resolve(shuffle(this.ARTISTS));
         });
   }
-  
+
 
  getWorkList(work_id){
     return this.getAllWorks().then((works)=> {
         return Promise.resolve(get_elements(work_id,works,[]));
     });
   }
-  
+
  }
- 
-
-
-

@@ -49,9 +49,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     this.ARTISTS = [];
                     this.WORKS = [];
                     this._Works = [];
-                    //private ARTISTS: Artist[];
-                    this.firebaseUrl = "https://artlike.firebaseIO.com/users/";
-                    this.base = new Firebase(this.firebaseUrl);
+                    this.base = firebase.database().ref().child('users');
                 }
                 ArtistService.prototype.getAllWorks = function () {
                     var _this = this;
@@ -61,7 +59,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                             if (snapShotChild.hasChild('Works')) {
                                 snapShotChild.child('Works').forEach(function (work) {
                                     _this.work = work.val();
-                                    _this.work['_id'] = work.key();
+                                    _this.work['_id'] = work.key;
                                     workArr.push(_this.work);
                                 });
                             }

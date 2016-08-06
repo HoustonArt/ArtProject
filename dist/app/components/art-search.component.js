@@ -28,12 +28,13 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
             }],
         execute: function() {
             ArtSearchComponent = (function () {
-                function ArtSearchComponent(_artistService, _loginService) {
+                function ArtSearchComponent(_artistService, _loginService, router) {
                     var _this = this;
                     this._artistService = _artistService;
                     this._loginService = _loginService;
                     this.checkedLogin = false;
-                    this.ref = new Firebase("https://artlike.firebaseIO.com/");
+                    this.router = router;
+                    this.ref = firebase.database().ref();
                     this._loginService.getUID().then(function (data) {
                         _this.user = data['uid'];
                         _this.isLoggedIn = data['isLoggedIn'];
@@ -87,11 +88,11 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                         "artist": work.artist_id });
                 };
                 ArtSearchComponent.prototype.next = function () {
-                    if (this.selectedIndex < 10) {
+                    if (this.selectedIndex < 9) {
                         this.selectedIndex = this.selectedIndex + 1;
                     }
                     else {
-                        this.selectedIndex = 0;
+                        this.router.parent.navigate(['/Works']);
                     }
                     this.selectedFile = this.works[this.selectedIndex].mainFile;
                 };
@@ -102,7 +103,7 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                         providers: [artists_service_1.ArtistService, login_service_1.LoginService],
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink]
                     }), 
-                    __metadata('design:paramtypes', [artists_service_1.ArtistService, login_service_1.LoginService])
+                    __metadata('design:paramtypes', [artists_service_1.ArtistService, login_service_1.LoginService, router_1.Router])
                 ], ArtSearchComponent);
                 return ArtSearchComponent;
             }());

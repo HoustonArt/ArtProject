@@ -34,7 +34,6 @@ System.register(['angular2/core', './messages.component', 'angular2/router', 'an
                 function ArtistDetailComponent(params, location, _loginService) {
                     var _this = this;
                     this._loginService = _loginService;
-                    this.firebaseUrl = "https://artlike.firebaseIO.com/users/";
                     this.works = [];
                     this.location = location;
                     this._loginService.getUID().then(function (snap) {
@@ -44,8 +43,7 @@ System.register(['angular2/core', './messages.component', 'angular2/router', 'an
                 }
                 ArtistDetailComponent.prototype.getArtist = function () {
                     var _this = this;
-                    var path = this.firebaseUrl + this.path;
-                    var base = new Firebase(path);
+                    var base = firebase.database().ref().child('users').child(this.path);
                     base.once("value", function (data) {
                         _this.artist = data.val();
                         var k = 0;

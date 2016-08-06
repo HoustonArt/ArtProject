@@ -20,7 +20,6 @@ export class ArtistDetailComponent {
   public id: string;
   public path:string;
   public location: Location;
-  firebaseUrl: string = "https://artlike.firebaseIO.com/users/";
   public works: ArtPiece[] = [];
   public isLoggedIn:boolean;
   public uid: string;
@@ -36,8 +35,7 @@ export class ArtistDetailComponent {
   }
 
   getArtist() {
-    var path = this.firebaseUrl + this.path;
-    var base = new Firebase(path);
+    var base = firebase.database().ref().child('users').child(this.path);
     base.once("value", (data)=>{
       this.artist = data.val();
       var k = 0;
