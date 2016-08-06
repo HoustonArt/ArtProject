@@ -100,17 +100,13 @@ export class Login {
   _resetPassword() {
       this._loginService.resetPassword(this.username).then((error)=>{
           if (error) {
-            switch (error.code) {
-              case "INVALID_USER":
-                this.message ="The specified user account does not exist.";
-                break;
-              default:
-                this.message = "Error resetting password:" + error;
+            this.message = error.code
             }
-          } else {
+           else {
             this.message = `Password reset email sent successfully!
-            Go to your email and get your temporary password then login above!`;
+            Go to your email and follow instructions!`;
             this.onReset = true;
+            this.resetPassword = false;
             }
 
       });

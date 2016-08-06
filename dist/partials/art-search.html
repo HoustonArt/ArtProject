@@ -1,11 +1,11 @@
 <div *ngIf="works">
   <!-- Page Content -->
-    <!-- Page Heading -->
-    <div class="col-sm-10">
-        <h1 class="page-header">Art Search</h1>
-    </div>
-    <div class="row text-center">
-    <div *ngIf="checkedLogin" class="col-sm-10">
+  <!-- Page Heading -->
+  <div class="col-sm-10">
+    <h1 class="page-header">Art Search</h1>
+  </div>
+  <div class="row text-center">
+    <div *ngIf="checkedLogin" class="col-sm-8">
       <div *ngIf="notStarted">
         <p>To get some idea of your preferences, please give each of the following pictures thumbs-up or thumbs-down</p>
         <p>Press start, when you are ready!</p>
@@ -29,5 +29,11 @@
         </button>
       </div>
     </div>
-</div>
+    <div class='col-sm-4'>
+      <p>The Art Search is a tool to match art lovers with the art that they love.  By using it you consent to allow us to use your answers
+        to the following questions to find the best art for you.  Please note that we are currently in the beta part of this feature,
+        the returned results are random selections of users art.  With more data collected from many users, we can make true recomendations.
+      </p>
+    </div>
+  </div>
 </div>

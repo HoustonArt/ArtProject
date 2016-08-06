@@ -85,17 +85,12 @@ System.register(['angular2/core', 'angular2/router', '../../app/services/login.s
                     var _this = this;
                     this._loginService.resetPassword(this.username).then(function (error) {
                         if (error) {
-                            switch (error.code) {
-                                case "INVALID_USER":
-                                    _this.message = "The specified user account does not exist.";
-                                    break;
-                                default:
-                                    _this.message = "Error resetting password:" + error;
-                            }
+                            _this.message = error.code;
                         }
                         else {
-                            _this.message = "Password reset email sent successfully!\n            Go to your email and get your temporary password then login above!";
+                            _this.message = "Password reset email sent successfully!\n            Go to your email and follow instructions!";
                             _this.onReset = true;
+                            _this.resetPassword = false;
                         }
                     });
                 };

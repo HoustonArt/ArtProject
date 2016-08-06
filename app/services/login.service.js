@@ -21,6 +21,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             LoginService = (function () {
                 function LoginService() {
                     this.user = firebase.auth().currentUser;
+                    this.ref = firebase.auth();
                 }
                 LoginService.prototype.getLogin = function () {
                     //need to do later
@@ -41,7 +42,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     return { isLoggedIn: isLoggedIn, uid: uid };
                 };
                 LoginService.prototype.resetPassword = function (email) {
-                    return Promise.resolve(this.ref.resetPassword({ 'email': email }, function () { }).catch(function (err) {
+                    return Promise.resolve(this.ref.sendPasswordResetEmail(email).catch(function (err) {
                         return Promise.resolve(err);
                     }));
                 };

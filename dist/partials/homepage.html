@@ -28,3 +28,11 @@
       <button type="button" class="btn btn-info btn-lg">Gallery Designer</button>
     </a>
 </div>
+<br>
+<br>
+<div class="row text-center">
+  <h2>Featured Works</h2>
+  <div *ngFor="let work of works">
+    <work-display [work-input]='work' [opacity]= 'opacity'></work-display>
+  </div>
+</div>

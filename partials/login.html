@@ -5,10 +5,6 @@
           <label class = "sr-only" for="email">Email</label>
           <input type="text" class="form-control" placeholder="Enter Email" required [(ngModel)]="username" ngControl="username" #name="ngForm">
         </div>
-        <div *ngIf="onReset" class="form-group">
-          <label class="sr-only" for="token">Token</label>
-          <input type="password" class="form-control" placeholder="Enter Token" required [(ngModel)]="token" ngControl="token" #name="ngForm">
-        </div>
         <div *ngIf="!resetPassword || onReset" class="form-group">
           <label class="sr-only" for="password">Password</label>
           <input type="password" class="form-control" placeholder="Enter Password" required [(ngModel)]="password" ngControl="password" #name="ngForm">
@@ -19,7 +15,6 @@
         <button *ngIf="!resetPassword" (click) = "createUser()" class="btn btn-default btn-large">New User</button>
         <button *ngIf="!resetPassword" (click) = "resetPassForm()" class="btn btn-default btn-large">Forgot Password?</button>
         <button *ngIf="resetPassword" type="submit" class="btn btn-default btn-large">Reset Password</button>
-        <button *ngIf="resetPassword && !onReset" (click) = "hasToken()" class="btn btn-default btn-large">I have my token</button>
 
       </form>
       {{message}}

@@ -4,9 +4,11 @@ import {Injectable} from 'angular2/core';
 export class LoginService {
     private ref: any;
     private authData: any;
+    private user: any;
 
     constructor(){
         this.user = firebase.auth().currentUser;
+        this.ref = firebase.auth();
     }
 
     getLogin(){
@@ -30,7 +32,7 @@ export class LoginService {
     }
 
     resetPassword(email:string){
-        return Promise.resolve(this.ref.resetPassword({'email':email},()=>{}).catch((err)=>{
+        return Promise.resolve(this.ref.sendPasswordResetEmail(email).catch((err)=>{
             return Promise.resolve(err);
             }));
     }
