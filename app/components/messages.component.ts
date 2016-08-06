@@ -99,7 +99,6 @@ export class MessagesComponent{
       }
     }
 
-
     changeMessage(mes){
         this.currentMessage.style = '';
         mes.style = 'active';
