@@ -35,6 +35,9 @@ System.register(['angular2/core', './messages.component', 'angular2/router', 'an
                     var _this = this;
                     this._loginService = _loginService;
                     this.works = [];
+                    this.gals = [];
+                    this.noGals = true;
+                    this.noWorks = true;
                     this.location = location;
                     this._loginService.getUID().then(function (snap) {
                         _this.isLoggedIn = snap['isLoggedIn'];
@@ -44,19 +47,40 @@ System.register(['angular2/core', './messages.component', 'angular2/router', 'an
                 ArtistDetailComponent.prototype.getArtist = function () {
                     var _this = this;
                     var base = firebase.database().ref().child('users').child(this.path);
-                    base.once("value", function (data) {
+                    return Promise.resolve(base.once("value", function (data) {
                         _this.artist = data.val();
                         var k = 0;
-                        for (var i in _this.artist.Works) {
-                            _this.works[k] = _this.artist.Works[i];
-                            _this.works[k]['_id'] = i;
-                            k = k + 1;
+                        if (_this.artist.Works) {
+                            for (var i in _this.artist.Works) {
+                                _this.works[k] = _this.artist.Works[i];
+                                _this.works[k]['_id'] = i;
+                                k = k + 1;
+                            }
                         }
+                        k = 0;
+                        if (_this.artist.Galleries) {
+                            for (var j in _this.artist.Galleries) {
+                                _this.gals[k] = _this.artist.Galleries[j];
+                                k = k + 1;
+                            }
+                        }
+                    })).then(function () {
+                        var len_arr = [_this.gals.length, _this.works.length];
+                        return Promise.resolve(len_arr);
                     });
                 };
                 ArtistDetailComponent.prototype.ngOnInit = function () {
+                    var _this = this;
                     this.path = this.location.path().split('/').slice(-1).pop();
-                    this.getArtist();
+                    this.getArtist().then(function (arr) {
+                        if (arr[1] > 0) {
+                            _this.noWorks = false;
+                        }
+                        if (arr[0] > 0) {
+                            console.log(_this.gals);
+                            _this.noGals = false;
+                        }
+                    });
                 };
                 ArtistDetailComponent = __decorate([
                     core_1.Component({

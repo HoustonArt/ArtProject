@@ -16,38 +16,55 @@
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Contact {{artist.firstName}}</button>
 
         <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+          <div class="modal-dialog">
 
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Contact</h4>
-      </div>
-      <div *ngIf="isLoggedIn" class="modal-body">
-        <message-write [rec_id]='artist.id' [sender_id]='uid'></message-write>
-      </div>
-      <div *ngIf="!isLoggedIn" class="modal-body">
-        <p>You must logged in to send a message to an artist</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Contact</h4>
+              </div>
+              <div *ngIf="isLoggedIn" class="modal-body">
+                <message-write [rec_id]='artist.id' [sender_id]='uid'></message-write>
+              </div>
+              <div *ngIf="!isLoggedIn" class="modal-body">
+                <p>You must logged in to send a message to an artist</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
 
-  </div>
-</div>
+          </div>
+        </div>
       </div>
       <div class="col-lg-6">
         <img style="max-height:250px" class="img-thumbnail" src="{{artist.profilePic}}">
       </div>
     </div>
     <!-- /.row -->
-    <h2>Gallery</h2>
-    <div style="height:350px" class="col-lg-4 col-sm-6 text-center" *ngFor="let work of works">
-      <a [routerLink]="['/Work', {id: work.artist_id + '@'+ work._id}]">
-        <img style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
-      </a>
-      <h3>{{work.name}} <small>{{work.media}}</small></h3>
+    <ul class="nav nav-tabs" data-tabs='tabs'>
+      <li class="active"><a href='#works' data-toggle="tab">Works</a></li>
+      <li><a href="#galleries" data-toggle="tab">Galleries</a></li>
+    </ul>
+    <div id='my-tab-content' class='tab-content'>
+      <div class='tab-pane active' id='works'>
+        <div *ngIf='!noWorks' style="height:350px" class="col-lg-4 col-sm-6 text-center" *ngFor="let work of works">
+          <div *ngIf='work'>
+          <a [routerLink]="['/Work', {id: work.artist_id + '@'+ work._id}]">
+            <img style="max-height:250px" class="img-thumbnail center-block" src={{work.mainFile}} alt={{work.name}}>
+          </a>
+          <h3>{{work.name}} <small>{{work.media}}</small></h3>
+        </div>
+        </div>
+        <p *ngIf='noWorks'>This user has no Works</p>
+      </div>
+      <div class='tab-pane' id='galleries'>
+        <div *ngIf='!noGals' style="height:350px" class="col-lg-4 col-sm-6 text-center" *ngFor="let gal of gals">
+          <div *ngIf='gal'>
+          <a [routerLink]="['/GalleryView', {id: gal.id}]"><h3>{{gal.name}}</h3></a>
+        </div>
+        </div>
+        <p *ngIf='noGals'>This user has no Galleries</p>
+      </div>
     </div>
   </div>
-</div>
