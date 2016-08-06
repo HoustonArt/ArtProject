@@ -75,7 +75,7 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                         selector: 'message-write',
                         templateUrl: './partials/message-write.html',
                         providers: [database_service_1.DatabaseService],
-                        styles: [".ng-valid[required] {\n    border-left: 5px solid #42A948;\n      }\n\n  .ng-invalid {\n    border-left: 5px solid #a94442;\n  }"]
+                        styles: [".ng-valid[required] {\n    border-left: 5px solid #42A948;\n      }\n  .ng-invalid {\n    border-left: 5px solid #a94442;\n  }"]
                     }), 
                     __metadata('design:paramtypes', [database_service_1.DatabaseService])
                 ], MessageWriter);
@@ -123,6 +123,7 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                 };
                 MessagesComponent.prototype.changeMessage = function (mes) {
                     this.currentMessage.style = '';
+                    this.currentMessage.date = new Date(this.currentMessage.date);
                     mes.style = 'active';
                     this.currentMessage = mes;
                 };

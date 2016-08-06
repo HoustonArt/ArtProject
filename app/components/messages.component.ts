@@ -11,7 +11,6 @@ import {LoginService} from '../../app/services/login.service';
     styles:[ `.ng-valid[required] {
     border-left: 5px solid #42A948;
       }
-
   .ng-invalid {
     border-left: 5px solid #a94442;
   }`]
@@ -103,6 +102,7 @@ export class MessagesComponent{
 
     changeMessage(mes){
         this.currentMessage.style = '';
+        this.currentMessage.date = new Date(this.currentMessage.date);
         mes.style = 'active';
         this.currentMessage = mes;
     }
