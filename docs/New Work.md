@@ -4,4 +4,4 @@ After filling out the form and pressing submit, you should be able to go to the 
 
 Works can be deleted on either the user panel or the work page itself (if it is your work).
 
-*Note*: We will do the best we can to filter work that is not appropriate to the mission of our site, however, we will not necessarily catch this immediately
+*Note*: We will do the best we can to filter work that is not appropriate to the mission of our site, however, we will not necessarily catch these immediately.  Additionally, as this is an art website, there will be depictions of the human body, we will use our best judgment as to what is "art."  Please email artlikeio@gmail with any concerns or to flag work as not appropriate.
