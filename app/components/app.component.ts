@@ -27,7 +27,11 @@ import {DocumentationComponent} from './documentation.component';
     display:inline-block;
     }
 
- footer {
+    body{
+      margin-bottom:30px
+    }
+
+ .footer {
    position:absolute;
    bottom:0;
    width:100%;

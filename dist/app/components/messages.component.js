@@ -106,30 +106,34 @@ System.register(['angular2/core', 'angular2/common', '../../app/message', '../..
                     this._loginService = _loginService;
                     this._loginService.getUID().then(function (snap) {
                         _this.uid = snap['uid'];
-                        _this._databaseService.getAllChildren('messages/' + _this.uid + '/received/').then(function (mes) {
-                            if (mes[0]) {
-                                _this.messages = mes;
-                                _this.currentMessage = _this.messages[0];
-                                _this.messages[0].style = 'active';
-                                _this.noMessage = false;
-                            }
-                            else {
-                                _this.noMessage = true;
-                            }
-                        });
-                        _this._databaseService.getAllChildren('messages/' + _this.uid + '/sent/').then(function (mes) {
-                            if (mes[0]) {
-                                _this.sentMessages = mes;
-                                _this.noSentMessage = false;
-                                _this.sentMessages[0].style = 'active';
-                                _this.currentMessage = _this.sentMessages[0];
-                            }
-                            else {
-                                _this.noSentMessage = true;
-                            }
-                        });
+                        _this.getMessages();
                     });
                 }
+                MessagesComponent.prototype.getMessages = function () {
+                    var _this = this;
+                    this._databaseService.getAllChildren('messages/' + this.uid + '/received/').then(function (mes) {
+                        if (mes[0]) {
+                            _this.messages = mes;
+                            _this.currentMessage = _this.messages[0];
+                            _this.messages[0].style = 'active';
+                            _this.noMessage = false;
+                        }
+                        else {
+                            _this.noMessage = true;
+                        }
+                    });
+                    this._databaseService.getAllChildren('messages/' + this.uid + '/sent/').then(function (mes) {
+                        if (mes[0]) {
+                            _this.sentMessages = mes;
+                            _this.noSentMessage = false;
+                            _this.sentMessages[0].style = 'active';
+                            _this.currentMessage = _this.sentMessages[0];
+                        }
+                        else {
+                            _this.noSentMessage = true;
+                        }
+                    });
+                };
                 MessagesComponent.prototype.ngOnInit = function () {
                     if (this.messages) {
                         this.changeMessage(this.messages[0]);

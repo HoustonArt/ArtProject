@@ -115,7 +115,7 @@ System.register(['angular2/core', 'angular2/router', './artist-detail.component'
                         selector: 'my-app',
                         templateUrl: './partials/mainpage.html',
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink, login_component_1.Login],
-                        styles: ["[hidden] {display: none;},\n    .navbar ul li{\n    display:inline-block;\n    }\n\n footer {\n   position:absolute;\n   bottom:0;\n   width:100%;\n   height:30px;\n     }\n\n\n footerList {\n     width: 100%;\n     margin:0;\n     padding:0;\n }\n .footerLink{\n     display:inline;\n }\n\n .footerLink a {\n     color: #115;\n     padding: 8px 8px 8px 8px;\n     text-decoration:none;\n\n }\n\n .footerLink a:hover{\n     background-color: #555;\n     color:white;\n }\n     "]
+                        styles: ["[hidden] {display: none;},\n    .navbar ul li{\n    display:inline-block;\n    }\n\n    body{\n      margin-bottom:30px\n    }\n\n .footer {\n   position:absolute;\n   bottom:0;\n   width:100%;\n   height:30px;\n     }\n\n\n footerList {\n     width: 100%;\n     margin:0;\n     padding:0;\n }\n .footerLink{\n     display:inline;\n }\n\n .footerLink a {\n     color: #115;\n     padding: 8px 8px 8px 8px;\n     text-decoration:none;\n\n }\n\n .footerLink a:hover{\n     background-color: #555;\n     color:white;\n }\n     "]
                     }),
                     router_1.RouteConfig([
                         { path: '/', component: home_component_1.HomeComponent, as: 'Home' },
