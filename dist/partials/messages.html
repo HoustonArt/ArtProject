@@ -10,6 +10,8 @@
         <ul class="list-group">
           <li *ngFor='let mes of messages' class='list-group-item {{mes.style}}' (click)='changeMessage(mes)'>
             {{mes.sender_name}}</li> <!--{{mes.date | zachdate}}</li>-->
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#messageModal">Reply</button>
+
         </ul>
       </div>
       <div *ngIf='noMessage'>
@@ -36,7 +38,7 @@
 
   </div>
 
-  <div *ngIf='currentMessage' id="myModal" class="modal fade" role="dialog">
+  <div *ngIf='currentMessage' id="messageModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
       <div class="modal-content">
