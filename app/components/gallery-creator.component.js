@@ -49,12 +49,30 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                         '#FFF133', '#40FF33', '#FE33FF', '#000'];
                     this.router = router;
                 }
+                //authenticate if information has been submitted
+                //go to next page if it has
                 GalleryCreatorComponent.prototype.nextPageGal = function () {
-                    if (this.guidePage < 2) {
-                        this.guidePage = this.guidePage + 1;
-                    }
-                    else {
-                        this.guideView = false;
+                    this.message = '';
+                    switch (this.guidePage) {
+                        case 0:
+                            if (this.model.info.name != '') {
+                                this.guidePage = 1;
+                            }
+                            else {
+                                this.message = "You must enter a name";
+                            }
+                            break;
+                        case 1:
+                            if (this.model.info.curator != '') {
+                                this.guidePage = 2;
+                            }
+                            else {
+                                this.message = 'You must name a curator';
+                            }
+                            break;
+                        case 2:
+                            this.guideView = false;
+                            break;
                     }
                 };
                 GalleryCreatorComponent.prototype.previousPageGal = function () {

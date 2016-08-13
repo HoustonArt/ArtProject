@@ -33,51 +33,69 @@ import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 
 
 export class GalleryCreatorComponent {
-  public guideView:boolean = true;
-  public guidePage:number = 0;
+  public guideView: boolean = true;
+  public guidePage: number = 0;
   public router: Router;
   public works: ArtPiece[];
   public displayedWorks: ArtPiece[];
-  public preview:number;
-  public _model = new Gallery('','', '', '', '','#FFF','#FFF','img');
-  public model = new GalleryContainer(this._model,[]);
+  public preview: number;
+  public _model = new Gallery('', '', '', '', '', '#FFF', '#FFF', 'img');
+  public model = new GalleryContainer(this._model, []);
   public Artists: Artist[];
-  public url:string;
-  public full_url:string;
-  public artheight:number[] = [200,120,340,250,500,450];
-  public containHeight:number = 340;
-  public picHeight:number = 250;
+  public url: string;
+  public full_url: string;
+  public artheight: number[] = [200, 120, 340, 250, 500, 450];
+  public containHeight: number = 340;
+  public picHeight: number = 250;
   public user: string;
   public isLoggedIn: boolean;
   public checkedLogin: boolean;
-  public message:string;
-  public colors:string[] = ['#FFF','#FF5733','#3349FF',
-                            '#FFF133','#40FF33','#FE33FF','#000']
+  public message: string;
+  public colors: string[] = ['#FFF', '#FF5733', '#3349FF',
+    '#FFF133', '#40FF33', '#FE33FF', '#000']
 
   constructor(private _artistService: ArtistService, router: Router, private _databaseService: DatabaseService,
-      private _loginService: LoginService) {
-      this.router = router;
+    private _loginService: LoginService) {
+    this.router = router;
   }
 
-  nextPageGal(){
-    if (this.guidePage < 2){
-    this.guidePage = this.guidePage + 1;
-  }
-  else{
-    this.guideView = false;
-  }
-  }
+  //authenticate if information has been submitted
+  //go to next page if it has
+  nextPageGal() {
+    this.message = '';
+    switch(this.guidePage){
+      case 0:
+        if (this.model.info.name != '') {
+          this.guidePage = 1;
+        } else {
+          this.message = "You must enter a name";
+        }
+        break;
 
-  previousPageGal(){
+    case 1:
+      if (this.model.info.curator != '') {
+        this.guidePage = 2;
+      } else {
+        this.message = 'You must name a curator';
+      }
+      break;
+
+    case 2:
+      this.guideView = false;
+      break;
+  }
+}
+
+  previousPageGal() {
     this.guidePage = this.guidePage - 1;
   }
 
-  setHeights(size){
-    if (size == 'sm'){
+  setHeights(size) {
+    if (size == 'sm') {
       this.containHeight = 200;
       this.picHeight = 120;
     }
-    else if (size == 'lg'){
+    else if (size == 'lg') {
       this.containHeight = 580;
       this.picHeight = 500;
     }
@@ -89,90 +107,91 @@ export class GalleryCreatorComponent {
 
 
   ngOnInit() {
-    this._artistService.getArtists().then(Artists => this.Artists=Artists);
-    this._artistService.getAllWorks().then(works => this.works=works).then(works => this.displayedWorks = this.works);
+    this._artistService.getArtists().then(Artists => this.Artists = Artists);
+    this._artistService.getAllWorks().then(works => this.works = works).then(works => this.displayedWorks = this.works);
 
-    this._loginService.getUID().then((data)=>{
-        this.user = data['uid'];
-        this.model.info.user_id = this.user;
-        this.isLoggedIn = data['isLoggedIn'];
-    }).then(()=>{
-        this.checkedLogin=true});
+    this._loginService.getUID().then((data) => {
+      this.user = data['uid'];
+      this.model.info.user_id = this.user;
+      this.isLoggedIn = data['isLoggedIn'];
+    }).then(() => {
+      this.checkedLogin = true
+    });
   }
 
   //create link to page by adding firebase url
-  createPage(){
-      if (this.user){
-          this.createGallery();
-      }
-      else{
-          this.message = 'Sorry, you need to be logged in to create Galleries.  Make an account for free by clicking Login and then signing up!';
-      }
+  createPage() {
+    if (this.user) {
+      this.createGallery();
+    }
+    else {
+      this.message = 'Sorry, you need to be logged in to create Galleries.  Make an account for free by clicking Login and then signing up!';
+    }
   }
 
-  createGallery(){
-      var path = 'users/' + this.user +'/Galleries';
-      this._databaseService.checkChildNumber(path).then((num)=>{
-          if (num < 5){
-              this._databaseService.pushToDatabase('Galleries', this.model).then((ref)=>{
-                  var _id = ref.key.split('/').pop()
-                  this.url = _id;
-                  this.full_url = 'artlike.io/#/gallery-view/' + _id;
-                  this.model.info.id = _id;
-                  this._databaseService.pushToDatabase(path, this.model.info);
+  createGallery() {
+    var path = 'users/' + this.user + '/Galleries';
+    this._databaseService.checkChildNumber(path).then((num) => {
+      if (num < 5) {
+        this._databaseService.pushToDatabase('Galleries', this.model).then((ref) => {
+          var _id = ref.key.split('/').pop()
+          this.url = _id;
+          this.full_url = 'artlike.io/#/gallery-view/' + _id;
+          this.model.info.id = _id;
+          this._databaseService.pushToDatabase(path, this.model.info);
 
-              });
-            }
-          else {
-              this.message = 'You have reached your allotment of Galleries'
-          }
+        });
+      }
+      else {
+        this.message = 'You have reached your allotment of Galleries'
+      }
 
-      });
+    });
   }
 
 
   //filter artists when selected by first and last name
   //should make this by id at some point.....
-  filterArtists(artist){
-        if (artist == 'All' || artist == null){
-          this.displayedWorks = this.works;
-        }
-        else{
-          var fn = artist.split(",")[1].trim();
-          var ln = artist.split(",")[0].trim();
-          this.displayedWorks = this.works.filter(a => a.artist_fname == fn && a.artist_lname == ln);
-        }
+  filterArtists(artist) {
+    if (artist == 'All' || artist == null) {
+      this.displayedWorks = this.works;
     }
+    else {
+      var fn = artist.split(",")[1].trim();
+      var ln = artist.split(",")[0].trim();
+      this.displayedWorks = this.works.filter(a => a.artist_fname == fn && a.artist_lname == ln);
+    }
+  }
 
 
-    //remove work from gallery works if button is clicked
-    removeWork(work){
-      this.model.works = this.model.works.filter(a => a != work);
-    }
+  //remove work from gallery works if button is clicked
+  removeWork(work) {
+    this.model.works = this.model.works.filter(a => a != work);
+  }
 
-    //what to do if selected
-    onSelect(work){
-      this.model.works.push(work);
-    }
+  //what to do if selected
+  onSelect(work) {
+    this.model.works.push(work);
+  }
 
-    onBackgroundClick(color){
-        this.model.info.backgroundColor = color;
-    }
+  onBackgroundClick(color) {
+    this.model.info.backgroundColor = color;
+  }
 
-    onTextClick(color){
-        this.model.info.textColor = color;
-    }
+  onTextClick(color) {
+    this.model.info.textColor = color;
+  }
 
-    onBorderClick(style){
-        this.model.info.borderStyle = style;
-    }
+  onBorderClick(style) {
+    this.model.info.borderStyle = style;
+  }
 
-    //setup preview modal
-    previewPage(){
-      this.preview = 1;
-    }
-    //exit from preview
-    exitPreview(){
-      this.preview = 0;
-    }
+  //setup preview modal
+  previewPage() {
+    this.preview = 1;
+  }
+  //exit from preview
+  exitPreview() {
+    this.preview = 0;
+  }
 }
