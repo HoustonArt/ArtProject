@@ -39,6 +39,7 @@ System.register(['angular2/core', '../../app/services/database.service', 'angula
                     var path = this.location.path().split('/').pop();
                     this._databaseService.getObject('Galleries/' + path).then(function (data) {
                         _this.model = data;
+                        //now check for defaults for things which were not always there
                     });
                 };
                 GalleryViewerComponent = __decorate([

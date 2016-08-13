@@ -32,6 +32,7 @@ export class GalleryViewerComponent {
    var path = this.location.path().split('/').pop();
    this._databaseService.getObject('Galleries/' + path).then((data)=>{
        this.model = data;
+       //now check for defaults for things which were not always there
    });
  }
 
