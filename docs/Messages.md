@@ -1,1 +1,5 @@
-Messages are a great way to communicate with other ArtLike users.  On any work page or artist page, click on the button to send a message.  Received messages are visible in your user panel.
+Messages are a great way to communicate with other ArtLike users.  On any work page or artist page, click on the button to send a message.  All messages are visible in your user panel.
+
+We see the messaging service as a way to communicate without having to give a personal email or phone number.  It is a great way to chat about potential sales or trades of art.  Please be advised that the chat messages are in no way confidential.  While we will not make them publicaly available and they are not accessible to other users who are not specifically either sending or receiving the message, we do not encrypt the messages, nor do we guarantee their security.  Please *DO NOT* put any personal information such as a credit card into these messages.
+
+While we do not handle the sales aspect, we recommend that you use a service such as [PayPal](https://www.paypal.com/home) which allows the buyer to transfer money to an intermediate account only accessible to the seller upon the buyer actually receiving the art piece.
