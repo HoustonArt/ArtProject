@@ -10,6 +10,24 @@ import {LoginService} from '../../app/services/login.service';
 import {MessageWriter} from './messages.component';
 
 
+function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex ;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+      return array;
+    }
+
 
 @Component({
   selector: 'work-detail',
@@ -76,6 +94,7 @@ export class WorkDetailComponent {
           }
         }
         // select four other works, or less if possible
+        this.otherWorks = shuffle(this.otherWorks);
         if (this.otherWorks.length > 4){
           this.otherWorks = this.otherWorks.slice(0,4);
         }

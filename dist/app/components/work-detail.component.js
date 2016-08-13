@@ -12,6 +12,20 @@ System.register(['angular2/core', 'angular2/router', 'angular2/platform/common',
     };
     var core_1, router_1, common_1, artists_service_1, database_service_1, common_2, login_service_1, messages_component_1;
     var WorkDetailComponent;
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
     return {
         setters:[
             function (core_1_1) {
@@ -83,6 +97,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/platform/common',
                             }
                         }
                         // select four other works, or less if possible
+                        _this.otherWorks = shuffle(_this.otherWorks);
                         if (_this.otherWorks.length > 4) {
                             _this.otherWorks = _this.otherWorks.slice(0, 4);
                         }
