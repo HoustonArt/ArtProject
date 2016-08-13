@@ -21,6 +21,7 @@ import {MessageWriter} from './messages.component';
 
 export class WorkDetailComponent {
   public work: ArtPiece;
+  public otherWorks: ArtPiece[];
   public artist: Artist;
   id: string;
   public location: Location;
@@ -67,6 +68,17 @@ export class WorkDetailComponent {
     this._databaseService.getObject(path).then((data) =>{
         this.artist = data;
         this.work = data['Works'][path2];
+        this.otherWorks = [];
+        for(var i in data['Works']){
+          if (i != path2){
+            data['Works'][i]['_id'] = i;
+            this.otherWorks.push(data['Works'][i]);
+          }
+        }
+        // select four other works, or less if possible
+        if (this.otherWorks.length > 4){
+          this.otherWorks = this.otherWorks.slice(0,4);
+        }
         if (this.uid == data['id']){
           this.ownsWork = true;
         }

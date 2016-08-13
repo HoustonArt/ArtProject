@@ -75,6 +75,17 @@ System.register(['angular2/core', 'angular2/router', 'angular2/platform/common',
                     this._databaseService.getObject(path).then(function (data) {
                         _this.artist = data;
                         _this.work = data['Works'][path2];
+                        _this.otherWorks = [];
+                        for (var i in data['Works']) {
+                            if (i != path2) {
+                                data['Works'][i]['_id'] = i;
+                                _this.otherWorks.push(data['Works'][i]);
+                            }
+                        }
+                        // select four other works, or less if possible
+                        if (_this.otherWorks.length > 4) {
+                            _this.otherWorks = _this.otherWorks.slice(0, 4);
+                        }
                         if (_this.uid == data['id']) {
                             _this.ownsWork = true;
                         }
