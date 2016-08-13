@@ -38,6 +38,8 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                     this._artistService = _artistService;
                     this._databaseService = _databaseService;
                     this._loginService = _loginService;
+                    this.guideView = true;
+                    this.guidePage = 0;
                     this._model = new gallery_1.Gallery('', '', '', '', '', '#FFF', '#FFF', 'img');
                     this.model = new gallery_1.GalleryContainer(this._model, []);
                     this.artheight = [200, 120, 340, 250, 500, 450];
@@ -47,6 +49,17 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                         '#FFF133', '#40FF33', '#FE33FF', '#000'];
                     this.router = router;
                 }
+                GalleryCreatorComponent.prototype.nextPageGal = function () {
+                    if (this.guidePage < 2) {
+                        this.guidePage = this.guidePage + 1;
+                    }
+                    else {
+                        this.guideView = false;
+                    }
+                };
+                GalleryCreatorComponent.prototype.previousPageGal = function () {
+                    this.guidePage = this.guidePage - 1;
+                };
                 GalleryCreatorComponent.prototype.setHeights = function (size) {
                     if (size == 'sm') {
                         this.containHeight = 200;
@@ -141,7 +154,7 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                     core_1.Component({
                         selector: 'gallery-creator',
                         templateUrl: './partials/gallery-creator.html',
-                        styles: ["\n  \n  .color-box {\n      width: 20px;\n      height: 20px;\n      display: inline-block;\n      margin-right:5px;\n      border: 1px solid black;\n  }\n    .ng-valid[required] {\n  border-left: 5px solid #42A948;\n    }\n\n.ng-invalid {\n  border-left: 5px solid #a94442;\n}"],
+                        styles: ["\n\n  .color-box {\n      width: 20px;\n      height: 20px;\n      display: inline-block;\n      margin-right:5px;\n      border: 1px solid black;\n  }\n    .ng-valid[required] {\n  border-left: 5px solid #42A948;\n    }\n\n.ng-invalid {\n  border-left: 5px solid #a94442;\n}"],
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink],
                         providers: [artists_service_1.ArtistService, database_service_1.DatabaseService, login_service_1.LoginService],
                     }), 

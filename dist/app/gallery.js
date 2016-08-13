@@ -14,12 +14,15 @@ System.register([], function(exports_1, context_1) {
             }());
             exports_1("GalleryContainer", GalleryContainer);
             Gallery = (function () {
-                function Gallery(user_id, id, name, curator, info) {
+                function Gallery(user_id, id, name, curator, info, backgroundColor, borderStyle, textColor) {
                     this.user_id = user_id;
                     this.id = id;
                     this.name = name;
                     this.curator = curator;
                     this.info = info;
+                    this.backgroundColor = backgroundColor;
+                    this.borderStyle = borderStyle;
+                    this.textColor = textColor;
                 }
                 return Gallery;
             }());

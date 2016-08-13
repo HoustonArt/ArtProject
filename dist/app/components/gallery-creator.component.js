@@ -38,13 +38,28 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                     this._artistService = _artistService;
                     this._databaseService = _databaseService;
                     this._loginService = _loginService;
-                    this._model = new gallery_1.Gallery('', '', '', '', '');
+                    this.guideView = true;
+                    this.guidePage = 0;
+                    this._model = new gallery_1.Gallery('', '', '', '', '', '#FFF', '#FFF', 'img');
                     this.model = new gallery_1.GalleryContainer(this._model, []);
                     this.artheight = [200, 120, 340, 250, 500, 450];
                     this.containHeight = 340;
                     this.picHeight = 250;
+                    this.colors = ['#FFF', '#FF5733', '#3349FF',
+                        '#FFF133', '#40FF33', '#FE33FF', '#000'];
                     this.router = router;
                 }
+                GalleryCreatorComponent.prototype.nextPageGal = function () {
+                    if (this.guidePage < 2) {
+                        this.guidePage = this.guidePage + 1;
+                    }
+                    else {
+                        this.guideView = false;
+                    }
+                };
+                GalleryCreatorComponent.prototype.previousPageGal = function () {
+                    this.guidePage = this.guidePage - 1;
+                };
                 GalleryCreatorComponent.prototype.setHeights = function (size) {
                     if (size == 'sm') {
                         this.containHeight = 200;
@@ -67,7 +82,9 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                         _this.user = data['uid'];
                         _this.model.info.user_id = _this.user;
                         _this.isLoggedIn = data['isLoggedIn'];
-                    }).then(function () { _this.checkedLogin = true; });
+                    }).then(function () {
+                        _this.checkedLogin = true;
+                    });
                 };
                 //create link to page by adding firebase url
                 GalleryCreatorComponent.prototype.createPage = function () {
@@ -116,6 +133,15 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                 GalleryCreatorComponent.prototype.onSelect = function (work) {
                     this.model.works.push(work);
                 };
+                GalleryCreatorComponent.prototype.onBackgroundClick = function (color) {
+                    this.model.info.backgroundColor = color;
+                };
+                GalleryCreatorComponent.prototype.onTextClick = function (color) {
+                    this.model.info.textColor = color;
+                };
+                GalleryCreatorComponent.prototype.onBorderClick = function (style) {
+                    this.model.info.borderStyle = style;
+                };
                 //setup preview modal
                 GalleryCreatorComponent.prototype.previewPage = function () {
                     this.preview = 1;
@@ -128,7 +154,7 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                     core_1.Component({
                         selector: 'gallery-creator',
                         templateUrl: './partials/gallery-creator.html',
-                        styles: ["\n    .ng-valid[required] {\n  border-left: 5px solid #42A948;\n    }\n\n.ng-invalid {\n  border-left: 5px solid #a94442;\n}"],
+                        styles: ["\n\n  .color-box {\n      width: 20px;\n      height: 20px;\n      display: inline-block;\n      margin-right:5px;\n      border: 1px solid black;\n  }\n    .ng-valid[required] {\n  border-left: 5px solid #42A948;\n    }\n\n.ng-invalid {\n  border-left: 5px solid #a94442;\n}"],
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink],
                         providers: [artists_service_1.ArtistService, database_service_1.DatabaseService, login_service_1.LoginService],
                     }), 

@@ -11,7 +11,7 @@ import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
   selector: 'gallery-creator',
   templateUrl: './partials/gallery-creator.html',
   styles: [`
-  
+
   .color-box {
       width: 20px;
       height: 20px;
@@ -33,6 +33,8 @@ import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 
 
 export class GalleryCreatorComponent {
+  public guideView:boolean = true;
+  public guidePage:number = 0;
   public router: Router;
   public works: ArtPiece[];
   public displayedWorks: ArtPiece[];
@@ -55,6 +57,19 @@ export class GalleryCreatorComponent {
   constructor(private _artistService: ArtistService, router: Router, private _databaseService: DatabaseService,
       private _loginService: LoginService) {
       this.router = router;
+  }
+
+  nextPageGal(){
+    if (this.guidePage < 2){
+    this.guidePage = this.guidePage + 1;
+  }
+  else{
+    this.guideView = false;
+  }
+  }
+
+  previousPageGal(){
+    this.guidePage = this.guidePage - 1;
   }
 
   setHeights(size){
@@ -94,7 +109,7 @@ export class GalleryCreatorComponent {
           this.message = 'Sorry, you need to be logged in to create Galleries.  Make an account for free by clicking Login and then signing up!';
       }
   }
-  
+
   createGallery(){
       var path = 'users/' + this.user +'/Galleries';
       this._databaseService.checkChildNumber(path).then((num)=>{
@@ -139,19 +154,19 @@ export class GalleryCreatorComponent {
     onSelect(work){
       this.model.works.push(work);
     }
-    
+
     onBackgroundClick(color){
         this.model.info.backgroundColor = color;
     }
-    
+
     onTextClick(color){
         this.model.info.textColor = color;
     }
-    
+
     onBorderClick(style){
         this.model.info.borderStyle = style;
     }
-    
+
     //setup preview modal
     previewPage(){
       this.preview = 1;
