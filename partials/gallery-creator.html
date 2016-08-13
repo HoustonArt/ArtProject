@@ -9,6 +9,16 @@
   <div class="row" *ngIf="preview != 1">
     <div class="col-md-4">
       <form>
+          <div class="panel-group" id ="accordian">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#galinfo" data-parent="#accordian">Information</a>
+            </h4>
+            </div>
+            </div>
+        <div id="galinfo" class ="panel-collapse collapse">
+            <div class="panel-body">
         <div class="form-group">
           <label for="name">Gallery Name</label>
           <input type="text" class="form-control" placeholder="Enter Gallery name" required [(ngModel)]="model.info.name" ngControl="name" #name="ngForm">
@@ -25,11 +35,44 @@
         </div>
         <label for="info">Gallery Description</label>
         <input type="text" class="form-control" placeholder="optional Description" [(ngModel)]="model.info.info" ngControl="info" #info="ngForm">
+        </div>
+        </div>
+         <div class="panel panel-default">
+            <div class="panel-heading">
+            <h4 class="panel-title">
+        <a data-toggle="collapse" href="#galstyles" data-parent="#accordian">Styles</a>
+            </h4>
+            </div>
+            </div>
+        <div id = "galstyles" class = "panel-collapse collapse">
+        <div class="panel-body">
         <label for="size">Size</label>
         <br>
         <button type="button" class="btn btn-primary btn-xs" (click)="setHeights('sm')">Small</button>
         <button type="button" class="btn btn-primary btn-sm" (click)="setHeights('md')">Medium</button>
         <button type="button" class="btn btn-primary" (click)="setHeights('lg')">Large</button>
+        
+        <br>
+        <label for="backgroundColor">Background Color</label>
+        <br>
+        <div *ngFor="let color of colors" class='color-box' style="background-color:{{color}}" (click)="onBackgroundClick(color)"></div>
+        
+        <br>
+        <label for="textColor">Text Color</label>
+        <br>
+        <div *ngFor="let color of colors" class='color-box' style="background-color:{{color}}" (click)="onTextClick(color)"></div>
+        
+        <br>
+        <label for="borderColor">Border Style</label>
+        <br>
+        <button type="button" class="btn btn-primary" (click)="onBorderClick('img')">Plain</button>
+        <button type="button" class="btn btn-primary" (click)="onBorderClick('img-rounded')">Rounded</button>
+        <button type="button" class="btn btn-primary" (click)="onBorderClick('img-circle')">Circle</button>
+        <button type="button" class="btn btn-primary" (click)="onBorderClick('img-thumbnail')">Thumbnail</button>
+        
+        </div>
+        </div>
+        </div>
       </form>
 
       <hr>
@@ -45,7 +88,7 @@
             </div>
           </form>
           <div style="height:250px;overflow-y:scroll">
-            <div style="height:100px" class="col-lg-4 col-sm-6 text-center" (click)="onSelect(work)" *ngFor="let work of displayedWorks">
+            <div style="height:100px;" class="col-lg-4 col-sm-6 text-center" (click)="onSelect(work)" *ngFor="let work of displayedWorks">
               <img style="max-height:80px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
             </div>
           </div>
@@ -57,14 +100,14 @@
         <button type="button" class="btn btn-primary btn-lg" (click)="previewPage()">Preview</button>
       </div>
     </div>
-    <div class="col-md-8 text-center">
+    <div class="col-md-8 text-center" style="background-color:{{model.info.backgroundColor}};">
       <h2>{{model.info.name}}</h2>
       <div *ngIf="model.info.curator != ''">
         Curated by {{model.info.curator}}
         <hr>
       </div>
-      <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="let work of model.works">
-        <img style="max-height:{{picHeight}}px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
+      <div style="height:{{containHeight}}px;color:{{model.info.textColor}}" class="col-lg-4 col-sm-6 text-center" *ngFor="let work of model.works">
+        <img style="max-height:{{picHeight}}px;" class="img-responsive {{model.info.borderStyle}} center-block" src="{{work.mainFile}}" alt="{{work.name}}">
         <h4>{{work.name}}<small> {{work.artist_fname}} {{work.artist_lname}}</small></h4>
         <button type="button" class="btn btn-danger btn-xs" (click)="removeWork(work)">Remove</button>
       </div>
@@ -96,14 +139,14 @@
   </div>
   <div *ngIf="preview==1">
     <div class="row">
-      <div class="col-lg-12 text-center">
+      <div class="col-lg-12 text-center" style="background-color:{{model.info.backgroundColor}};">
         <h2>{{model.info.name}}</h2>
         <div *ngIf="model.curator != ''">
           Curated by {{model.info.curator}}
           <hr>
         </div>
-        <div style="height:{{containHeight}}px" class="col-lg-4 col-sm-6 text-center" *ngFor="let work of model.works">
-          <img style="max-height:{{picHeight}}px" class="img-responsive center-block" src="{{work.mainFile}}" alt="{{work.name}}">
+        <div style="height:{{containHeight}}px:color:{{model.info.textColor}}" class="col-lg-4 col-sm-6 text-center" *ngFor="let work of model.works">
+          <img style="max-height:{{picHeight}}px;" class="img-responsive center-block {{model.info.borderStyle}}" src="{{work.mainFile}}" alt="{{work.name}}">
           <h4>{{work.name}}<small> {{work.artist_fname}} {{work.artist_lname}}</small></h4>
         </div>
       </div>

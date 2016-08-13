@@ -11,6 +11,14 @@ import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
   selector: 'gallery-creator',
   templateUrl: './partials/gallery-creator.html',
   styles: [`
+  
+  .color-box {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      margin-right:5px;
+      border: 1px solid black;
+  }
     .ng-valid[required] {
   border-left: 5px solid #42A948;
     }
@@ -29,7 +37,7 @@ export class GalleryCreatorComponent {
   public works: ArtPiece[];
   public displayedWorks: ArtPiece[];
   public preview:number;
-  public _model = new Gallery('','', '', '', '');
+  public _model = new Gallery('','', '', '', '','#FFF','#FFF','img');
   public model = new GalleryContainer(this._model,[]);
   public Artists: Artist[];
   public url:string;
@@ -41,6 +49,8 @@ export class GalleryCreatorComponent {
   public isLoggedIn: boolean;
   public checkedLogin: boolean;
   public message:string;
+  public colors:string[] = ['#FFF','#FF5733','#3349FF',
+                            '#FFF133','#40FF33','#FE33FF','#000']
 
   constructor(private _artistService: ArtistService, router: Router, private _databaseService: DatabaseService,
       private _loginService: LoginService) {
@@ -71,7 +81,8 @@ export class GalleryCreatorComponent {
         this.user = data['uid'];
         this.model.info.user_id = this.user;
         this.isLoggedIn = data['isLoggedIn'];
-    }).then(()=>{this.checkedLogin=true});
+    }).then(()=>{
+        this.checkedLogin=true});
   }
 
   //create link to page by adding firebase url
@@ -83,6 +94,7 @@ export class GalleryCreatorComponent {
           this.message = 'Sorry, you need to be logged in to create Galleries.  Make an account for free by clicking Login and then signing up!';
       }
   }
+  
   createGallery(){
       var path = 'users/' + this.user +'/Galleries';
       this._databaseService.checkChildNumber(path).then((num)=>{
@@ -127,6 +139,19 @@ export class GalleryCreatorComponent {
     onSelect(work){
       this.model.works.push(work);
     }
+    
+    onBackgroundClick(color){
+        this.model.info.backgroundColor = color;
+    }
+    
+    onTextClick(color){
+        this.model.info.textColor = color;
+    }
+    
+    onBorderClick(style){
+        this.model.info.borderStyle = style;
+    }
+    
     //setup preview modal
     previewPage(){
       this.preview = 1;

@@ -14,6 +14,9 @@ export class Gallery {
     public id: string,
     public name: string,
     public curator: string,
-    public info?: string
+    public info?: string,
+    public backgroundColor?: string,
+    public borderStyle?: string,
+    public textColor?: string
   ) { }
 }
