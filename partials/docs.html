@@ -1,22 +1,18 @@
-<h1 *ngIf='menu' class="page-header">Documentation</h1>
-<h1 *ngIf='!menu' class="page-header">Documentation  <small>{{header}}</small></h1>
+<div *ngIf='dataLoaded' class="container">
+  <h1 class="page-header">Documentation  <small>{{header}}</small></h1>
 
-<div *ngIf='menu' class= 'row'>
-    <div class="btn-group">
-      <button  *ngFor="let key of _headers; let i = index" (click)='onClick(i)' type="button" class="btn btn-lg">{{key}}</button>
 
-    </div>
-</div>
-<div *ngIf='!menu' class='col-xs-3 col-sm-2'>
-    <div class ='zfix'>
-    <div class="btn-group-vertical">
-        <button  *ngFor="let key of _headers; let i = index" (click)='onClick(i)' type="button" class="btn btn-primary">{{key}}</button>
-    </div>
+  <div class='col-xs-3 col-sm-2'>
+    <div class='zfix'>
+      <div class="btn-group-vertical">
+        <button *ngFor="let key of _headers; let i = index" (click)='onClick(i)' type="button" class="btn btn-primary">{{key}}</button>
+      </div>
     </div>
 
-</div>
-<div *ngIf='!menu' class='col-xs-9 col-sm-10'>
+  </div>
+  <div class='col-xs-9 col-sm-10'>
 
-<div [innerHTML]="content"></div>
+    <div [innerHTML]="content"></div>
 
+  </div>
 </div>

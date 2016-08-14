@@ -71,7 +71,6 @@ handleUpload(data): void {
           if (authData){
             this.message = "Successfully created user account";
             //now login and set user data
-            console.log("Authenticated successfully with payload:", authData);
             var userBase = ref.child('users/' + authData.uid);
             this.user.id = authData.uid;
             this.user.profilePic ="https://s3.amazonaws.com/artlike/assets/noperson.jpg";

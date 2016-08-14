@@ -90,6 +90,14 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         return Promise.resolve(get_elements(work_id, works, []));
                     });
                 };
+                ArtistService.prototype.getMaxNumGalleries = function (uid) {
+                    var numGals = 15;
+                    return Promise.resolve(numGals);
+                };
+                ArtistService.prototype.getMaxNumWorks = function (uid) {
+                    var numWorks = 15;
+                    return Promise.resolve(numWorks);
+                };
                 ArtistService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])

@@ -74,7 +74,6 @@ export class ArtistDetailComponent {
         this.noWorks = false;
       }
       if(arr[0] > 0){
-        console.log(this.gals);
         this.noGals = false;
       }
     });

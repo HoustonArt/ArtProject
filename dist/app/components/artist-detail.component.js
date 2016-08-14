@@ -80,7 +80,6 @@ System.register(['angular2/core', './messages.component', 'angular2/router', 'an
                             _this.noWorks = false;
                         }
                         if (arr[0] > 0) {
-                            console.log(_this.gals);
                             _this.noGals = false;
                         }
                     });

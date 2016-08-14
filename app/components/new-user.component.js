@@ -66,7 +66,6 @@ System.register(['angular2/core', 'angular2/router', '../../app/user'], function
                         if (authData) {
                             _this.message = "Successfully created user account";
                             //now login and set user data
-                            console.log("Authenticated successfully with payload:", authData);
                             var userBase = ref.child('users/' + authData.uid);
                             _this.user.id = authData.uid;
                             _this.user.profilePic = "https://s3.amazonaws.com/artlike/assets/noperson.jpg";

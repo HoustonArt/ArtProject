@@ -100,6 +100,9 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                         _this.user = data['uid'];
                         _this.model.info.user_id = _this.user;
                         _this.isLoggedIn = data['isLoggedIn'];
+                        _this._artistService.getMaxNumGalleries(_this.user).then(function (ret) {
+                            _this.maxGals = ret;
+                        });
                     }).then(function () {
                         _this.checkedLogin = true;
                     });
@@ -117,7 +120,7 @@ System.register(['angular2/core', '../../app/services/artists.service', '../../a
                     var _this = this;
                     var path = 'users/' + this.user + '/Galleries';
                     this._databaseService.checkChildNumber(path).then(function (num) {
-                        if (num < 5) {
+                        if (num < _this.maxGals) {
                             _this._databaseService.pushToDatabase('Galleries', _this.model).then(function (ref) {
                                 var _id = ref.key.split('/').pop();
                                 _this.url = _id;

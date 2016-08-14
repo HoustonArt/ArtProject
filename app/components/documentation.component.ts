@@ -19,14 +19,13 @@ class DocsService{
   providers:[DocsService]
 })
 export class DocumentationComponent{
-    
-    public menu:boolean = true;
+    public dataLoaded:boolean = false;
     public header:string;
     public content:string;
-    
+
     private _headers:string[] = [];
     private _contents:string[] = [];
-    
+
 
     // create the docs from the page
     // currently assume they are local
@@ -36,21 +35,20 @@ export class DocumentationComponent{
                 this._headers.push(i);
                 this._contents.push(_d[i]);
             }
+            this.header = this._headers[0];
+            this.content = this._contents[0];
+            this.dataLoaded = true;
         })
     }
-    
+
     // click a link and have proper header and contents appear
     // get rid of top menu and go to side menu
     onClick(i:number){
-        this.menu = false;
         this.header = this._headers[i];
         this.content = this._contents[i];
     }
-    
-    // go back to the main menu, get rid of side menu
-    backToMenu(){
-        this.menu = true;
-    }
-    
-    
+
+
+
+
 }

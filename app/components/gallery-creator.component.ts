@@ -35,6 +35,7 @@ import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 export class GalleryCreatorComponent {
   public guideView: boolean = true;
   public guidePage: number = 0;
+  public maxGals: any;
   public router: Router;
   public works: ArtPiece[];
   public displayedWorks: ArtPiece[];
@@ -54,8 +55,10 @@ export class GalleryCreatorComponent {
   public colors: string[] = ['#FFF', '#FF5733', '#3349FF',
     '#FFF133', '#40FF33', '#FE33FF', '#000']
 
-  constructor(private _artistService: ArtistService, router: Router, private _databaseService: DatabaseService,
-    private _loginService: LoginService) {
+  constructor(private _artistService: ArtistService,
+              router: Router,
+              private _databaseService: DatabaseService,
+              private _loginService: LoginService) {
     this.router = router;
   }
 
@@ -114,6 +117,9 @@ export class GalleryCreatorComponent {
       this.user = data['uid'];
       this.model.info.user_id = this.user;
       this.isLoggedIn = data['isLoggedIn'];
+      this._artistService.getMaxNumGalleries(this.user).then((ret)=>{
+        this.maxGals = ret;
+      })
     }).then(() => {
       this.checkedLogin = true
     });
@@ -132,7 +138,7 @@ export class GalleryCreatorComponent {
   createGallery() {
     var path = 'users/' + this.user + '/Galleries';
     this._databaseService.checkChildNumber(path).then((num) => {
-      if (num < 5) {
+      if (num < this.maxGals) {
         this._databaseService.pushToDatabase('Galleries', this.model).then((ref) => {
           var _id = ref.key.split('/').pop()
           this.url = _id;

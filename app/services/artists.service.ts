@@ -91,4 +91,15 @@ export class ArtistService {
     });
   }
 
+
+  getMaxNumGalleries(uid){
+    var numGals = 15;
+    return Promise.resolve(numGals);
+  }
+
+  getMaxNumWorks(uid):any{
+    var numWorks:number = 15;
+    return Promise.resolve(numWorks);
+  }
+
  }

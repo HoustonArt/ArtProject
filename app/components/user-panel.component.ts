@@ -10,6 +10,8 @@ import {NewWork} from './new-work.component';
 import {NewUser} from './new-user.component';
 import {DatabaseService} from '../../app/services/database.service';
 import {Gallery} from '../../app/gallery';
+import {ArtistService} from '../../app/services/artists.service';
+
 
 
 @Component({
@@ -25,7 +27,7 @@ import {Gallery} from '../../app/gallery';
     }
       `],
   directives: [ROUTER_DIRECTIVES, RouterLink, NewWork, NewUser,MessagesComponent],
-  providers:[DatabaseService]
+  providers:[DatabaseService, ArtistService]
 })
 
 export class UserPanelComponent {
@@ -41,7 +43,7 @@ export class UserPanelComponent {
   public artist: Artist;
   public numWorks: number;
   public maxNumWorks:number = 15;
-  public maxNumGals:number = 5;
+  public maxNumGals:number;
   public numGals: number;
   public workPerc: number;
   public galPerc: number;
@@ -58,13 +60,21 @@ export class UserPanelComponent {
 
   // construct widget.
   // authenticate firebase user
-  constructor(private _databaseService: DatabaseService) {
+  constructor(private _databaseService: DatabaseService,
+              private _artistService: ArtistService) {
+    this.base = firebase.database().ref();
     this._updateData();
+    var user = firebase.auth().currentUser;
+    this._artistService.getMaxNumGalleries(user.uid).then((ret)=>{
+      this.maxNumGals = ret;
+    });
+    this._artistService.getMaxNumWorks(user.uid).then((ret)=>{
+      this.maxNumWorks = ret;
+    });
   }
 
   _updateData(){
     var user = firebase.auth().currentUser;
-    this.base = firebase.database().ref();
     if (user){
       this.isLoggedIn = true;
       this.userPath = 'users/' + user.uid;
@@ -72,6 +82,7 @@ export class UserPanelComponent {
         this.user = data.val();
         this._initiateObjects(this.user);
       });
+
       this._databaseService.checkChildNumber('messages/' + user.uid + '/received').then((data)=>{this.numMesRec = data});
       this._databaseService.checkChildNumber('messages/' + user.uid + '/sent').then((data)=>{this.numMesSent = data});
     } else {

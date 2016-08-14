@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../app/user', '../../app/work-piece'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../../app/user', '../../app/work-piece', '../../app/services/artists.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, core_2, user_1, work_piece_1;
+    var core_1, router_1, core_2, user_1, work_piece_1, artists_service_1;
     var NewWork;
     return {
         setters:[
@@ -26,11 +26,15 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
             },
             function (work_piece_1_1) {
                 work_piece_1 = work_piece_1_1;
+            },
+            function (artists_service_1_1) {
+                artists_service_1 = artists_service_1_1;
             }],
         execute: function() {
             NewWork = (function () {
-                function NewWork(router) {
+                function NewWork(router, _artistService) {
                     var _this = this;
+                    this._artistService = _artistService;
                     this.work = new work_piece_1.WorkUpLoad('', '', '', '', '', [], '', [], '', '', '', 0, '', '', '');
                     this._newWork = true;
                     this.doneEvent = new core_1.EventEmitter();
@@ -49,6 +53,9 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                     if (user) {
                         this.isLoggedIn = true;
                         this.user = user;
+                        this._artistService.getMaxNumWorks(this.user).then(function (ret) {
+                            _this.maxNumWorks = ret;
+                        });
                         var userBase = firebase.database().ref().child('users').child(user.uid);
                         userBase.once("value", function (data) {
                             _this.user = data.val();
@@ -107,7 +114,7 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                     };
                 };
                 NewWork.prototype.createNewWork = function () {
-                    if (this.numWorks < 15) {
+                    if (this.numWorks < this.maxNumWorks) {
                         this.showProgress = true;
                         this.uploadNewWork();
                         this.numWorks = this.numWorks + 1;
@@ -208,7 +215,6 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                                 _this.progressNum = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
                             }, function (error) {
                                 console.log(error);
-                                console.log(_this.user.id);
                                 // Handle unsuccessful uploads
                             }, function () {
                                 // Handle successful uploads on complete
@@ -251,8 +257,9 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                         templateUrl: './partials/new-work.html',
                         styles: ["\n    .ng-valid[required] {\n    border-left: 5px solid #42A948;\n      }\n\n    .ng-invalid {\n      border-left: 5px solid #a94442;}\n   "],
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink],
+                        providers: [artists_service_1.ArtistService]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router])
+                    __metadata('design:paramtypes', [router_1.Router, artists_service_1.ArtistService])
                 ], NewWork);
                 return NewWork;
             }());

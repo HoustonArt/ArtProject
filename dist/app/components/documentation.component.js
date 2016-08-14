@@ -39,7 +39,7 @@ System.register(['angular2/core', '../../app/docs'], function(exports_1, context
                 function DocumentationComponent(_docsService) {
                     var _this = this;
                     this._docsService = _docsService;
-                    this.menu = true;
+                    this.dataLoaded = false;
                     this._headers = [];
                     this._contents = [];
                     this._docsService.getDocs().then(function (_d) {
@@ -47,18 +47,16 @@ System.register(['angular2/core', '../../app/docs'], function(exports_1, context
                             _this._headers.push(i);
                             _this._contents.push(_d[i]);
                         }
+                        _this.header = _this._headers[0];
+                        _this.content = _this._contents[0];
+                        _this.dataLoaded = true;
                     });
                 }
                 // click a link and have proper header and contents appear
                 // get rid of top menu and go to side menu
                 DocumentationComponent.prototype.onClick = function (i) {
-                    this.menu = false;
                     this.header = this._headers[i];
                     this.content = this._contents[i];
-                };
-                // go back to the main menu, get rid of side menu
-                DocumentationComponent.prototype.backToMenu = function () {
-                    this.menu = true;
                 };
                 DocumentationComponent = __decorate([
                     core_1.Component({

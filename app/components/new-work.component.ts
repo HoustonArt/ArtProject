@@ -3,6 +3,7 @@ import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 import {ViewChild, AfterViewInit} from "angular2/core";
 import {User} from '../../app/user';
 import {WorkUpLoad} from '../../app/work-piece';
+import {ArtistService} from '../../app/services/artists.service';
 
 
 @Component({
@@ -17,8 +18,8 @@ import {WorkUpLoad} from '../../app/work-piece';
       border-left: 5px solid #a94442;}
    `],
   directives: [ROUTER_DIRECTIVES, RouterLink],
+  providers:[ArtistService]
 })
-
 export class NewWork implements AfterViewInit {
   public router: Router;
   @Input() user: User;
@@ -43,6 +44,7 @@ export class NewWork implements AfterViewInit {
   public progressNum: number;
   public uploadImage = new Image();
   public size: number;
+  public maxNumWorks:any;
 
   @ViewChild("imageCanvas") imageCanvas;
   public canvas: any = [];
@@ -59,12 +61,15 @@ export class NewWork implements AfterViewInit {
   }
   }
 
-  constructor(router: Router) {
+  constructor(router: Router,private _artistService: ArtistService) {
     this.router = router;
     var user = firebase.auth().currentUser;
     if (user){
       this.isLoggedIn = true;
       this.user = user;
+      this._artistService.getMaxNumWorks(this.user).then((ret)=>{
+        this.maxNumWorks = ret;
+      })
       var userBase = firebase.database().ref().child('users').child(user.uid);
       userBase.once("value", (data) => {
         this.user = data.val();
@@ -121,7 +126,7 @@ export class NewWork implements AfterViewInit {
   }
 
   createNewWork() {
-    if (this.numWorks < 15) {
+    if (this.numWorks < this.maxNumWorks) {
       this.showProgress = true;
       this.uploadNewWork();
       this.numWorks = this.numWorks + 1;
@@ -238,7 +243,6 @@ export class NewWork implements AfterViewInit {
           this.progressNum = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         }, (error) => {
           console.log(error);
-          console.log(this.user.id);
             // Handle unsuccessful uploads
           }, ()=> {
             // Handle successful uploads on complete
