@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './messages.component', './new-work.component', './new-user.component', '../../app/services/database.service', '../../app/services/artists.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './messages.component', './new-work.component', './new-user.component', '../../app/services/database.service', '../../app/services/artists.service', './file-uploader.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './messages.component', './
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, messages_component_1, new_work_component_1, new_user_component_1, database_service_1, artists_service_1;
+    var core_1, router_1, messages_component_1, new_work_component_1, new_user_component_1, database_service_1, artists_service_1, file_uploader_component_1;
     var UserPanelComponent;
     return {
         setters:[
@@ -34,6 +34,9 @@ System.register(['angular2/core', 'angular2/router', './messages.component', './
             },
             function (artists_service_1_1) {
                 artists_service_1 = artists_service_1_1;
+            },
+            function (file_uploader_component_1_1) {
+                file_uploader_component_1 = file_uploader_component_1_1;
             }],
         execute: function() {
             UserPanelComponent = (function () {
@@ -176,7 +179,7 @@ System.register(['angular2/core', 'angular2/router', './messages.component', './
                         selector: 'user-panel',
                         templateUrl: './partials/user-panel.html',
                         styles: ["\n    .ng-valid[required] {\n    border-left: 5px solid #42A948;\n      }\n\n    .ng-invalid {\n      border-left: 5px solid #a94442;\n    }\n      "],
-                        directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink, new_work_component_1.NewWork, new_user_component_1.NewUser, messages_component_1.MessagesComponent],
+                        directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink, new_work_component_1.NewWork, new_user_component_1.NewUser, messages_component_1.MessagesComponent, file_uploader_component_1.FileUpload],
                         providers: [database_service_1.DatabaseService, artists_service_1.ArtistService]
                     }), 
                     __metadata('design:paramtypes', [database_service_1.DatabaseService, artists_service_1.ArtistService])

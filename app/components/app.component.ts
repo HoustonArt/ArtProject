@@ -17,7 +17,6 @@ import {NewWork} from './new-work.component';
 import {UserPanelComponent} from './user-panel.component';
 import {MessagesComponent} from './messages.component';
 import {DocumentationComponent} from './documentation.component';
-
 @Component({
   selector: 'my-app',
   templateUrl: './partials/mainpage.html',

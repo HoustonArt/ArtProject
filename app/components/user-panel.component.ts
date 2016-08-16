@@ -11,7 +11,7 @@ import {NewUser} from './new-user.component';
 import {DatabaseService} from '../../app/services/database.service';
 import {Gallery} from '../../app/gallery';
 import {ArtistService} from '../../app/services/artists.service';
-
+import {FileUpload} from './file-uploader.component';
 
 
 @Component({
@@ -26,7 +26,7 @@ import {ArtistService} from '../../app/services/artists.service';
       border-left: 5px solid #a94442;
     }
       `],
-  directives: [ROUTER_DIRECTIVES, RouterLink, NewWork, NewUser,MessagesComponent],
+  directives: [ROUTER_DIRECTIVES, RouterLink, NewWork, NewUser,MessagesComponent,FileUpload],
   providers:[DatabaseService, ArtistService]
 })
 

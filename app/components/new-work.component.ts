@@ -66,10 +66,6 @@ export class NewWork implements AfterViewInit {
     var user = firebase.auth().currentUser;
     if (user){
       this.isLoggedIn = true;
-      this.user = user;
-      this._artistService.getMaxNumWorks(this.user).then((ret)=>{
-        this.maxNumWorks = ret;
-      })
       var userBase = firebase.database().ref().child('users').child(user.uid);
       userBase.once("value", (data) => {
         this.user = data.val();
@@ -79,6 +75,9 @@ export class NewWork implements AfterViewInit {
         this.work.numFiles = 1;
         //get number of works
         this.numWorks = data.child('Works').numChildren();
+        this._artistService.getMaxNumWorks(this.user).then((ret)=>{
+          this.maxNumWorks = ret;
+        })
       });
     }
   }

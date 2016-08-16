@@ -52,10 +52,6 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                     var user = firebase.auth().currentUser;
                     if (user) {
                         this.isLoggedIn = true;
-                        this.user = user;
-                        this._artistService.getMaxNumWorks(this.user).then(function (ret) {
-                            _this.maxNumWorks = ret;
-                        });
                         var userBase = firebase.database().ref().child('users').child(user.uid);
                         userBase.once("value", function (data) {
                             _this.user = data.val();
@@ -65,6 +61,9 @@ System.register(['angular2/core', 'angular2/router', '../../app/user', '../../ap
                             _this.work.numFiles = 1;
                             //get number of works
                             _this.numWorks = data.child('Works').numChildren();
+                            _this._artistService.getMaxNumWorks(_this.user).then(function (ret) {
+                                _this.maxNumWorks = ret;
+                            });
                         });
                     }
                 }

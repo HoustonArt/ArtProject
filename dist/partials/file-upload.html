@@ -1,0 +1,14 @@
+<input type="file" (change)="changeListener($event)" />
+
+<div *ngIf='!showProgress' class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{progressNum}}%;">
+    <span class="sr-only">{{progressNum}}% Complete</span>
+  </div>
+</div>
+<canvas #imageCanvas width="400" height="400"></canvas>
+<br>
+
+<div *ngIf="display">
+    {{message}}
+  <button *ngIf="!showProgress" class="btn btn-default" (click)="uploadFile()">Upload</button>
+</div>
