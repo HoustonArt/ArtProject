@@ -13,18 +13,29 @@ import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 
 export class ArtistsComponent {
   public title = 'Houston Artists';
-  public artists: Artist[];
+  //public artists: Artist[];
+  public artists:Array<Array<Artist>>;
   public router: Router;
 
-  constructor(private _artistService: ArtistService, router: Router){
-    this.router = router;
+  constructor(private _artistService: ArtistService, private _router: Router){
   }
 
+  //get all the artists and group into group of 4
   ngOnInit() {
-        this._artistService.getArtists().then(artists => this.artists = artists);
+        this._artistService.getArtists().then((artists) => {
+          var artists_list = [];
+          for (var i in artists){
+            var j = parseInt(i);
+            if(j%4 === 0){
+              artists_list.push(artists.slice(j,j+4));
+            }
+          }
+          this.artists = artists_list;
+
+        });
    }
 
   onSelect(artist: Artist) {
-    this.router.parent.navigate(['/Artist', {id: artist.id}]);
+    this._router.parent.navigate(['/Artist', {id: artist.id}]);
   }
 }

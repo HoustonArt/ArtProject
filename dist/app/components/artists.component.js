@@ -25,17 +25,27 @@ System.register(['angular2/core', '../../app/services/artists.service', 'angular
             }],
         execute: function() {
             ArtistsComponent = (function () {
-                function ArtistsComponent(_artistService, router) {
+                function ArtistsComponent(_artistService, _router) {
                     this._artistService = _artistService;
+                    this._router = _router;
                     this.title = 'Houston Artists';
-                    this.router = router;
                 }
+                //get all the artists and group into group of 4
                 ArtistsComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this._artistService.getArtists().then(function (artists) { return _this.artists = artists; });
+                    this._artistService.getArtists().then(function (artists) {
+                        var artists_list = [];
+                        for (var i in artists) {
+                            var j = parseInt(i);
+                            if (j % 4 === 0) {
+                                artists_list.push(artists.slice(j, j + 4));
+                            }
+                        }
+                        _this.artists = artists_list;
+                    });
                 };
                 ArtistsComponent.prototype.onSelect = function (artist) {
-                    this.router.parent.navigate(['/Artist', { id: artist.id }]);
+                    this._router.parent.navigate(['/Artist', { id: artist.id }]);
                 };
                 ArtistsComponent = __decorate([
                     core_1.Component({
