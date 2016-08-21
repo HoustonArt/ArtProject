@@ -77,6 +77,18 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     var _this = this;
                     return this.base.once("value", function (snapShot) {
                         snapShot.forEach(function (snapShotChild) {
+                            if (snapShotChild.hasChild('Works')) {
+                                _this.ARTISTS.push(snapShotChild.val());
+                            }
+                        });
+                    }).then(function () {
+                        return Promise.resolve(shuffle(_this.ARTISTS));
+                    });
+                };
+                ArtistService.prototype.getMembers = function () {
+                    var _this = this;
+                    return this.base.once("value", function (snapShot) {
+                        snapShot.forEach(function (snapShotChild) {
                             if (snapShotChild.hasChild('Works') || snapShotChild.hasChild('Galleries')) {
                                 _this.ARTISTS.push(snapShotChild.val());
                             }

@@ -1,0 +1,18 @@
+<!-- Page Content -->
+<div class="container">
+
+  <!-- Introduction Row -->
+  <div class="row">
+      <h1 class="page-header">Members</h1>
+  </div>
+
+  <!-- Team Members Row -->
+  <div class="row" *ngFor="let _artists of artists">
+    <div class="col-sm-3 col-xs-6" *ngFor="let artist of _artists" (click)="onSelect(artist)">
+      <img style="height:200px" class="img-circle img-responsive img-center" src="{{artist.profilePic}}" alt="{{artist.lastName}}">
+      <h3>{{artist.firstName}} {{artist.lastName}}
+        <small>{{artist.locationCity}}</small>
+      </h3>
+    </div>
+  </div>
+</div>

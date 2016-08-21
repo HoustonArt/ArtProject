@@ -17,6 +17,7 @@ import {NewWork} from './new-work.component';
 import {UserPanelComponent} from './user-panel.component';
 import {MessagesComponent} from './messages.component';
 import {DocumentationComponent} from './documentation.component';
+import {MembersComponent} from './members.component';
 @Component({
   selector: 'my-app',
   templateUrl: './partials/mainpage.html',
@@ -74,7 +75,8 @@ import {DocumentationComponent} from './documentation.component';
   { path: '/new-user/', component: NewUser, as: 'NewUser' },
   { path: '/new-work/', component: NewWork, as: 'NewWork' },
   { path: '/user-panel/', component: UserPanelComponent, as: 'User'},
-  {path: '/docs/', component: DocumentationComponent, as: 'Docs'}
+  { path: '/docs/', component: DocumentationComponent, as: 'Docs'},
+  { path: '/members/', component: MembersComponent, as: 'Members'}
 ])
 
 export class AppComponent {

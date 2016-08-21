@@ -4,14 +4,14 @@ import {ArtistService} from '../../app/services/artists.service';
 import {ROUTER_DIRECTIVES, RouterLink, Router} from 'angular2/router';
 
 @Component({
-  selector: 'artists',
-  templateUrl : './partials/artistIndex.html',
+  selector: 'members',
+  templateUrl : './partials/membersIndex.html',
   directives: [ROUTER_DIRECTIVES, RouterLink],
   providers: [ArtistService],
 })
 
 
-export class ArtistsComponent {
+export class MembersComponent {
   public artists:Array<Array<Artist>>;
   public router: Router;
 
@@ -20,7 +20,7 @@ export class ArtistsComponent {
 
   //get all the artists and group into group of 4
   ngOnInit() {
-        this._artistService.getArtists().then((artists) => {
+        this._artistService.getMembers().then((artists) => {
           var artists_list = [];
           for (var i in artists){
             var j = parseInt(i);

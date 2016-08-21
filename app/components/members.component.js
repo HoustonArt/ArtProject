@@ -11,7 +11,7 @@ System.register(['angular2/core', '../../app/services/artists.service', 'angular
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, artists_service_1, router_1;
-    var ArtistsComponent;
+    var MembersComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -24,15 +24,15 @@ System.register(['angular2/core', '../../app/services/artists.service', 'angular
                 router_1 = router_1_1;
             }],
         execute: function() {
-            ArtistsComponent = (function () {
-                function ArtistsComponent(_artistService, _router) {
+            MembersComponent = (function () {
+                function MembersComponent(_artistService, _router) {
                     this._artistService = _artistService;
                     this._router = _router;
                 }
                 //get all the artists and group into group of 4
-                ArtistsComponent.prototype.ngOnInit = function () {
+                MembersComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this._artistService.getArtists().then(function (artists) {
+                    this._artistService.getMembers().then(function (artists) {
                         var artists_list = [];
                         for (var i in artists) {
                             var j = parseInt(i);
@@ -43,22 +43,22 @@ System.register(['angular2/core', '../../app/services/artists.service', 'angular
                         _this.artists = artists_list;
                     });
                 };
-                ArtistsComponent.prototype.onSelect = function (artist) {
+                MembersComponent.prototype.onSelect = function (artist) {
                     this._router.parent.navigate(['/Artist', { id: artist.id }]);
                 };
-                ArtistsComponent = __decorate([
+                MembersComponent = __decorate([
                     core_1.Component({
-                        selector: 'artists',
-                        templateUrl: './partials/artistIndex.html',
+                        selector: 'members',
+                        templateUrl: './partials/membersIndex.html',
                         directives: [router_1.ROUTER_DIRECTIVES, router_1.RouterLink],
                         providers: [artists_service_1.ArtistService],
                     }), 
                     __metadata('design:paramtypes', [artists_service_1.ArtistService, router_1.Router])
-                ], ArtistsComponent);
-                return ArtistsComponent;
+                ], MembersComponent);
+                return MembersComponent;
             }());
-            exports_1("ArtistsComponent", ArtistsComponent);
+            exports_1("MembersComponent", MembersComponent);
         }
     }
 });
-//# sourceMappingURL=artists.component.js.map
+//# sourceMappingURL=members.component.js.map

@@ -75,6 +75,18 @@ export class ArtistService {
   getArtists() {
     return this.base.once("value", (snapShot)=>{
       snapShot.forEach((snapShotChild)=>{
+        if(snapShotChild.hasChild('Works')){
+           this.ARTISTS.push(snapShotChild.val());
+        }
+      });
+    }).then(() => {
+        return Promise.resolve(shuffle(this.ARTISTS));
+        });
+  }
+  
+  getMembers() {
+    return this.base.once("value", (snapShot)=>{
+      snapShot.forEach((snapShotChild)=>{
         if(snapShotChild.hasChild('Works') || snapShotChild.hasChild('Galleries')){
            this.ARTISTS.push(snapShotChild.val());
         }

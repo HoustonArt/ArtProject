@@ -28,7 +28,6 @@ System.register(['angular2/core', '../../app/services/artists.service', 'angular
                 function ArtistsComponent(_artistService, _router) {
                     this._artistService = _artistService;
                     this._router = _router;
-                    this.title = 'Houston Artists';
                 }
                 //get all the artists and group into group of 4
                 ArtistsComponent.prototype.ngOnInit = function () {
