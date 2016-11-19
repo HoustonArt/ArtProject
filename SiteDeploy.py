@@ -9,7 +9,10 @@ TEXT = """
 
   <head>
     <title>ArtLike</title>
-        <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/new-material.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/ripples.min.css">
+
         <script src="./assets/angular2-polyfills.min.js"></script>
         <script src="./assets/system.src.js"></script>
         <script src="./assets/Rx.min.js"></script>
@@ -22,6 +25,9 @@ TEXT = """
       <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase-auth.js"></script>
       <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase-database.js"></script>
       <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase-storage.js"></script>
+
+      <script src="./assets/material.min.js"></script>
+      <script src=".assets/ripples.min.js"></script>
         <!-- 2. Configure SystemJS -->
         <style>
       html{
@@ -53,7 +59,7 @@ TEXT = """
   <base href="/">
   <!-- 3. Display the application -->
   <body>
-    <my-app>Loading...</my-app>
+    <my-app>Loading ArtLike...</my-app>
   </body>
 
 </html>
@@ -66,6 +72,8 @@ TEXT = """
   ga('create', 'UA-45815234-2', 'auto');
   ga('send', 'pageview');
 
+
+  $.material.init()
 </script>
 """
 

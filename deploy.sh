@@ -1,3 +1,4 @@
+lessc options.less ./assets/css/new-material.css
 python SiteDeploy.py
 python DocsCreator.py
 rm -rf node_modules
