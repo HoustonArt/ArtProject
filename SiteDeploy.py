@@ -27,7 +27,7 @@ TEXT = """
       <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase-storage.js"></script>
 
       <script src="./assets/material.min.js"></script>
-      <script src=".assets/ripples.min.js"></script>
+      <script src="./assets/ripples.min.js"></script>
         <!-- 2. Configure SystemJS -->
         <style>
       html{

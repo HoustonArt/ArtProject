@@ -11,7 +11,7 @@
 
       <a [routerLink]="['/Home']" class="navbar-brand">
         <span class="glyphicon glyphicon-edit"></span>ArtLike</a>
-          <button *ngIf="!isLoggedIn" class="btn btn-success navbar-btn" (click)="createLogin()">Login</button>
+          <button *ngIf="!isLoggedIn" class="btn btn-success btn-raised navbar-btn" (click)="createLogin()">Login</button>
           <a *ngIf="!isLoggedIn" [routerLink]="['/NewUser']">New User</a>
 
             <div *ngIf ="user" class="navbar-brand"><img style="max-height:30px" class="img-circle img-responsive" src="{{user.profilePic}}"></div>
