@@ -7,4 +7,4 @@ git add --all
 git commit -m "site update"
 git push origin master
 firebase deploy
-npm install
+yarn
